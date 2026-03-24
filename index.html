@@ -726,6 +726,127 @@
   }
   .bookmark-toast.show { opacity: 1; }
 
+  /* Sur desktop, le wrapper est invisible (les enfants sont fixed) */
+  .mobile-top-panels { display: contents; }
+
+  /* ══════════════════════════════════════
+     RESPONSIVE MOBILE
+     ══════════════════════════════════════ */
+  /* Desktop: wrapper invisible, children keep fixed positioning */
+  .mobile-top-panels { display: contents; }
+
+  @media (max-width: 900px) {
+
+    /* ── Page centrée ── */
+    .page { width: 100% !important; padding: 12px 16px !important; }
+    #content-wrap { padding: 0 !important; }
+
+    /* ── Drapeaux + bonhomme : barre fixe en haut ── */
+    .lang-flags {
+      position: fixed !important;
+      top: 0 !important; left: 0 !important; right: 0 !important;
+      width: 100% !important;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      padding: 6px 12px;
+      display: flex !important;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+      z-index: 1100;
+      border-bottom: 1.5px solid #e0deff;
+    }
+    body.night .lang-flags { background: #12122a; border-bottom-color: #3d3a6e; }
+
+    /* Décaler le contenu pour la barre du haut */
+    body { padding-top: 58px !important; }
+
+    /* ── Sommaire + Téléchargement : côte à côte au-dessus du contenu ── */
+    .summary-box {
+      position: static !important;
+      width: auto !important;
+      flex: 1;
+      margin: 0 !important;
+      display: block !important;
+    }
+
+    /* ── Barre accessibilité : panneau pleine largeur depuis le bas ── */
+    .a11y-bar {
+      position: fixed !important;
+      left: 0 !important; right: 0 !important; bottom: 0 !important;
+      top: auto !important;
+      width: 100% !important;
+      max-height: 70vh;
+      overflow-y: auto;
+      border-radius: 16px 16px 0 0 !important;
+      border-left: none !important; border-right: none !important; border-bottom: none !important;
+      border-top: 2px dashed #3d3a9e !important;
+      display: none;
+      flex-direction: column;
+      z-index: 1050;
+      box-shadow: 0 -4px 24px rgba(0,0,0,0.15) !important;
+    }
+    .a11y-bar.open { display: flex !important; }
+
+    /* Grille 2 colonnes pour les groupes d'options */
+    .a11y-bar .a11y-group { flex-direction: row; flex-wrap: wrap; gap: 6px; }
+    .a11y-bar .a11y-group .a11y-btn { flex: 1; min-width: 80px; }
+
+    /* ── Panneau audio : positionné par JS sur mobile ── */
+    #audio-panel {
+      width: 100% !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+    }
+
+    /* ── Panneau PDF/téléchargement : côte à côte avec sommaire ── */
+    #pdf-panel {
+      position: static !important;
+      width: auto !important;
+      flex: 1;
+      top: auto !important; left: auto !important; right: auto !important;
+      bottom: auto !important;
+    }
+
+    /* Conteneur flex pour sommaire + pdf ── */
+    .mobile-top-panels {
+      display: flex !important;
+      gap: 12px;
+      align-items: flex-start;
+      margin: 12px 16px 16px !important;
+      flex-wrap: wrap;
+    }
+
+    /* ── Mise en page 1 colonne ── */
+    .two-col, .two-col-wide { flex-direction: column !important; }
+    .kpi-row { flex-wrap: wrap !important; }
+    .kpi-card { min-width: calc(50% - 8px) !important; }
+
+    /* ── Header ── */
+    .header-title { font-size: 2em !important; }
+    .header-subtitle { font-size: 0.9em !important; }
+
+    /* ── Popup FALC : centrée ── */
+    .falc-popup {
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      width: 90vw !important;
+      max-width: 320px !important;
+    }
+
+    /* ── Tutoriel bubble : centrée ── */
+    .tuto-bubble {
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      top: auto !important;
+      bottom: 20px !important;
+      width: 85vw !important;
+      max-width: 320px !important;
+    }
+    .tuto-bubble::before { display: none !important; }
+  }
+
   /* ── TRADUCTIONS ── */
   [data-lang] { display: none; }
   [data-lang="fr"] { display: inline; }
@@ -823,7 +944,7 @@
   </div>
 </div>
 
-<!-- ── SOMMAIRE FIXE ── -->
+<div class="mobile-top-panels">
 <div class="summary-box">
   <h3><span data-lang="fr">Sommaire</span><span data-lang="en">Contents</span><span data-lang="es">Índice</span></h3>
   <ol>
@@ -835,43 +956,6 @@
     <li><a href="#section6"><span data-lang="fr">Recherche</span><span data-lang="en">Research</span><span data-lang="es">Investigación</span></a></li>
     <li><a href="#section-quiz"><span data-lang="fr">🧠 Quiz Atypique</span><span data-lang="en">🧠 Atypical Quiz</span><span data-lang="es">🧠 Quiz Atípico</span></a></li>
   </ol>
-</div>
-
-<!-- ── LECTEUR AUDIO ── -->
-<div class="audio-panel" id="audio-panel">
-  <span class="a11y-label">🎧
-    <span data-lang="fr">Lecture audio</span>
-    <span data-lang="en">Audio reader</span>
-    <span data-lang="es">Lectura audio</span>
-  </span>
-  <div class="audio-controls">
-    <button class="audio-btn" id="btn-play" onclick="audioPlay()">
-      ▶ <span data-lang="fr">Lire</span><span data-lang="en">Play</span><span data-lang="es">Leer</span>
-    </button>
-    <button class="audio-btn" id="btn-pause" onclick="audioPause()" disabled>
-      ■ <span data-lang="fr">Pause</span><span data-lang="en">Pause</span><span data-lang="es">Pausa</span>
-    </button>
-  </div>
-  <div class="audio-section-nav">
-    <button class="audio-nav-btn" id="btn-prev" onclick="audioGoto(sectionIdx - 1)" disabled>◀</button>
-    <button class="audio-nav-btn" id="btn-next" onclick="audioGoto(sectionIdx + 1)">▶</button>
-  </div>
-  <div class="audio-speed">
-    <div class="audio-speed-label">
-      <span>
-        <span data-lang="fr">Vitesse</span>
-        <span data-lang="en">Speed</span>
-        <span data-lang="es">Velocidad</span>
-      </span>
-      <span id="speed-val">1×</span>
-    </div>
-    <input type="range" min="0.5" max="2" step="0.25" value="1" oninput="setSpeed(this.value)" />
-  </div>
-  <div class="audio-progress" id="audio-status">
-    <span data-lang="fr">Prêt</span>
-    <span data-lang="en">Ready</span>
-    <span data-lang="es">Listo</span>
-  </div>
 </div>
 
 <!-- ── PANNEAU PDF ── -->
@@ -899,7 +983,1903 @@
     <span data-lang="en">⏳ Generating…</span>
     <span data-lang="es">⏳ Generando…</span>
   </div>
+</div><!-- /mobile-top-panels -->
+</div><!-- /mobile-top-panels -->
+
+<!-- ── HEADER ── -->
+<div id="content-wrap">
+<div class="header">
+  <div class="header-top-label">
+    <span data-lang="fr">par l'équipe Atypie-Friendly de l'UB</span>
+    <span data-lang="en">by the Atypie-Friendly team at UB</span>
+    <span data-lang="es">por el equipo Atypie-Friendly de la UB</span>
+  </div>
+  <div class="header-title">Les Atyp'Infos <span>#1</span></div>
+  <div class="header-subtitle">
+    <span data-lang="fr">La newsletter du TND à l'Université de Bordeaux</span>
+    <span data-lang="en">The NDD newsletter at the University of Bordeaux</span>
+    <span data-lang="es">El boletín del TNS en la Universidad de Burdeos</span>
+  </div>
+  <svg class="header-wave" viewBox="0 0 794 38" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,20 C120,5 200,35 320,18 C440,2 520,30 640,15 C720,5 760,25 794,18 L794,38 L0,38 Z" fill="#fff"/>
+  </svg>
 </div>
+
+<!-- ── PAGE 1 ── -->
+<div class="page">
+  <div class="section-title"><div class="section-dot"></div>
+    <span data-lang="fr">Éditorial : Pour une Université Atypie-Friendly</span>
+    <span data-lang="en">Editorial: For an Atypie-Friendly University</span>
+    <span data-lang="es">Editorial: Por una Universidad Atypie-Friendly</span>
+  </div>
+
+  <div class="falc-icon">🎓</div>
+  <div class="falc-text">
+    <div data-lang="fr">
+      <p class="intro-text"><strong>Atypie-Friendly</strong>, c'est un programme pour aider les étudiants.</p>
+      <p class="intro-text">Certains étudiants ont un cerveau qui fonctionne différemment.</p>
+      <p class="intro-text">Par exemple : l'autisme, le TDAH, ou les troubles dys.</p>
+      <p class="intro-text">Ces étudiants peuvent avoir des difficultés à l'université.</p>
+      <p class="intro-text">Le programme Atypie-Friendly veut les aider.</p>
+      <p class="intro-text">30 universités en France participent à ce programme.</p>
+      <p class="intro-text">L'Université de Bordeaux fait partie de ce programme depuis 2018.</p>
+    </div>
+    <div data-lang="en">
+      <p class="intro-text"><strong>Atypie-Friendly</strong> is a programme to help students.</p>
+      <p class="intro-text">Some students have a brain that works differently.</p>
+      <p class="intro-text">For example: autism, ADHD, or dyslexia.</p>
+      <p class="intro-text">These students may find university difficult.</p>
+      <p class="intro-text">The Atypie-Friendly programme wants to help them.</p>
+      <p class="intro-text">30 universities in France are part of this programme.</p>
+      <p class="intro-text">The University of Bordeaux has been part of it since 2018.</p>
+    </div>
+    <div data-lang="es">
+      <p class="intro-text"><strong>Atypie-Friendly</strong> es un programa para ayudar a los estudiantes.</p>
+      <p class="intro-text">Algunos estudiantes tienen un cerebro que funciona de manera diferente.</p>
+      <p class="intro-text">Por ejemplo: autismo, TDAH o dislexia.</p>
+      <p class="intro-text">Estos estudiantes pueden tener dificultades en la universidad.</p>
+      <p class="intro-text">El programa Atypie-Friendly quiere ayudarles.</p>
+      <p class="intro-text">30 universidades en Francia participan en este programa.</p>
+      <p class="intro-text">La Universidad de Burdeos participa desde 2018.</p>
+    </div>
+  </div>
+
+  <div class="normal-text">
+  <p class="intro-text">
+    <span data-lang="fr">Inscrit dans la <strong>Stratégie nationale pour l'autisme (2018-2028)</strong> et sélectionné par le Programme Investissements d'Avenir, le projet <strong>« Construire une Université Atypie-Friendly »</strong> engage une trentaine d'universités dans l'inclusion globale des étudiants et personnels présentant un trouble du neurodéveloppement (TND) : autisme, TDAH, troubles dys, et bien d'autres.</span>
+    <span data-lang="en">Rooted in the <strong>National Autism Strategy (2018-2028)</strong> and selected by the Investment for the Future Programme, the project <strong>"Building an Atypie-Friendly University"</strong> engages some thirty universities in the full inclusion of students and staff with a neurodevelopmental disorder (NDD): autism, ADHD, learning difficulties, and more.</span>
+    <span data-lang="es">Inscrito en la <strong>Estrategia nacional para el autismo (2018-2028)</strong> y seleccionado por el Programa de Inversiones de Futuro, el proyecto <strong>«Construir una Universidad Atypie-Friendly»</strong> compromete a una treintena de universidades en la inclusión global de estudiantes y personal con trastorno del neurodesarrollo (TNS): autismo, TDAH, dislexia, y más.</span>
+  </p>
+  <br>
+  <p class="intro-text">
+    <span data-lang="fr">L'Université de Bordeaux est partenaire depuis 2018. L'objectif : améliorer l'inclusion dans l'enseignement supérieur et accompagner vers une <strong>insertion sociale et professionnelle réussie</strong>, en lien avec le service PHASE, l'Espace Santé Étudiant, la MAPI, le CROUS et les associations étudiantes.</span>
+    <span data-lang="en">The University of Bordeaux has been a partner since 2018. The goal: to improve inclusion in higher education and support students towards <strong>successful social and professional integration</strong>, working with the PHASE service, the Student Health Centre, MAPI, CROUS and student associations.</span>
+    <span data-lang="es">La Universidad de Burdeos es socia desde 2018. El objetivo: mejorar la inclusión en la enseñanza superior y acompañar hacia una <strong>inserción social y profesional exitosa</strong>, en colaboración con el servicio PHASE, el Espacio de Salud Estudiantil, la MAPI, el CROUS y las asociaciones estudiantiles.</span>
+  </p>
+
+  </div><!-- /normal-text -->
+
+  <div class="kpi-row">
+    <div class="kpi-card kpi-bordeaux">
+      <div class="kpi-num">8%</div>
+      <div class="kpi-label"><span data-lang="fr">de la population a un TND</span><span data-lang="en">of the population has an NDD</span><span data-lang="es">de la población tiene un TNS</span></div>
+    </div>
+    <div class="kpi-card kpi-teal">
+      <div class="kpi-num">- de 1%</div>
+      <div class="kpi-label"><span data-lang="fr">à l'Université</span><span data-lang="en">at University</span><span data-lang="es">en la Universidad</span></div>
+    </div>
+    <div class="kpi-card kpi-purple">
+      <div class="kpi-num">2018</div>
+      <div class="kpi-label"><span data-lang="fr">année de lancement</span><span data-lang="en">launch year</span><span data-lang="es">año de lanzamiento</span></div>
+    </div>
+    <div class="kpi-card kpi-orange">
+      <div class="kpi-num">~40</div>
+      <div class="kpi-label"><span data-lang="fr">universités partenaires</span><span data-lang="en">partner universities</span><span data-lang="es">universidades asociadas</span></div>
+    </div>
+  </div>
+
+  <hr class="separator">
+
+  <div class="section-title" id="section1"><div class="section-dot"></div>
+  <button class="bookmark-btn" id="bm-section1" onclick="toggleBookmark('section1')" title="Marquer">🔖</button>
+    <span data-lang="fr">1. Transition vers l'enseignement supérieur</span>
+    <span data-lang="en">1. Transition to higher education</span>
+    <span data-lang="es">1. Transición a la enseñanza superior</span>
+  </div>
+  <div class="falc-icon">🏫</div>
+  <div class="falc-text">
+    <div data-lang="fr">
+      <p class="intro-text">Passer du lycée à l'université, c'est un grand changement.</p>
+      <p class="intro-text">Atypie-Friendly vous aide à préparer cette étape.</p>
+      <p class="intro-text">📖 Il y a des <strong>guides simples</strong> pour vous préparer.</p>
+      <p class="intro-text">💻 Vous pouvez faire une <strong>visite virtuelle</strong> de l'université.</p>
+      <p class="intro-text">🎮 Il y a un <strong>jeu vidéo</strong> pour découvrir l'université.</p>
+      <p class="intro-text">📋 Il y a un <strong>mémo</strong> avec les choses importantes à faire.</p>
+      <p class="intro-text">📚 Il y a un <strong>module gratuit</strong> pour apprendre à travailler à l'université.</p>
+    </div>
+    <div data-lang="en">
+      <p class="intro-text">Moving from school to university is a big change.</p>
+      <p class="intro-text">Atypie-Friendly helps you prepare for this step.</p>
+      <p class="intro-text">📖 There are <strong>simple guides</strong> to help you get ready.</p>
+      <p class="intro-text">💻 You can take a <strong>virtual tour</strong> of the university.</p>
+      <p class="intro-text">🎮 There is a <strong>video game</strong> to discover university life.</p>
+      <p class="intro-text">📋 There is a <strong>memo</strong> with the important things to do.</p>
+      <p class="intro-text">📚 There is a <strong>free module</strong> to learn how to study at university.</p>
+    </div>
+    <div data-lang="es">
+      <p class="intro-text">El paso del instituto a la universidad es un gran cambio.</p>
+      <p class="intro-text">Atypie-Friendly te ayuda a preparar este paso.</p>
+      <p class="intro-text">📖 Hay <strong>guías sencillas</strong> para prepararte.</p>
+      <p class="intro-text">💻 Puedes hacer una <strong>visita virtual</strong> a la universidad.</p>
+      <p class="intro-text">🎮 Hay un <strong>videojuego</strong> para descubrir la universidad.</p>
+      <p class="intro-text">📋 Hay un <strong>memo</strong> con las cosas importantes que hacer.</p>
+      <p class="intro-text">📚 Hay un <strong>módulo gratuito</strong> para aprender a trabajar en la universidad.</p>
+    </div>
+  </div>
+  <div class="normal-text">
+  <div class="two-col">
+    <div>
+      <p class="intro-text" style="margin-bottom:7px;">
+        <span data-lang="fr">En complément de l'accompagnement par les services spécialisés, le programme propose :</span>
+        <span data-lang="en">In addition to support from specialist services, the programme offers:</span>
+        <span data-lang="es">Además del acompañamiento de los servicios especializados, el programa propone:</span>
+      </p>
+      <ul class="custom">
+        <li><span data-lang="fr">Des <strong>guides lycée → université</strong> diffusés chaque année auprès des lycées et CIO de l'académie de Bordeaux</span><span data-lang="en"><strong>Secondary-to-university guides</strong> distributed annually to schools and careers offices in the Bordeaux academy</span><span data-lang="es"><strong>Guías bachillerato → universidad</strong> distribuidas cada año a los institutos y orientadores de la academia de Burdeos</span></li>
+        <li><span data-lang="fr">Un <strong>module MTU</strong> (Méthodologie du Travail Universitaire) gratuit et en libre accès</span><span data-lang="en">A free, open-access <strong>UTM module</strong> (University Study Methods)</span><span data-lang="es">Un <strong>módulo MTU</strong> (Metodología del Trabajo Universitario) gratuito y de libre acceso</span></li>
+        <li><span data-lang="fr">Des <strong>visites virtuelles</strong> du service PHASE et de l'Espace Santé Étudiant</span><span data-lang="en"><strong>Virtual tours</strong> of the PHASE service and the Student Health Centre</span><span data-lang="es"><strong>Visitas virtuales</strong> al servicio PHASE y al Espacio de Salud Estudiantil</span></li>
+        <li><span data-lang="fr">Le <strong>serious game Univ'défis</strong> pour découvrir les défis de l'université de façon ludique</span><span data-lang="en">The <strong>Univ'défis serious game</strong> to explore university challenges in a fun way</span><span data-lang="es">El <strong>serious game Univ'défis</strong> para descubrir los retos universitarios de forma lúdica</span></li>
+        <li><span data-lang="fr">Un <strong>mémo transition</strong> pour préparer sa rentrée pas à pas</span><span data-lang="en">A <strong>transition memo</strong> to prepare for the start of term step by step</span><span data-lang="es">Un <strong>memo de transición</strong> para preparar la vuelta a las aulas paso a paso</span></li>
+      </ul>
+    </div>
+    <div>
+      <div class="action-card card-purple">
+        <h4>📋 <span data-lang="fr">Le saviez-vous ?</span><span data-lang="en">Did you know?</span><span data-lang="es">¿Lo sabía?</span></h4>
+        <p style="font-size:12px;color:#333;line-height:1.6;">
+          <span data-lang="fr">Un groupe de travail national sur la transition lycée/université est piloté en partenariat avec l'Université Paris Cité. Ressources gratuites sur <strong>atypie-friendly.fr</strong></span>
+          <span data-lang="en">A national working group on the secondary-to-university transition is led in partnership with Université Paris Cité. Free resources at <strong>atypie-friendly.fr</strong></span>
+          <span data-lang="es">Un grupo de trabajo nacional sobre la transición bachillerato/universidad está coordinado con la Universidad París Cité. Recursos gratuitos en <strong>atypie-friendly.fr</strong></span>
+        </p>
+      </div>
+      <div style="margin-top:8px;"><a class="wave-btn" href="https://atypie-friendly.fr/contact/"><span data-lang="fr">Contacter l'équipe</span><span data-lang="en">Contact the team</span><span data-lang="es">Contactar al equipo</span></a></div>
+      <div style="margin-top:5px;"><a class="wave-btn" href="https://atypie-friendly.fr/wp-content/uploads/2023/09/Memo-Transition-Universitaire-2023-2024.pdf"><span data-lang="fr">Mémo transition</span><span data-lang="en">Transition memo</span><span data-lang="es">Memo transición</span></a></div>
+    </div>
+  </div>
+
+  <hr class="separator">
+
+  </div><!-- /normal-text -->
+  <div class="section-title" id="section2"><div class="section-dot"></div>
+  <button class="bookmark-btn" id="bm-section2" onclick="toggleBookmark('section2')" title="Marquer">🔖</button>
+    <span data-lang="fr">2. Pédagogie innovante et inclusive</span>
+    <span data-lang="en">2. Innovative and inclusive teaching</span>
+    <span data-lang="es">2. Pedagogía innovadora e inclusiva</span>
+  </div>
+  <div class="falc-icon">📚</div>
+  <div class="falc-text">
+    <div data-lang="fr">
+      <p class="intro-text">Les professeurs peuvent adapter leurs cours.</p>
+      <p class="intro-text">Atypie-Friendly donne des <strong>outils aux professeurs</strong>.</p>
+      <p class="intro-text">📋 Une <strong>boîte à outils</strong> avec des modèles de cours adaptés.</p>
+      <p class="intro-text">✅ Une <strong>grille</strong> pour vérifier que le cours est accessible.</p>
+      <p class="intro-text">💾 Un outil informatique pour créer des <strong>supports accessibles</strong>.</p>
+    </div>
+    <div data-lang="en">
+      <p class="intro-text">Teachers can adapt their courses.</p>
+      <p class="intro-text">Atypie-Friendly gives <strong>tools to teachers</strong>.</p>
+      <p class="intro-text">📋 A <strong>toolkit</strong> with adapted course templates.</p>
+      <p class="intro-text">✅ A <strong>grid</strong> to check that the course is accessible.</p>
+      <p class="intro-text">💾 A computer tool to create <strong>accessible materials</strong>.</p>
+    </div>
+    <div data-lang="es">
+      <p class="intro-text">Los profesores pueden adaptar sus clases.</p>
+      <p class="intro-text">Atypie-Friendly da <strong>herramientas a los profesores</strong>.</p>
+      <p class="intro-text">📋 Una <strong>caja de herramientas</strong> con modelos de clases adaptadas.</p>
+      <p class="intro-text">✅ Una <strong>cuadrícula</strong> para comprobar que la clase es accesible.</p>
+      <p class="intro-text">💾 Una herramienta informática para crear <strong>materiales accesibles</strong>.</p>
+    </div>
+  </div>
+  <div class="normal-text">
+  <div class="two-col">
+    <div>
+      <div class="sub-title"><span data-lang="fr">Boîte à outils pédagogique (BOP)</span><span data-lang="en">Teaching Toolkit (BOP)</span><span data-lang="es">Caja de herramientas pedagógicas (BOP)</span></div>
+      <ul class="custom">
+        <li><span data-lang="fr">Templates PPT et Syllabus adaptés</span><span data-lang="en">Adapted PPT templates and Syllabi</span><span data-lang="es">Plantillas PPT y Syllabus adaptados</span></li>
+        <li><span data-lang="fr">Dispositifs pour les travaux de groupe</span><span data-lang="en">Group work frameworks</span><span data-lang="es">Dispositivos para trabajos en grupo</span></li>
+        <li><span data-lang="fr">Outils pour adapter les enseignements aux étudiants avec un TND</span><span data-lang="en">Tools to adapt teaching for students with NDDs</span><span data-lang="es">Herramientas para adaptar la enseñanza a estudiantes con TNS</span></li>
+      </ul>
+      <div style="margin-top:7px;"><a class="wave-btn" href="https://moodle.unil.ch/login/index.php"><span data-lang="fr">Accéder à la BOP</span><span data-lang="en">Access the BOP</span><span data-lang="es">Acceder a la BOP</span></a></div>
+    </div>
+    <div>
+      <div class="sub-title"><span data-lang="fr">Grille d'analyse & Scenari</span><span data-lang="en">Analysis grid & Scenari</span><span data-lang="es">Cuadrícula de análisis & Scenari</span></div>
+      <ul class="custom">
+        <li><span data-lang="fr">Une <strong>grille d'analyse des pratiques pédagogiques</strong> pour des cours plus inclusifs</span><span data-lang="en">A <strong>teaching practice analysis grid</strong> for more inclusive courses</span><span data-lang="es">Una <strong>cuadrícula de análisis de prácticas pedagógicas</strong> para clases más inclusivas</span></li>
+        <li><span data-lang="fr">L'outil <strong>Scenari</strong> pour créer des supports de cours accessibles</span><span data-lang="en">The <strong>Scenari</strong> tool to create accessible course materials</span><span data-lang="es">La herramienta <strong>Scenari</strong> para crear materiales de curso accesibles</span></li>
+      </ul>
+      <div style="margin-top:7px;"><a class="wave-btn" href="https://doc.scenari.software/Opale/fr/"><span data-lang="fr">Découvrir Scenari</span><span data-lang="en">Discover Scenari</span><span data-lang="es">Descubrir Scenari</span></a></div>
+    </div>
+  </div>
+  </div><!-- /normal-text -->
+</div>
+
+<svg class="bottom-wave" viewBox="0 0 794 55" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0,25 C80,5 160,45 260,28 C360,12 430,42 530,22 C610,8 700,38 794,20 L794,55 L0,55 Z" fill="#f5883a" opacity="0.7"/>
+  <path d="M0,32 C100,12 180,50 290,35 C390,20 470,48 570,30 C650,16 730,44 794,28 L794,55 L0,55 Z" fill="#7b77cc" opacity="0.5"/>
+  <path d="M0,40 C120,22 220,52 330,38 C430,26 510,50 620,35 C700,24 760,46 794,35 L794,55 L0,55 Z" fill="#e87ab0" opacity="0.45"/>
+  <path d="M0,47 C130,32 240,55 360,44 C470,34 550,54 660,42 C730,34 770,50 794,44 L794,55 L0,55 Z" fill="#4fc3a1" opacity="0.6"/>
+</svg>
+
+<!-- ── PAGE 2 ── -->
+<div class="page" style="padding-top:18px;">
+
+  <div class="section-title" id="section3"><div class="section-dot"></div>
+  <button class="bookmark-btn" id="bm-section3" onclick="toggleBookmark('section3')" title="Marquer">🔖</button>
+    <span data-lang="fr">3. Formations aux TND</span>
+    <span data-lang="en">3. NDD Training</span>
+    <span data-lang="es">3. Formaciones sobre TNS</span>
+  </div>
+  <div class="falc-icon">🎓</div>
+  <div class="falc-text">
+    <div data-lang="fr">
+      <p class="intro-text">Vous pouvez vous former sur les TND.</p>
+      <p class="intro-text">Les TND sont des façons différentes de fonctionner.</p>
+      <p class="intro-text">📱 Il y a <strong>11 formations en ligne</strong>. Elles sont gratuites.</p>
+      <p class="intro-text">🎮 Il y a un <strong>jeu</strong> pour comprendre le handicap.</p>
+      <p class="intro-text">📅 Il y a des <strong>formations pour les doctorants</strong> en avril 2026.</p>
+      <p class="intro-text">☕ Les <strong>Cafés Atypie</strong> ont lieu chaque vendredi en ligne.</p>
+    </div>
+    <div data-lang="en">
+      <p class="intro-text">You can train yourself on NDDs.</p>
+      <p class="intro-text">NDDs are different ways of functioning.</p>
+      <p class="intro-text">📱 There are <strong>11 free online training modules</strong>.</p>
+      <p class="intro-text">🎮 There is a <strong>game</strong> to understand disability.</p>
+      <p class="intro-text">📅 There is <strong>training for PhD students</strong> in April 2026.</p>
+      <p class="intro-text">☕ <strong>Atypie Cafés</strong> take place every Friday online.</p>
+    </div>
+    <div data-lang="es">
+      <p class="intro-text">Puede formarse sobre los TNS.</p>
+      <p class="intro-text">Los TNS son formas diferentes de funcionar.</p>
+      <p class="intro-text">📱 Hay <strong>11 formaciones en línea gratuitas</strong>.</p>
+      <p class="intro-text">🎮 Hay un <strong>juego</strong> para entender la discapacidad.</p>
+      <p class="intro-text">📅 Hay <strong>formaciones para doctorandos</strong> en abril de 2026.</p>
+      <p class="intro-text">☕ Los <strong>Cafés Atypie</strong> se celebran cada viernes en línea.</p>
+    </div>
+  </div>
+  <div class="normal-text">
+  <div class="two-col">
+    <div>
+      <ul class="custom">
+        <li><span data-lang="fr"><strong>11 autoformations en ligne</strong> : sensibilisation aux TND, troubles dys, cadre réglementaire…</span><span data-lang="en"><strong>11 online self-training modules</strong>: NDD awareness, learning difficulties, regulatory framework…</span><span data-lang="es"><strong>11 autoformaciones en línea</strong>: sensibilización a los TNS, trastornos dys, marco reglamentario…</span></li>
+        <li><span data-lang="fr"><strong>MOOC AUTISPOC</strong> : socle commun de connaissances TSA, en accès libre sur France Université Numérique</span><span data-lang="en"><strong>MOOC AUTISPOC</strong>: core ASD knowledge, freely available on France Université Numérique</span><span data-lang="es"><strong>MOOC AUTISPOC</strong>: base común de conocimientos TEA, acceso libre en France Université Numérique</span></li>
+        <li><span data-lang="fr"><strong>Serious game</strong> « En quête d'inclusivité » pour réfléchir à sa posture face au handicap</span><span data-lang="en"><strong>Serious game</strong> "In search of inclusivity" to reflect on one's approach to disability</span><span data-lang="es"><strong>Serious game</strong> «En busca de la inclusividad» para reflexionar sobre la actitud ante la discapacidad</span></li>
+        <li><span data-lang="fr"><strong>Formation pour doctorant·es</strong> — « TND, parcours et réussite académique » (9-10 avril 2026)</span><span data-lang="en"><strong>Training for PhD students</strong> — "NDD, pathways and academic success" (9-10 April 2026)</span><span data-lang="es"><strong>Formación para doctorandos</strong> — «TNS, trayectoria y éxito académico» (9-10 abril 2026)</span></li>
+      </ul>
+      <div style="margin-top:8px; display:flex; gap:8px; flex-wrap:wrap;">
+        <a class="wave-btn" href="https://formation.atypie-friendly.fr/?redirect=0"><span data-lang="fr">Accéder aux formations</span><span data-lang="en">Access training</span><span data-lang="es">Acceder a las formaciones</span></a>
+        <a class="wave-btn" href="https://cra.ch-perrens.fr/01-mooc-autispoc">MOOC AUTISPOC</a>
+      </div>
+    </div>
+    <div>
+      <div class="action-card card-teal">
+        <h4>📅 <span data-lang="fr">Prochains rendez-vous</span><span data-lang="en">Upcoming events</span><span data-lang="es">Próximas citas</span></h4>
+        <ul class="custom" style="margin-top:4px;">
+          <li><span data-lang="fr">Formation doctorant·es : <strong>9-10 avril 2026</strong></span><span data-lang="en">PhD training: <strong>9-10 April 2026</strong></span><span data-lang="es">Formación doctorandos: <strong>9-10 abril 2026</strong></span></li>
+          <li><span data-lang="fr">Cafés Atypie : <strong>chaque vendredi</strong>, 17h30–18h45 (Teams)</span><span data-lang="en">Atypie Cafés: <strong>every Friday</strong>, 5:30–6:45 pm (Teams)</span><span data-lang="es">Cafés Atypie: <strong>cada viernes</strong>, 17h30–18h45 (Teams)</span></li>
+          <li><span data-lang="fr">Webinaire Atypie-Friendly : <strong>date à venir</strong></span><span data-lang="en">Webinar: <strong>date TBC</strong></span><span data-lang="es">Webinario: <strong>fecha por confirmar</strong></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <hr class="separator">
+
+  </div><!-- /normal-text -->
+  <div class="section-title" id="section4"><div class="section-dot"></div>
+  <button class="bookmark-btn" id="bm-section4" onclick="toggleBookmark('section4')" title="Marquer">🔖</button>
+    <span data-lang="fr">4. Vie étudiante & accompagnement social</span>
+    <span data-lang="en">4. Student life & social support</span>
+    <span data-lang="es">4. Vida estudiantil y acompañamiento social</span>
+  </div>
+  <div class="falc-icon">☕</div>
+  <div class="falc-text">
+    <div data-lang="fr">
+      <p class="intro-text">La vie à l'université peut être difficile.</p>
+      <p class="intro-text">Atypie-Friendly propose des espaces pour parler.</p>
+      <p class="intro-text">☕ Les <strong>Cafés Atypie</strong> : chaque vendredi, de 17h30 à 18h45, en ligne.</p>
+      <p class="intro-text">On peut parler librement. Sans jugement.</p>
+      <p class="intro-text">🤝 L'association <strong>Bord'autisme</strong> organise des activités.</p>
+      <p class="intro-text">🎬 Il y a une <strong>série vidéo</strong> sur les TND : 2 saisons, 19 épisodes.</p>
+      <p class="intro-text">📦 Un <strong>Kit Asso</strong> pour créer une association étudiante.</p>
+    </div>
+    <div data-lang="en">
+      <p class="intro-text">University life can be difficult.</p>
+      <p class="intro-text">Atypie-Friendly offers spaces to talk.</p>
+      <p class="intro-text">☕ <strong>Atypie Cafés</strong>: every Friday, 5:30–6:45 pm, online.</p>
+      <p class="intro-text">You can speak freely. Without judgement.</p>
+      <p class="intro-text">🤝 The <strong>Bord'autisme</strong> association organises activities.</p>
+      <p class="intro-text">🎬 There is a <strong>video series</strong> on NDDs: 2 seasons, 19 episodes.</p>
+      <p class="intro-text">📦 An <strong>Association Kit</strong> to create a student association.</p>
+    </div>
+    <div data-lang="es">
+      <p class="intro-text">La vida universitaria puede ser difícil.</p>
+      <p class="intro-text">Atypie-Friendly ofrece espacios para hablar.</p>
+      <p class="intro-text">☕ <strong>Cafés Atypie</strong>: cada viernes, de 17h30 a 18h45, en línea.</p>
+      <p class="intro-text">Se puede hablar libremente. Sin juicios.</p>
+      <p class="intro-text">🤝 La asociación <strong>Bord'autisme</strong> organiza actividades.</p>
+      <p class="intro-text">🎬 Hay una <strong>serie de vídeo</strong> sobre los TNS: 2 temporadas, 19 episodios.</p>
+      <p class="intro-text">📦 Un <strong>Kit Asso</strong> para crear una asociación estudiantil.</p>
+    </div>
+  </div>
+  <div class="normal-text">
+  <div class="two-col">
+    <div>
+      <div class="sub-title"><span data-lang="fr">Cafés Atypie</span><span data-lang="en">Atypie Cafés</span><span data-lang="es">Cafés Atypie</span></div>
+      <p class="intro-text">
+        <span data-lang="fr">Des espaces de parole libre <strong>sans jugement</strong>, ouverts à toute personne concernée par les TND. Chaque vendredi de 17h30 à 18h45, en ligne sur Teams.</span>
+        <span data-lang="en">Free, <strong>judgement-free</strong> discussion spaces open to anyone affected by NDDs. Every Friday, 5:30–6:45 pm, online on Teams.</span>
+        <span data-lang="es">Espacios de expresión libre <strong>sin juicios</strong>, abiertos a cualquier persona concernida por los TNS. Cada viernes de 17h30 a 18h45, en línea en Teams.</span>
+      </p>
+      <div style="margin-top:6px;"><a class="wave-btn" href="https://atypie-friendly.fr/le-cafe-atypie-friendly/"><span data-lang="fr">Rejoindre un café Atypie</span><span data-lang="en">Join an Atypie Café</span><span data-lang="es">Unirse a un café Atypie</span></a></div>
+    </div>
+    <div>
+      <div class="sub-title"><span data-lang="fr">Bord'autisme & associations</span><span data-lang="en">Bord'autisme & associations</span><span data-lang="es">Bord'autisme & asociaciones</span></div>
+      <ul class="custom">
+        <li><span data-lang="fr">Association <strong>Bord'autisme</strong> : groupes de parole, goûters, Discord</span><span data-lang="en"><strong>Bord'autisme</strong> association: discussion groups, social events, Discord</span><span data-lang="es">Asociación <strong>Bord'autisme</strong>: grupos de conversación, meriendas, Discord</span></li>
+        <li><span data-lang="fr"><strong>Série vidéo</strong> sur les TND : 2 saisons, 19 épisodes</span><span data-lang="en"><strong>Video series</strong> on NDDs: 2 seasons, 19 episodes</span><span data-lang="es"><strong>Serie de vídeo</strong> sobre los TNS: 2 temporadas, 19 episodios</span></li>
+        <li><span data-lang="fr"><strong>Kit Asso</strong> pour créer ou rejoindre une association étudiante</span><span data-lang="en"><strong>Association Kit</strong> to create or join a student association</span><span data-lang="es"><strong>Kit Asso</strong> para crear o unirse a una asociación estudiantil</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="separator">
+
+  </div><!-- /normal-text -->
+  <div class="section-title" id="section5"><div class="section-dot"></div>
+  <button class="bookmark-btn" id="bm-section5" onclick="toggleBookmark('section5')" title="Marquer">🔖</button>
+    <span data-lang="fr">5. Insertion professionnelle</span>
+    <span data-lang="en">5. Career integration</span>
+    <span data-lang="es">5. Inserción profesional</span>
+  </div>
+  <div class="falc-icon">💼</div>
+  <div class="falc-text">
+    <div data-lang="fr">
+      <p class="intro-text">Trouver un travail peut être difficile.</p>
+      <p class="intro-text">Atypie-Friendly aide à trouver un travail.</p>
+      <p class="intro-text">📄 Des <strong>ateliers pour écrire un CV</strong> et une lettre.</p>
+      <p class="intro-text">🗣️ Des <strong>ateliers pour préparer les entretiens</strong>.</p>
+      <p class="intro-text">🤝 Des <strong>entreprises partenaires</strong> s'engagent à accueillir des personnes avec TND.</p>
+      <p class="intro-text">🌍 Un projet européen donne des <strong>conseils aux employeurs</strong>.</p>
+    </div>
+    <div data-lang="en">
+      <p class="intro-text">Finding a job can be difficult.</p>
+      <p class="intro-text">Atypie-Friendly helps you find a job.</p>
+      <p class="intro-text">📄 <strong>Workshops to write a CV</strong> and a cover letter.</p>
+      <p class="intro-text">🗣️ <strong>Workshops to prepare for interviews</strong>.</p>
+      <p class="intro-text">🤝 <strong>Partner companies</strong> commit to welcoming people with NDDs.</p>
+      <p class="intro-text">🌍 A European project gives <strong>advice to employers</strong>.</p>
+    </div>
+    <div data-lang="es">
+      <p class="intro-text">Encontrar trabajo puede ser difícil.</p>
+      <p class="intro-text">Atypie-Friendly ayuda a encontrar trabajo.</p>
+      <p class="intro-text">📄 <strong>Talleres para escribir un CV</strong> y una carta de motivación.</p>
+      <p class="intro-text">🗣️ <strong>Talleres para preparar las entrevistas</strong>.</p>
+      <p class="intro-text">🤝 <strong>Empresas socias</strong> se comprometen a acoger a personas con TNS.</p>
+      <p class="intro-text">🌍 Un proyecto europeo da <strong>consejos a los empleadores</strong>.</p>
+    </div>
+  </div>
+  <div class="normal-text">
+  <div class="two-col">
+    <div>
+      <ul class="custom">
+        <li><span data-lang="fr"><strong>Charte Atypie-Friendly</strong> de partenariat avec les entreprises engagées</span><span data-lang="en"><strong>Atypie-Friendly Charter</strong> for partnerships with committed employers</span><span data-lang="es"><strong>Carta Atypie-Friendly</strong> de colaboración con empresas comprometidas</span></li>
+        <li><span data-lang="fr"><strong>Ateliers CV, lettre de motivation et entretiens</strong> de recrutement adaptés</span><span data-lang="en"><strong>CV, cover letter and interview workshops</strong> adapted for NDD students</span><span data-lang="es"><strong>Talleres de CV, carta de motivación y entrevistas</strong> de selección adaptados</span></li>
+        <li><span data-lang="fr">Projet européen <strong>IMAGE</strong> : 4 guides de bonnes pratiques pour les employeurs</span><span data-lang="en">European <strong>IMAGE</strong> project: 4 best practice guides for employers</span><span data-lang="es">Proyecto europeo <strong>IMAGE</strong>: 4 guías de buenas prácticas para empleadores</span></li>
+        <li><span data-lang="fr">Construction d'un <strong>réseau d'acteurs</strong> de l'accompagnement professionnel</span><span data-lang="en">Building a <strong>professional support network</strong></span><span data-lang="es">Construcción de una <strong>red de actores</strong> de acompañamiento profesional</span></li>
+      </ul>
+    </div>
+    <div>
+      <div class="action-card card-orange">
+        <h4>💼 <span data-lang="fr">Mois de l'inclusivité</span><span data-lang="en">Inclusivity Month</span><span data-lang="es">Mes de la inclusividad</span></h4>
+        <p style="font-size:12px;color:#333;line-height:1.6;">
+          <span data-lang="fr">Chaque année, l'Université organise un mois dédié à l'inclusion, avec tables rondes, ateliers et événements ouverts à tous.</span>
+          <span data-lang="en">Every year, the University hosts a month dedicated to inclusion, with round tables, workshops and events open to all.</span>
+          <span data-lang="es">Cada año, la Universidad organiza un mes dedicado a la inclusión, con mesas redondas, talleres y eventos abiertos a todos.</span>
+        </p>
+      </div>
+      <div style="margin-top:6px;"><a class="wave-btn" href="https://atypie-friendly.fr/des-ateliers-insertion-professionnelle/"><span data-lang="fr">Ateliers insertion pro</span><span data-lang="en">Career workshops</span><span data-lang="es">Talleres inserción pro</span></a></div>
+    </div>
+  </div>
+
+  <hr class="separator">
+
+  </div><!-- /normal-text -->
+  <div class="section-title" id="section6"><div class="section-dot"></div>
+  <button class="bookmark-btn" id="bm-section6" onclick="toggleBookmark('section6')" title="Marquer">🔖</button>
+    <span data-lang="fr">6. Recherche & actualité : le Centre SOUND</span>
+    <span data-lang="en">6. Research & news: the SOUND Centre</span>
+    <span data-lang="es">6. Investigación & actualidad: el Centro SOUND</span>
+  </div>
+  <div class="falc-icon">🔬</div>
+  <div class="falc-text">
+    <div data-lang="fr">
+      <p class="intro-text">Des chercheurs travaillent sur les TND.</p>
+      <p class="intro-text">En décembre 2025, un nouveau centre a ouvert à Bordeaux.</p>
+      <p class="intro-text">Il s'appelle le <strong>Centre SOUND</strong>.</p>
+      <p class="intro-text">Plus de <strong>30 équipes de chercheurs</strong> y travaillent.</p>
+      <p class="intro-text">Leur mission : mieux comprendre les TND.</p>
+      <p class="intro-text">Et former les professionnels qui accompagnent les personnes avec TND.</p>
+    </div>
+    <div data-lang="en">
+      <p class="intro-text">Researchers are working on NDDs.</p>
+      <p class="intro-text">In December 2025, a new centre opened in Bordeaux.</p>
+      <p class="intro-text">It is called the <strong>SOUND Centre</strong>.</p>
+      <p class="intro-text">More than <strong>30 research teams</strong> work there.</p>
+      <p class="intro-text">Their mission: to better understand NDDs.</p>
+      <p class="intro-text">And to train professionals who support people with NDDs.</p>
+    </div>
+    <div data-lang="es">
+      <p class="intro-text">Los investigadores trabajan sobre los TNS.</p>
+      <p class="intro-text">En diciembre de 2025, se abrió un nuevo centro en Burdeos.</p>
+      <p class="intro-text">Se llama el <strong>Centro SOUND</strong>.</p>
+      <p class="intro-text">Más de <strong>30 equipos de investigadores</strong> trabajan allí.</p>
+      <p class="intro-text">Su misión: comprender mejor los TNS.</p>
+      <p class="intro-text">Y formar a los profesionales que acompañan a las personas con TNS.</p>
+    </div>
+  </div>
+  <div class="normal-text">
+  <div class="actualite-box">
+    <strong>🔬 <span data-lang="fr">Nouveauté — Décembre 2025 :</span><span data-lang="en">News — December 2025:</span><span data-lang="es">Novedad — Diciembre 2025:</span></strong>
+    <span data-lang="fr"> Création à Bordeaux du <strong>6ème Centre d'Excellence national dédié aux TND</strong>, le Centre SOUND, sous la direction du Pr Anouck Amestoy. Il fédère plus de <strong>30 équipes de recherche et cliniciens de Nouvelle-Aquitaine</strong> (CNRS, INSERM, INRIA…).</span>
+    <span data-lang="en"> Creation in Bordeaux of the <strong>6th national Centre of Excellence for NDDs</strong>, the SOUND Centre, led by Prof. Anouck Amestoy. It brings together over <strong>30 research teams and clinicians from Nouvelle-Aquitaine</strong> (CNRS, INSERM, INRIA…).</span>
+    <span data-lang="es"> Creación en Burdeos del <strong>6.º Centro de Excelencia nacional dedicado a los TNS</strong>, el Centro SOUND, bajo la dirección del Pr. Anouck Amestoy. Reúne a más de <strong>30 equipos de investigación y clínicos de Nueva Aquitania</strong> (CNRS, INSERM, INRIA…).</span>
+    <div style="margin-top:8px;"><a class="wave-btn" href="https://handicap.gouv.fr/creation-dun-sixieme-centre-dexcellence-pour-les-troubles-du-neurodeveloppement-bordeaux"><span data-lang="fr">En savoir plus</span><span data-lang="en">Learn more</span><span data-lang="es">Saber más</span></a></div>
+  </div>
+
+  <hr class="separator">
+
+  </div><!-- /normal-text -->
+
+  <hr class="separator">
+
+  <!-- ══ QUIZ ══ -->
+  <div class="section-title" id="section-quiz"><div class="section-dot"></div>
+    <span data-lang="fr">🧠 Le Quiz Atypique</span>
+    <span data-lang="en">🧠 The Atypical Quiz</span>
+    <span data-lang="es">🧠 El Quiz Atípico</span>
+  </div>
+
+  <div class="quiz-section" id="quiz">
+
+    <!-- Barre de progression -->
+    <div class="quiz-progress-bar">
+      <div class="quiz-progress-fill" id="quiz-progress-fill"></div>
+    </div>
+    <div class="quiz-progress-label" id="quiz-progress-label"></div>
+
+    <!-- Q1 -->
+    <div class="quiz-question" id="q1">
+      <p>
+        <span data-lang="fr">1. Depuis quelle année l'Université de Bordeaux est-elle partenaire du programme Atypie-Friendly ?</span>
+        <span data-lang="en">1. Since which year has the University of Bordeaux been a partner of the Atypie-Friendly programme?</span>
+        <span data-lang="es">1. ¿Desde qué año es la Universidad de Burdeos socia del programa Atypie-Friendly?</span>
+      </p>
+      <div class="quiz-options">
+        <button class="quiz-option" data-correct="false" data-fb="q1-fb-wrong">
+          <span data-lang="fr">2015</span><span data-lang="en">2015</span><span data-lang="es">2015</span>
+        </button>
+        <button class="quiz-option" data-correct="true" data-fb="q1-fb-correct">
+          <span data-lang="fr">2018</span><span data-lang="en">2018</span><span data-lang="es">2018</span>
+        </button>
+        <button class="quiz-option" data-correct="false" data-fb="q1-fb-wrong">
+          <span data-lang="fr">2020</span><span data-lang="en">2020</span><span data-lang="es">2020</span>
+        </button>
+        <button class="quiz-option" data-correct="false" data-fb="q1-fb-wrong">
+          <span data-lang="fr">2022</span><span data-lang="en">2022</span><span data-lang="es">2022</span>
+        </button>
+      </div>
+      <div class="quiz-feedback correct-fb" id="q1-fb-correct">
+        ✅ <span data-lang="fr"><strong>Bonne réponse !</strong> L'Université de Bordeaux est partenaire depuis sa création en <strong>2018</strong>, inscrit dans la Stratégie nationale pour l'autisme (2018-2028).</span>
+        <span data-lang="en"><strong>Correct!</strong> The University of Bordeaux has been a partner since <strong>2018</strong>, as part of the National Autism Strategy (2018-2028).</span>
+        <span data-lang="es"><strong>¡Correcto!</strong> La Universidad de Burdeos es socia desde <strong>2018</strong>, en el marco de la Estrategia nacional para el autismo (2018-2028).</span>
+      </div>
+      <div class="quiz-feedback wrong-fb" id="q1-fb-wrong">
+        ❌ <span data-lang="fr"><strong>Pas tout à fait !</strong> L'Université de Bordeaux a rejoint le programme en <strong>2018</strong>, année de son lancement dans le cadre de la Stratégie nationale pour l'autisme.</span>
+        <span data-lang="en"><strong>Not quite!</strong> The University of Bordeaux joined the programme in <strong>2018</strong>, the year it was launched as part of the National Autism Strategy.</span>
+        <span data-lang="es"><strong>¡No del todo!</strong> La Universidad de Burdeos se unió al programa en <strong>2018</strong>.</span>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="quiz-question" id="q2" style="display:none;">
+      <p>
+        <span data-lang="fr">2. Quelle proportion de la population est concernée par un Trouble du Neurodéveloppement ?</span>
+        <span data-lang="en">2. What proportion of the population is affected by a Neurodevelopmental Disorder?</span>
+        <span data-lang="es">2. ¿Qué proporción de la población tiene un Trastorno del Neurodesarrollo?</span>
+      </p>
+      <div class="quiz-options">
+        <button class="quiz-option" data-correct="false" data-fb="q2-fb-wrong">
+          <span data-lang="fr">Environ 2% de la population</span>
+          <span data-lang="en">Around 2% of the population</span>
+          <span data-lang="es">Alrededor del 2% de la población</span>
+        </button>
+        <button class="quiz-option" data-correct="false" data-fb="q2-fb-wrong">
+          <span data-lang="fr">Environ 5% de la population</span>
+          <span data-lang="en">Around 5% of the population</span>
+          <span data-lang="es">Alrededor del 5% de la población</span>
+        </button>
+        <button class="quiz-option" data-correct="true" data-fb="q2-fb-correct">
+          <span data-lang="fr">Environ 8%, mais moins de 1% à l'université</span>
+          <span data-lang="en">Around 8%, but less than 1% at university</span>
+          <span data-lang="es">Alrededor del 8%, pero menos del 1% en la universidad</span>
+        </button>
+        <button class="quiz-option" data-correct="false" data-fb="q2-fb-wrong">
+          <span data-lang="fr">Environ 15% de la population</span>
+          <span data-lang="en">Around 15% of the population</span>
+          <span data-lang="es">Alrededor del 15% de la población</span>
+        </button>
+      </div>
+      <div class="quiz-feedback correct-fb" id="q2-fb-correct">
+        ✅ <span data-lang="fr"><strong>Excellent !</strong> Environ <strong>8% de la population</strong> est concernée, mais moins de <strong>1%</strong> des étudiants sont identifiés à l'université — d'où l'importance du programme.</span>
+        <span data-lang="en"><strong>Excellent!</strong> Around <strong>8% of the population</strong> is affected, but less than <strong>1%</strong> of students are identified at university — hence the importance of the programme.</span>
+        <span data-lang="es"><strong>¡Excelente!</strong> Alrededor del <strong>8% de la población</strong> está afectada, pero menos del <strong>1%</strong> de los estudiantes están identificados en la universidad.</span>
+      </div>
+      <div class="quiz-feedback wrong-fb" id="q2-fb-wrong">
+        ❌ <span data-lang="fr"><strong>Pas tout à fait !</strong> D'après la newsletter, environ <strong>8% de la population</strong> est concernée, mais seulement moins de <strong>1%</strong> des étudiants sont identifiés à l'université.</span>
+        <span data-lang="en"><strong>Not quite!</strong> According to the newsletter, around <strong>8%</strong> of the population is affected, but less than <strong>1%</strong> of students are identified at university.</span>
+        <span data-lang="es"><strong>¡No del todo!</strong> Según el boletín, alrededor del <strong>8%</strong> está afectada, pero menos del <strong>1%</strong> de los estudiantes están identificados.</span>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="quiz-question" id="q3" style="display:none;">
+      <p>
+        <span data-lang="fr">3. Qu'est-ce que le Centre SOUND, créé à Bordeaux en décembre 2025 ?</span>
+        <span data-lang="en">3. What is the SOUND Centre, created in Bordeaux in December 2025?</span>
+        <span data-lang="es">3. ¿Qué es el Centro SOUND, creado en Burdeos en diciembre de 2025?</span>
+      </p>
+      <div class="quiz-options">
+        <button class="quiz-option" data-correct="false" data-fb="q3-fb-wrong">
+          <span data-lang="fr">Une association étudiante dédiée aux personnes autistes</span>
+          <span data-lang="en">A student association dedicated to autistic people</span>
+          <span data-lang="es">Una asociación estudiantil dedicada a personas autistas</span>
+        </button>
+        <button class="quiz-option" data-correct="false" data-fb="q3-fb-wrong">
+          <span data-lang="fr">Un service d'accompagnement psychologique pour les étudiants</span>
+          <span data-lang="en">A psychological support service for students</span>
+          <span data-lang="es">Un servicio de acompañamiento psicológico para estudiantes</span>
+        </button>
+        <button class="quiz-option" data-correct="false" data-fb="q3-fb-wrong">
+          <span data-lang="fr">Un outil numérique pour créer des cours accessibles</span>
+          <span data-lang="en">A digital tool for creating accessible courses</span>
+          <span data-lang="es">Una herramienta digital para crear cursos accesibles</span>
+        </button>
+        <button class="quiz-option" data-correct="true" data-fb="q3-fb-correct">
+          <span data-lang="fr">Le 6ème Centre d'Excellence national dédié aux TND, fédérant plus de 30 équipes de recherche</span>
+          <span data-lang="en">The 6th national Centre of Excellence for NDDs, bringing together over 30 research teams</span>
+          <span data-lang="es">El 6.º Centro de Excelencia nacional para los TNS, que reúne a más de 30 equipos de investigación</span>
+        </button>
+      </div>
+      <div class="quiz-feedback correct-fb" id="q3-fb-correct">
+        ✅ <span data-lang="fr"><strong>Parfait !</strong> Le Centre SOUND est le <strong>6ème Centre d'Excellence national dédié aux TND</strong>, dirigé par le Pr Anouck Amestoy, fédérant plus de 30 équipes de Nouvelle-Aquitaine.</span>
+        <span data-lang="en"><strong>Perfect!</strong> The SOUND Centre is the <strong>6th national Centre of Excellence for NDDs</strong>, led by Prof. Anouck Amestoy, bringing together over 30 teams from Nouvelle-Aquitaine.</span>
+        <span data-lang="es"><strong>¡Perfecto!</strong> El Centro SOUND es el <strong>6.º Centro de Excelencia nacional dedicado a los TNS</strong>, dirigido por el Pr. Anouck Amestoy, reuniendo a más de 30 equipos de Nueva Aquitania.</span>
+      </div>
+      <div class="quiz-feedback wrong-fb" id="q3-fb-wrong">
+        ❌ <span data-lang="fr"><strong>Pas tout à fait !</strong> Le Centre SOUND est le <strong>6ème Centre d'Excellence national dédié aux TND</strong>, créé en décembre 2025 sous la direction du Pr Anouck Amestoy.</span>
+        <span data-lang="en"><strong>Not quite!</strong> The SOUND Centre is the <strong>6th national Centre of Excellence for NDDs</strong>, created in December 2025 under the direction of Prof. Anouck Amestoy.</span>
+        <span data-lang="es"><strong>¡No del todo!</strong> El Centro SOUND es el <strong>6.º Centro de Excelencia nacional dedicado a los TNS</strong>, creado en diciembre de 2025 bajo la dirección del Pr. Anouck Amestoy.</span>
+      </div>
+    </div>
+
+    <!-- Bouton Suivant -->
+    <button class="quiz-next" id="quiz-next" style="display:none;" onclick="nextQuestion()">
+      <span data-lang="fr">Question suivante →</span>
+      <span data-lang="en">Next question →</span>
+      <span data-lang="es">Siguiente pregunta →</span>
+    </button>
+
+    <!-- Score final -->
+    <div class="quiz-score" id="quiz-score"></div>
+    <button class="quiz-reset" id="quiz-reset" onclick="resetQuiz()">
+      <span data-lang="fr">🔄 Recommencer le quiz</span>
+      <span data-lang="en">🔄 Restart the quiz</span>
+      <span data-lang="es">🔄 Reiniciar el quiz</span>
+    </button>
+
+  </div><!-- /quiz -->
+
+  <hr class="separator">
+
+  <div class="footer-contact">
+    <div>
+      <div class="logo-txt">atypie<span style="color:#f5883a;">friendly</span></div>
+      <span class="logo-sub"><span data-lang="fr">Réussir l'université inclusive</span><span data-lang="en">Succeeding in an inclusive university</span><span data-lang="es">Triunfar en la universidad inclusiva</span></span>
+      <p style="margin-top:8px;font-size:12px;color:#333;line-height:1.65;">
+        <span data-lang="fr">Programme national présent dans une trentaine d'universités françaises, dont l'Université de Bordeaux depuis 2018.</span>
+        <span data-lang="en">National programme in around thirty French universities, including the University of Bordeaux since 2018.</span>
+        <span data-lang="es">Programa nacional presente en una treintena de universidades francesas, incluida la Universidad de Burdeos desde 2018.</span>
+      </p>
+      <div style="margin-top:6px;"><a class="wave-btn" href="https://atypie-friendly.fr" style="color:#fff;">atypie-friendly.fr</a></div>
+    </div>
+    <div>
+      <h3><span data-lang="fr">Nous contacter</span><span data-lang="en">Contact us</span><span data-lang="es">Contactarnos</span></h3>
+      <div style="display:flex; gap:16px; flex-wrap:wrap; margin-bottom:6px;">
+        <p style="margin:0; flex:1; min-width:140px;"><strong>Céline Lemoine</strong><br><span data-lang="fr">Coordinatrice du projet</span><span data-lang="en">Project coordinator</span><span data-lang="es">Coordinadora del proyecto</span><br><a href="/cdn-cgi/l/email-protection#0c6f696065626922606961636562694c79216e637e68696d7974226a7e"><span class="__cf_email__" data-cfemail="d3b0b6bfbabdb6fdbfb6bebcbabdb693a6feb1bca1b7b6b2a6abfdb5a1">[email&#160;protected]</span></a></p>
+        <p style="margin:0; flex:1; min-width:140px;"><strong>Florian Laronze</strong><br><span data-lang="fr">Coordinateur du projet</span><span data-lang="en">Project coordinator</span><span data-lang="es">Coordinador del proyecto</span><br><a href="/cdn-cgi/l/email-protection#02646e6d706b636c2c6e63706d6c786742772f606d70666763777a2c6470"><span class="__cf_email__" data-cfemail="b2d4deddc0dbd3dc9cded3c0dddcc8d7f2c79fd0ddc0d6d7d3c7ca9cd4c0">[email&#160;protected]</span></a></p>
+      </div>
+      <p>📧 <a href="/cdn-cgi/l/email-protection#9cfefab1fde8e5ecf5f9b2faeef5f9f2f8f0e5dce9b1fef3eef8f9fde9e4b2faee"><span class="__cf_email__" data-cfemail="fa989cd79b8e838a939fd49c88939f949e9683ba8fd79895889e9f9b8f82d49c88">[email&#160;protected]</span></a></p>
+    </div>
+  </div>
+</div>
+
+<svg class="bottom-wave" viewBox="0 0 794 55" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0,25 C80,5 160,45 260,28 C360,12 430,42 530,22 C610,8 700,38 794,20 L794,55 L0,55 Z" fill="#f5883a" opacity="0.7"/>
+  <path d="M0,32 C100,12 180,50 290,35 C390,20 470,48 570,30 C650,16 730,44 794,28 L794,55 L0,55 Z" fill="#7b77cc" opacity="0.5"/>
+  <path d="M0,40 C120,22 220,52 330,38 C430,26 510,50 620,35 C700,24 760,46 794,35 L794,55 L0,55 Z" fill="#e87ab0" opacity="0.45"/>
+  <path d="M0,47 C130,32 240,55 360,44 C470,34 550,54 660,42 C730,34 770,50 794,44 L794,55 L0,55 Z" fill="#4fc3a1" opacity="0.6"/>
+</svg>
+
+</div><!-- /content-wrap -->
+
+<!-- ── RÈGLE DE LECTURE ── -->
+<div class="reading-ruler" id="reading-ruler"></div>
+
+<!-- ── TOAST MARQUE-PAGE ── -->
+<div class="bookmark-toast" id="bookmark-toast"></div>
+
+<!-- Hidden lang tracker for JS -->
+<select id="lang-select" style="display:none;" onchange="setLang(this.value)">
+  <option value="fr" selected>fr</option>
+  <option value="en">en</option>
+  <option value="es">es</option>
+</select>
+
+<!-- ── LECTEUR AUDIO ── -->
+<div class="audio-panel" id="audio-panel">
+  <span class="a11y-label">
+    <span data-lang="fr">🎧 Lecture audio</span>
+    <span data-lang="en">🎧 Audio reader</span>
+    <span data-lang="es">🎧 Lectura audio</span>
+  </span>
+  <div class="audio-controls">
+    <button class="audio-btn" id="btn-play" onclick="audioPlay()">
+      ▶ <span data-lang="fr">Lire</span><span data-lang="en">Play</span><span data-lang="es">Leer</span>
+    </button>
+    <button class="audio-btn" id="btn-pause" onclick="audioPause()" disabled>
+      ■ <span data-lang="fr">Pause</span><span data-lang="en">Pause</span><span data-lang="es">Pausa</span>
+    </button>
+  </div>
+  <div class="audio-section-nav" style="display:flex; gap:5px; margin-top:6px;">
+    <button class="audio-nav-btn" id="btn-prev" onclick="audioGoto(sectionIdx - 1)" disabled>◀</button>
+    <button class="audio-nav-btn" id="btn-next" onclick="audioGoto(sectionIdx + 1)">▶</button>
+  </div>
+  <div style="margin-top:8px;">
+    <div class="audio-speed-label">
+      <span data-lang="fr">Vitesse</span><span data-lang="en">Speed</span><span data-lang="es">Velocidad</span>
+      <span id="speed-val">1×</span>
+    </div>
+    <input type="range" min="0.5" max="2" step="0.25" value="1"
+      oninput="setSpeed(this.value)" style="width:100%; margin-top:4px;">
+  </div>
+  <div id="audio-status" style="font-size:0.67em; color:#888; text-align:center; margin-top:4px;">
+    <span data-lang="fr">Prêt</span><span data-lang="en">Ready</span><span data-lang="es">Listo</span>
+  </div>
+</div>
+
+<!-- ── POPUP FALC INFO ── -->
+<div class="falc-popup" id="falc-popup" style="position:fixed; z-index:2000;">
+  <button class="popup-close" onclick="closeFalcPopup()">✕</button>
+  <h4>🧩 Mode FALC</h4>
+  <ul>
+    <li><span data-lang="fr">Police plus grande et lisible</span><span data-lang="en">Larger, readable font</span><span data-lang="es">Fuente más grande y legible</span></li>
+    <li><span data-lang="fr">Interligne augmenté</span><span data-lang="en">Increased line spacing</span><span data-lang="es">Interlineado aumentado</span></li>
+    <li><span data-lang="fr">Texte aligné à gauche</span><span data-lang="en">Left-aligned text</span><span data-lang="es">Texto alineado a la izquierda</span></li>
+    <li><span data-lang="fr">Mise en page simplifiée</span><span data-lang="en">Simplified layout</span><span data-lang="es">Diseño simplificado</span></li>
+    <li><span data-lang="fr">Éléments décoratifs masqués</span><span data-lang="en">Decorative elements hidden</span><span data-lang="es">Elementos decorativos ocultos</span></li>
+    <li><span data-lang="fr">Texte réécrit en phrases courtes</span><span data-lang="en">Text rewritten in short sentences</span><span data-lang="es">Texto reescrito en frases cortas</span></li>
+    <li><span data-lang="fr">Pictogrammes pour chaque section</span><span data-lang="en">Pictograms for each section</span><span data-lang="es">Pictogramas para cada sección</span></li>
+  </ul>
+</div>
+
+<!-- ── TUTORIEL OVERLAY ── -->
+<div class="tuto-overlay" id="tuto-overlay">
+  <div class="tuto-panel" id="tuto-p-top"></div>
+  <div class="tuto-panel" id="tuto-p-bottom"></div>
+  <div class="tuto-panel" id="tuto-p-left"></div>
+  <div class="tuto-panel" id="tuto-p-right"></div>
+  <div class="tuto-highlight" id="tuto-highlight"></div>
+  <div class="tuto-bubble" id="tuto-bubble">
+    <h4 id="tuto-title"></h4>
+    <p id="tuto-text"></p>
+    <div class="tuto-bubble-footer">
+      <span class="tuto-counter" id="tuto-counter"></span>
+      <div class="tuto-nav">
+        <button class="tuto-btn-prev" id="tuto-prev" onclick="tutoStep(-1)">←</button>
+        <button class="tuto-btn-next" id="tuto-next" onclick="tutoStep(1)">→</button>
+      </div>
+    </div>
+    <button class="tuto-btn-skip" onclick="endTuto()">
+      <span data-lang="fr">Fermer ✕</span>
+      <span data-lang="en">Close ✕</span>
+      <span data-lang="es">Cerrar ✕</span>
+    </button>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // ════════════════════════════
+  //  AUDIO — section par section
+  //  Pause/Resume natif + keepalive
+  // ════════════════════════════
+
+  const synth = window.speechSynthesis;
+
+  // Toutes les sections du document
+  const SECTIONS = [
+    { id: null,       label: 'Éditorial' },
+    { id: 'section1', label: 'Transition' },
+    { id: 'section2', label: 'Pédagogie' },
+    { id: 'section3', label: 'Formations' },
+    { id: 'section4', label: 'Vie étudiante' },
+    { id: 'section5', label: 'Insertion pro' },
+    { id: 'section6', label: 'Recherche' },
+  ];
+
+  let sectionIdx  = 0;
+  let isPlaying   = false;
+  let isPaused    = false;
+  let audioSpeed  = 1;
+  let keepAlive   = null;
+  let hlEls       = [];   // éléments surlignés
+
+  // ── Keepalive : Chrome tue la synthèse après ~15s ──
+  function startKeepAlive() {
+    stopKeepAlive();
+    keepAlive = setInterval(() => {
+      if (synth.speaking && !synth.paused) {
+        synth.pause();
+        setTimeout(() => synth.resume(), 50);
+      }
+    }, 12000);
+  }
+  function stopKeepAlive() {
+    if (keepAlive) { clearInterval(keepAlive); keepAlive = null; }
+  }
+
+  // ── Texte d'une section — ne lit que ce qui est visible ──
+  function getSectionText(idx) {
+    const lang = document.getElementById('lang-select').value || 'fr';
+    let nodes = [];
+    if (idx === 0) {
+      const page = document.querySelector('.page');
+      if (!page) return '';
+      for (const child of page.children) {
+        if (child.id === 'section1') break;
+        nodes.push(child);
+      }
+    } else {
+      const title = document.getElementById(SECTIONS[idx].id);
+      if (!title) return '';
+      nodes.push(title);
+      let n = title.nextElementSibling;
+      while (n) {
+        if (n.classList.contains('section-title') ||
+            n.tagName === 'svg' || n.tagName === 'SVG' ||
+            n.tagName === 'HR') break;
+        nodes.push(n);
+        n = n.nextElementSibling;
+      }
+    }
+    let text = '';
+    nodes.forEach(node => {
+      const style = window.getComputedStyle(node);
+      if (style.display === 'none' || style.visibility === 'hidden') return;
+      const clone = node.cloneNode(true);
+      clone.querySelectorAll('[data-lang]').forEach(el => {
+        if (el.getAttribute('data-lang') !== lang) el.remove();
+      });
+      clone.querySelectorAll('a.wave-btn, .summary-box, .a11y-bar, .audio-panel, .bookmark-btn, .quiz-section').forEach(el => el.remove());
+      if (isFALC) {
+        clone.querySelectorAll('.normal-text').forEach(el => el.remove());
+      } else {
+        clone.querySelectorAll('.falc-text, .falc-icon').forEach(el => el.remove());
+      }
+      const t = clone.innerText.replace(/\s+/g, ' ').trim();
+      if (t) text += ' ' + t;
+    });
+    return text.replace(/\s+/g, ' ').trim();
+  }
+
+  // ── Surbrillance ──
+  function clearHL() {
+    hlEls.forEach(e => e.classList.remove('reading-highlight'));
+    hlEls = [];
+  }
+  function highlightSection(idx) {
+    clearHL();
+    let nodes = [];
+    if (idx === 0) {
+      const page = document.querySelector('.page');
+      if (page) for (const c of page.children) {
+        if (c.id === 'section1') break;
+        nodes.push(c);
+      }
+    } else {
+      const title = document.getElementById(SECTIONS[idx].id);
+      if (title) {
+        nodes.push(title);
+        let n = title.nextElementSibling;
+        while (n) {
+          if (n.classList.contains('section-title') ||
+              n.tagName === 'svg' || n.tagName === 'SVG' ||
+              n.tagName === 'HR') break;
+          nodes.push(n);
+          n = n.nextElementSibling;
+        }
+      }
+    }
+    nodes.forEach(n => { n.classList.add('reading-highlight'); hlEls.push(n); });
+    if (nodes[0]) nodes[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ── Lit une section puis enchaîne ──
+  function playSection(idx) {
+    if (idx >= SECTIONS.length) { audioReset(); return; }
+    sectionIdx = idx;
+    highlightSection(idx);
+    setStatus((idx + 1) + '/' + SECTIONS.length + ' — ' + SECTIONS[idx].label);
+    updateNavBtns();
+
+    const text = getSectionText(idx);
+    if (!text) { playSection(idx + 1); return; }
+
+    const lang = document.getElementById('lang-select').value || 'fr';
+    const utt = new SpeechSynthesisUtterance(text);
+    utt.rate = audioSpeed;
+    utt.lang = lang === 'en' ? 'en-GB' : lang === 'es' ? 'es-ES' : 'fr-FR';
+    utt.onend = () => {
+      stopKeepAlive();
+      if (isPlaying && !isPaused) playSection(idx + 1);
+    };
+    utt.onerror = (e) => {
+      if (e.error !== 'interrupted' && e.error !== 'canceled') {
+        stopKeepAlive(); audioReset();
+      }
+    };
+    synth.speak(utt);
+    startKeepAlive();
+  }
+
+  // ── PLAY ──
+  // isSynthPaused = true  → vraie pause synth, on fait resume()
+  // isSynthPaused = false → pause de navigation (audioGoto), on lance playSection()
+  let isSynthPaused = false;
+
+  function audioPlay() {
+    if (isPaused) {
+      isPaused  = false;
+      isPlaying = true;
+      updateUI();
+      if (isSynthPaused) {
+        // Vraie pause synth → resume natif, conserve la position
+        isSynthPaused = false;
+        synth.resume();
+        startKeepAlive();
+        setStatus('Reprise — ' + (sectionIdx+1) + '/' + SECTIONS.length + ' — ' + SECTIONS[sectionIdx].label);
+      } else {
+        // Pause de navigation → on relit la section depuis le début
+        playSection(sectionIdx);
+      }
+      return;
+    }
+    // Départ frais
+    synth.cancel();
+    isSynthPaused = false;
+    isPlaying = true;
+    isPaused  = false;
+    updateUI();
+    playSection(sectionIdx);
+  }
+
+  // ── PAUSE ──
+  function audioPause() {
+    if (!isPlaying) return;
+    synth.pause();           // pause native — conserve la position exacte
+    stopKeepAlive();
+    isSynthPaused = true;    // marque que synth est vraiment en pause
+    isPlaying = false;
+    isPaused  = true;
+    setStatus('En pause — ' + (sectionIdx+1) + '/' + SECTIONS.length);
+    updateUI();
+  }
+
+  // ── Navigation ──
+  function audioGoto(idx) {
+    if (idx < 0 || idx >= SECTIONS.length) return;
+    synth.cancel();
+    stopKeepAlive();
+    isSynthPaused = false;   // pas de vraie pause synth, juste navigation
+    isPlaying  = false;
+    isPaused   = true;
+    sectionIdx = idx;
+    highlightSection(idx);
+    setStatus((idx + 1) + '/' + SECTIONS.length + ' — ' + SECTIONS[idx].label);
+    updateUI();
+  }
+
+  function audioReset() {
+    synth.cancel();
+    stopKeepAlive();
+    isSynthPaused = false;
+    isPlaying  = false;
+    isPaused   = false;
+    sectionIdx = 0;
+    clearHL();
+    setStatus('Prêt');
+    updateUI();
+  }
+
+  // ── Téléchargement Word ──
+  function downloadWord() {
+    if (typeof docx === 'undefined') {
+      alert('Bibliothèque Word non chargée, vérifiez votre connexion.');
+      return;
+    }
+    const lang    = document.getElementById('lang-select').value || 'fr';
+    const isFalcOn = isFALC;
+    const statusEl = document.getElementById('word-status');
+    if (statusEl) {
+      statusEl.style.display = 'block';
+      statusEl.querySelectorAll('[data-lang]').forEach(el => {
+        el.style.display = el.getAttribute('data-lang') === lang ? 'inline' : 'none';
+      });
+    }
+
+    // Labels selon langue
+    const subtitles = {
+      fr: "La newsletter du TND à l'Université de Bordeaux",
+      en: "The NDD newsletter at the University of Bordeaux",
+      es: "El boletín del TNS en la Universidad de Burdeos"
+    };
+    const falcLabels = {
+      fr: "Version Facile à Lire et à Comprendre (FALC)",
+      en: "Easy-to-Read version (FALC)",
+      es: "Versión Fácil de Leer y Comprender (FALC)"
+    };
+
+    setTimeout(() => {
+      try {
+        const { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType } = docx;
+        const children = [];
+        const bodySize  = isFalcOn ? 26 : 20;
+        const titleAlign = AlignmentType.CENTER;
+        const bodyAlign  = isFalcOn ? AlignmentType.LEFT : AlignmentType.JUSTIFIED;
+        const lineSpace  = isFalcOn ? { line: 480, lineRule: "auto" } : { line: 360, lineRule: "auto" };
+
+        // ── Titre ──
+        children.push(new Paragraph({
+          children: [new TextRun({ text: "Les Atyp'Infos #1", bold: true, size: 52, color: "2d2b6b", font: "Arial" })],
+          alignment: titleAlign, spacing: { after: 100 }
+        }));
+        children.push(new Paragraph({
+          children: [new TextRun({ text: subtitles[lang], size: 24, italics: true, color: "3d3a9e", font: "Arial" })],
+          alignment: titleAlign, spacing: { after: isFalcOn ? 200 : 100 }
+        }));
+        if (isFalcOn) {
+          children.push(new Paragraph({
+            children: [new TextRun({ text: falcLabels[lang], size: 22, bold: true, color: "f5883a", font: "Arial" })],
+            alignment: titleAlign, spacing: { after: 400 }
+          }));
+        }
+
+        // ── Sections ──
+        SECTIONS.forEach((sec, idx) => {
+          // Titre de section
+          children.push(new Paragraph({
+            children: [new TextRun({ text: sec.label, bold: true, size: 30, color: "3d3a9e", font: "Arial" })],
+            spacing: { before: 400, after: 120 },
+            border: { bottom: { style: "single", size: 4, color: "3d3a9e", space: 4 } }
+          }));
+
+          if (isFalcOn) {
+            // Contenu FALC : lire les <p> du div data-lang correspondant
+            const falcDiv = document.querySelectorAll('.falc-text')[idx];
+            if (falcDiv) {
+              const langDiv = falcDiv.querySelector('[data-lang="' + lang + '"]');
+              if (langDiv) {
+                langDiv.querySelectorAll('p').forEach(p => {
+                  // Nettoyer le texte (enlever emojis décoratifs si souhaité)
+                  const txt = p.innerText.trim();
+                  if (txt) {
+                    children.push(new Paragraph({
+                      children: [new TextRun({ text: txt, size: bodySize, font: "Arial" })],
+                      alignment: bodyAlign,
+                      spacing: { before: 80, after: 80, ...lineSpace }
+                    }));
+                  }
+                });
+              }
+            }
+          } else {
+            // Contenu normal via getSectionText
+            const text = getSectionText(idx);
+            if (text) {
+              text.split(/\n+/).map(l => l.trim()).filter(Boolean).forEach(line => {
+                children.push(new Paragraph({
+                  children: [new TextRun({ text: line, size: bodySize, font: "Arial" })],
+                  alignment: bodyAlign,
+                  spacing: { before: 40, after: 40, ...lineSpace }
+                }));
+              });
+            }
+          }
+        });
+
+        // ── Pied de page ──
+        children.push(new Paragraph({
+          children: [new TextRun({ text: "bf-atypie.friendly@u-bordeaux.fr  |  atypie-friendly.fr", size: 18, color: "888888", italics: true, font: "Arial" })],
+          alignment: titleAlign, spacing: { before: 400 }
+        }));
+
+        const doc = new Document({
+          sections: [{
+            properties: { page: { size: { width: 11906, height: 16838 }, margin: { top: 1000, right: 1000, bottom: 1000, left: 1000 } } },
+            children
+          }]
+        });
+
+        const filename = 'Les_Atyp_Infos_1' + (isFalcOn ? '_FALC' : '') + '_' + lang.toUpperCase() + '.docx';
+        Packer.toBlob(doc).then(blob => {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url; a.download = filename;
+          document.body.appendChild(a); a.click();
+          document.body.removeChild(a); URL.revokeObjectURL(url);
+          if (statusEl) statusEl.style.display = 'none';
+        });
+
+      } catch(e) {
+        console.error(e);
+        if (statusEl) statusEl.style.display = 'none';
+        alert('Erreur : ' + e.message);
+      }
+    }, 100);
+  }
+
+  // ── Téléchargement PDF ──
+  function downloadPDF() {
+    // Stoppe la lecture audio avant d'imprimer
+    if (isPlaying || isPaused) audioReset();
+    // Retire la surbrillance
+    clearHL();
+    // Déclenche la boîte d'impression du navigateur
+    window.print();
+  }
+
+  function setSpeed(val) {
+    audioSpeed = parseFloat(val);
+    document.getElementById('speed-val').textContent = audioSpeed + '×';
+    // Si lecture en cours : annule et relit la section depuis le début avec la nouvelle vitesse
+    if (isPlaying) {
+      synth.cancel();
+      stopKeepAlive();
+      playSection(sectionIdx);
+    }
+  }
+
+  function setStatus(msg) {
+    const el = document.getElementById('audio-status');
+    if (el) el.textContent = msg;
+  }
+
+  function updateNavBtns() {
+    const prev = document.getElementById('btn-prev');
+    const next = document.getElementById('btn-next');
+    if (prev) prev.disabled = sectionIdx === 0;
+    if (next) next.disabled = sectionIdx >= SECTIONS.length - 1;
+  }
+
+  function updateUI() {
+    document.getElementById('btn-play').disabled  = isPlaying;
+    document.getElementById('btn-pause').disabled = !isPlaying;
+    document.getElementById('btn-play').classList.toggle('active',  isPlaying);
+    document.getElementById('btn-pause').classList.toggle('active', isPaused);
+    updateNavBtns();
+    if (!isPlaying && !isPaused) setStatus('Prêt');
+  }
+
+  // ════════════════════════
+  //  ACCESSIBILITÉ
+  // ════════════════════════
+  const sizes = { small: '11px', normal: '13.5px', large: '16.5px' };
+  let isGray = false;
+
+  // Positionne les panneaux en cascade
+  function updateFlagActive(lang) {
+    ['fr','en','es'].forEach(l => {
+      const btn = document.getElementById('flag-' + l);
+      if (btn) btn.classList.toggle('active', l === lang);
+    });
+  }
+
+  function isMobile() { return window.innerWidth <= 900; }
+
+  function positionMobile() {
+    const bar   = document.getElementById('a11y-bar-panel');
+    const audio = document.getElementById('audio-panel');
+    if (!audio) return;
+    if (!a11yOpen) {
+      audio.style.display = 'none';
+      return;
+    }
+    // Afficher l'audio et le positionner juste au-dessus de la barre
+    audio.style.display = 'block';
+    audio.style.position = 'fixed';
+    audio.style.left = '0';
+    audio.style.right = '0';
+    audio.style.width = '100%';
+    audio.style.borderLeft = 'none';
+    audio.style.borderRight = 'none';
+    audio.style.borderBottom = 'none';
+    audio.style.borderTop = '1px solid #e0deff';
+    audio.style.borderRadius = '0';
+    audio.style.boxShadow = 'none';
+    audio.style.zIndex = '1048';
+    // Positionner juste au-dessus de la barre d'accessibilité
+    if (bar && bar.classList.contains('open')) {
+      const barRect = bar.getBoundingClientRect();
+      audio.style.bottom = (window.innerHeight - barRect.top) + 'px';
+      audio.style.top = 'auto';
+    }
+  }
+
+  function positionAllPanels() {
+    if (isMobile()) return; // Sur mobile, tout est géré par le CSS responsive
+    const summary   = document.querySelector('.summary-box');
+    const bar       = document.querySelector('.a11y-bar');
+    const audio     = document.getElementById('audio-panel');
+    const pdf       = document.getElementById('pdf-panel');
+    const langFlags = document.getElementById('lang-flags');
+
+    // Rangée drapeaux+bonhomme : alignée avec le haut du sommaire
+    if (summary && langFlags) {
+      langFlags.style.top = summary.getBoundingClientRect().top + 'px';
+    }
+    // Barre accessibilité : sous la rangée drapeaux
+    if (langFlags && bar) {
+      bar.style.top = (langFlags.getBoundingClientRect().bottom + 8) + 'px';
+    }
+    // Audio : visible seulement si menu ouvert, positionné sous la barre
+    if (audio) {
+      if (a11yOpen) {
+        audio.style.display = 'block';
+        const ref = (bar && bar.classList.contains('open')) ? bar : langFlags;
+        if (ref) audio.style.top = (ref.getBoundingClientRect().bottom + 12) + 'px';
+      } else {
+        audio.style.display = 'none';
+      }
+    }
+    // PDF : sous le sommaire (côté droit)
+    if (summary && pdf) {
+      pdf.style.top = (summary.getBoundingClientRect().bottom + 12) + 'px';
+    }
+  }
+
+  // Observer la hauteur du sommaire et de chaque panneau
+  const summaryObserver = new ResizeObserver(() => positionAllPanels());
+  const a11yObserver    = new ResizeObserver(() => positionAllPanels());
+  const audioObserver   = new ResizeObserver(() => positionAllPanels());
+  const flagsObserver   = new ResizeObserver(() => positionAllPanels());
+
+
+  function setSize(s) {
+    document.documentElement.style.fontSize = sizes[s];
+    ['small','normal','large'].forEach(id =>
+      document.getElementById('btn-' + id).classList.toggle('active', id === s)
+    );
+    requestAnimationFrame(() => requestAnimationFrame(positionAllPanels));
+  }
+
+  // ════════════════════════
+  //  TUTORIEL
+  // ════════════════════════
+  let tutoIdx = 0;
+
+  const TUTO_STEPS = [
+    {
+      target: '#btn-small',
+      targetGroup: '.a11y-group',
+      arrow: 'right',
+      title: { fr: '🔤 Taille du texte', en: '🔤 Text size', es: '🔤 Tamaño del texto' },
+      text: {
+        fr: 'Ajustez la taille du texte avec A−, A et A+. Tout le contenu de la page se redimensionne proportionnellement.',
+        en: 'Adjust the text size with A−, A and A+. All page content resizes proportionally.',
+        es: 'Ajusta el tamaño del texto con A−, A y A+. Todo el contenido se redimensiona proporcionalmente.'
+      }
+    },
+    {
+      target: '#btn-gray',
+      arrow: 'right',
+      title: { fr: '🌙 Mode nuit', en: '🌙 Night mode', es: '🌙 Modo noche' },
+      text: {
+        fr: 'Activez le mode nuit pour un fond sombre et un texte clair. Idéal pour réduire la fatigue visuelle.',
+        en: 'Enable night mode for a dark background and light text. Ideal to reduce eye strain.',
+        es: 'Activa el modo noche para un fondo oscuro y texto claro. Ideal para reducir la fatiga visual.'
+      }
+    },
+    {
+      target: '#btn-falc',
+      arrow: 'right',
+      title: { fr: '🧩 Mode FALC', en: '🧩 FALC mode', es: '🧩 Modo FALC' },
+      text: {
+        fr: 'Le mode FALC simplifie la mise en page et le texte. Phrases courtes, police agrandie, une seule colonne.',
+        en: 'FALC mode simplifies the layout and text. Short sentences, larger font, single column.',
+        es: 'El modo FALC simplifica el diseño y el texto. Frases cortas, fuente grande, una sola columna.'
+      }
+    },
+    {
+      target: '#btn-falc-info',
+      arrow: 'right',
+      title: { fr: 'ⓘ Info FALC', en: 'ⓘ FALC info', es: 'ⓘ Info FALC' },
+      text: {
+        fr: "Survolez ou cliquez sur ce bouton pour afficher le détail de toutes les fonctionnalités du mode FALC.",
+        en: 'Hover or click this button to display all FALC mode features in detail.',
+        es: 'Pasa el ratón o haz clic en este botón para ver en detalle las funciones del modo FALC.'
+      }
+    },
+    {
+      target: '.lang-flags',
+      arrow: 'right',
+      title: { fr: '🌍 Langue', en: '🌍 Language', es: '🌍 Idioma' },
+      text: {
+        fr: 'Changez la langue avec les drapeaux : français, anglais ou espagnol. Tout le contenu bascule automatiquement.',
+        en: 'Change the language using the flags: French, English or Spanish. All content switches automatically.',
+        es: 'Cambie el idioma con las banderas: francés, inglés o español. Todo el contenido cambia automáticamente.'
+      }
+    },
+
+    {
+      target: '.a11y-btn.reset',
+      arrow: 'right',
+      title: { fr: '↺ Réinitialiser', en: '↺ Reset', es: '↺ Reiniciar' },
+      text: {
+        fr: "Ce bouton remet toutes les options à leur valeur par défaut : taille normale, couleurs, français, sans FALC.",
+        en: 'This button resets all options to their default: normal size, colours, French, no FALC.',
+        es: 'Este botón restablece todas las opciones: tamaño normal, colores, francés, sin FALC.'
+      }
+    },
+    {
+      target: '#bg-beige',
+      arrow: 'right',
+      title: { fr: '🎨 Couleur de fond', en: '🎨 Background colour', es: '🎨 Color de fondo' },
+      text: {
+        fr: "Changez la couleur de fond pour réduire la fatigue visuelle. Beige, bleu, jaune ou vert : choisissez ce qui vous convient le mieux.",
+        en: "Change the background colour to reduce eye strain. Beige, blue, yellow or green: choose what suits you best.",
+        es: "Cambie el color de fondo para reducir la fatiga visual. Beige, azul, amarillo o verde: elija el que más le convenga."
+      }
+    },
+    {
+      target: '#btn-dyslexic',
+      arrow: 'right',
+      title: { fr: '𝖽 Police dyslexie', en: '𝖽 Dyslexia font', es: '𝖽 Fuente dislexia' },
+      text: {
+        fr: "Active la police OpenDyslexic, spécialement conçue pour faciliter la lecture des personnes dyslexiques.",
+        en: "Activates the OpenDyslexic font, specially designed to make reading easier for people with dyslexia.",
+        es: "Activa la fuente OpenDyslexic, especialmente diseñada para facilitar la lectura a personas con dislexia."
+      }
+    },
+    {
+      target: '#btn-spacing',
+      arrow: 'right',
+      title: { fr: '↔ Espacement+', en: '↔ Spacing+', es: '↔ Espaciado+' },
+      text: {
+        fr: "Augmente l'espacement entre les lettres, les mots et les lignes pour faciliter la lecture.",
+        en: "Increases the spacing between letters, words and lines to make reading easier.",
+        es: "Aumenta el espacio entre letras, palabras y líneas para facilitar la lectura."
+      }
+    },
+    {
+      target: '#btn-ruler',
+      arrow: 'right',
+      title: { fr: '📏 Règle de lecture', en: '📏 Reading ruler', es: '📏 Regla de lectura' },
+      text: {
+        fr: "Une ligne de couleur suit votre souris pour vous aider à ne pas perdre votre ligne. Très utile pour le TDAH et la dyslexie.",
+        en: "A coloured line follows your mouse to help you keep track of your line. Very useful for ADHD and dyslexia.",
+        es: "Una línea de color sigue su ratón para ayudarle a no perder la línea. Muy útil para el TDAH y la dislexia."
+      }
+    },
+    {
+      target: '.bookmark-btn',
+      arrow: 'right',
+      title: { fr: '🔖 Marque-page', en: '🔖 Bookmark', es: '🔖 Marcador' },
+      text: {
+        fr: "Marquez les sections qui vous intéressent. Un 🔖 apparaît dans le sommaire pour y revenir facilement.",
+        en: "Bookmark the sections that interest you. A 🔖 appears in the contents for easy navigation back.",
+        es: "Marque las secciones que le interesen. Aparece un 🔖 en el índice para volver fácilmente."
+      }
+    },
+    {
+      target: '.summary-box',
+      arrow: 'left',
+      title: { fr: '📋 Sommaire', en: '📋 Contents', es: '📋 Índice' },
+      text: {
+        fr: "Cliquez sur un titre du sommaire pour accéder directement à la section correspondante.",
+        en: 'Click a title in the contents to jump directly to the corresponding section.',
+        es: 'Haz clic en un título del índice para ir directamente a la sección correspondiente.'
+      }
+    },
+    {
+      target: '#audio-panel',
+      arrow: 'right',
+      title: { fr: '🎧 Lecture audio', en: '🎧 Audio reader', es: '🎧 Lectura audio' },
+      text: {
+        fr: 'Écoutez la newsletter à voix haute. Naviguez section par section avec ◀ ▶, ajustez la vitesse et mettez en pause.',
+        en: 'Listen to the newsletter read aloud. Navigate section by section with ◀ ▶, adjust speed and pause.',
+        es: 'Escucha el boletín en voz alta. Navega sección por sección con ◀ ▶, ajusta la velocidad y pausa.'
+      }
+    },
+    {
+      target: '#pdf-panel',
+      arrow: 'left',
+      title: { fr: '📄 Télécharger', en: '📄 Download', es: '📄 Descargar' },
+      text: {
+        fr: "Téléchargez la newsletter en PDF ou en Word. Le fichier s'adapte à la langue et au mode FALC actifs.",
+        en: 'Download the newsletter as PDF or Word. The file adapts to the active language and FALC mode.',
+        es: 'Descarga el boletín en PDF o Word. El archivo se adapta al idioma y al modo FALC activos.'
+      }
+    },
+  ];
+
+  function startTuto() {
+    tutoIdx = 0;
+    if (!a11yOpen) toggleA11yPanel();
+    document.getElementById('tuto-overlay').classList.add('active');
+    renderTutoStep();
+  }
+
+  function endTuto() {
+    document.getElementById('tuto-overlay').classList.remove('active');
+    document.querySelectorAll('.tuto-focused').forEach(el => el.classList.remove('tuto-focused'));
+  }
+
+  function tutoStep(dir) {
+    tutoIdx = Math.max(0, Math.min(TUTO_STEPS.length - 1, tutoIdx + dir));
+    renderTutoStep();
+  }
+
+  function renderTutoStep() {
+    const step   = TUTO_STEPS[tutoIdx];
+    const lang   = document.getElementById('lang-select').value || 'fr';
+    const target = document.querySelector(step.target);
+    if (!target) { tutoStep(1); return; }
+
+    const rect   = target.getBoundingClientRect();
+    const pad    = 8;
+    const top    = rect.top    - pad;
+    const left   = rect.left   - pad;
+    const right  = rect.right  + pad;
+    const bottom = rect.bottom + pad;
+    const W = window.innerWidth;
+    const H = window.innerHeight;
+
+    // Position the 4 dark panels
+    const pTop    = document.getElementById('tuto-p-top');
+    const pBottom = document.getElementById('tuto-p-bottom');
+    const pLeft   = document.getElementById('tuto-p-left');
+    const pRight  = document.getElementById('tuto-p-right');
+
+    pTop.style.cssText    = `top:0; left:0; right:0; height:${top}px;`;
+    pBottom.style.cssText = `top:${bottom}px; left:0; right:0; bottom:0;`;
+    pLeft.style.cssText   = `top:${top}px; left:0; width:${left}px; height:${bottom-top}px;`;
+    pRight.style.cssText  = `top:${top}px; left:${right}px; right:0; height:${bottom-top}px;`;
+
+    // Highlight border
+    const hl = document.getElementById('tuto-highlight');
+    hl.style.cssText = `top:${top}px; left:${left}px; width:${right-left}px; height:${bottom-top}px;`;
+
+    // Bubble
+    const bubble = document.getElementById('tuto-bubble');
+    bubble.className = 'tuto-bubble' + (isGray ? ' night' : '');
+
+    // Position bubble
+    const bw = 256; // bubble width + margin
+    let bLeft, bTop;
+    const arrow = step.arrow || 'right';
+
+    if (arrow === 'right') {
+      bLeft = right + 14;
+      bTop  = top;
+      bubble.classList.add('arrow-left');
+    } else if (arrow === 'left') {
+      bLeft = left - bw - 14;
+      bTop  = top;
+      bubble.classList.add('arrow-right');
+    } else if (arrow === 'bottom') {
+      bLeft = left;
+      bTop  = top - 160;
+      bubble.classList.add('arrow-bottom');
+    } else {
+      bLeft = left;
+      bTop  = bottom + 14;
+      bubble.classList.add('arrow-top');
+    }
+
+    // Keep bubble within viewport
+    bLeft = Math.max(10, Math.min(W - bw - 10, bLeft));
+    bTop  = Math.max(10, Math.min(H - 200, bTop));
+
+    bubble.style.left = bLeft + 'px';
+    bubble.style.top  = bTop  + 'px';
+
+    // Content
+    document.getElementById('tuto-title').textContent = step.title[lang] || step.title.fr;
+    document.getElementById('tuto-text').textContent  = step.text[lang]  || step.text.fr;
+    document.getElementById('tuto-counter').textContent = (tutoIdx + 1) + ' / ' + TUTO_STEPS.length;
+
+    // Nav buttons
+    document.getElementById('tuto-prev').disabled = tutoIdx === 0;
+    const nextBtn = document.getElementById('tuto-next');
+    nextBtn.textContent = tutoIdx === TUTO_STEPS.length - 1
+      ? (lang === 'fr' ? 'Terminer ✓' : lang === 'en' ? 'Finish ✓' : 'Terminar ✓')
+      : '→';
+    nextBtn.onclick = tutoIdx === TUTO_STEPS.length - 1
+      ? endTuto
+      : () => tutoStep(1);
+
+    // Apply lang to skip button
+    bubble.querySelectorAll('[data-lang]').forEach(el => {
+      el.style.display = el.getAttribute('data-lang') === lang ? 'inline' : 'none';
+    });
+
+    // Scroll target into view smoothly
+    target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && a11yOpen) { toggleA11yPanel(); return; }
+    if (!document.getElementById('tuto-overlay').classList.contains('active')) return;
+    if (e.key === 'ArrowRight' || e.key === 'Enter') tutoStep(1);
+    if (e.key === 'ArrowLeft')  tutoStep(-1);
+    if (e.key === 'Escape')     endTuto();
+  });
+
+  // ── Popup info FALC ──
+  let falcPopupPinned = false; // true = ouvert par clic, pas juste survol
+
+  function positionFalcPopup() {
+    const popup = document.getElementById('falc-popup');
+    const btn   = document.getElementById('btn-falc-info');
+    const rect  = btn.getBoundingClientRect();
+    popup.style.left = (rect.right + 8) + 'px';
+    popup.style.top  = rect.top + 'px';
+    if (isGray) popup.classList.add('night');
+    else popup.classList.remove('night');
+  }
+
+  function showFalcPopup(event) {
+    positionFalcPopup();
+    document.getElementById('falc-popup').classList.add('visible');
+  }
+
+  function hideFalcPopup(event) {
+    // Ne ferme pas si le popup est épinglé par clic
+    if (!falcPopupPinned) {
+      const popup = document.getElementById('falc-popup');
+      // Vérifie qu'on ne survole pas le popup lui-même
+      const related = event.relatedTarget;
+      if (related && popup.contains(related)) return;
+      popup.classList.remove('visible');
+    }
+  }
+
+  function toggleFalcPopup(event) {
+    event.stopPropagation();
+    falcPopupPinned = !falcPopupPinned;
+    positionFalcPopup();
+    const popup = document.getElementById('falc-popup');
+    popup.classList.toggle('visible', falcPopupPinned);
+  }
+
+  function closeFalcPopup() {
+    falcPopupPinned = false;
+    document.getElementById('falc-popup').classList.remove('visible');
+  }
+
+  // Ferme si clic en dehors
+  document.addEventListener('click', (e) => {
+    const popup = document.getElementById('falc-popup');
+    const btn   = document.getElementById('btn-falc-info');
+    if (popup && !popup.contains(e.target) && e.target !== btn) {
+      falcPopupPinned = false;
+      popup.classList.remove('visible');
+    }
+  });
+
+  // Garde le popup visible quand on le survole (depuis le bouton)
+  document.addEventListener('DOMContentLoaded', () => {
+    setLang('fr');
+    updateFlagActive('fr');
+    positionAllPanels();
+    requestAnimationFrame(() => requestAnimationFrame(positionAllPanels));
+    const summary = document.querySelector('.summary-box');
+    if (summary) summaryObserver.observe(summary);
+    const bar = document.querySelector('.a11y-bar');
+    if (bar) a11yObserver.observe(bar);
+    const audio = document.getElementById('audio-panel');
+    if (audio) audioObserver.observe(audio);
+    const flags = document.getElementById('lang-flags');
+    if (flags) flagsObserver.observe(flags);
+    updateUI();
+    setBg('default');
+    initQuiz();
+  });
+
+  window.addEventListener('resize', () => {
+    if (isMobile()) positionMobile();
+    else positionAllPanels();
+  });
+
+
+
+
+  // ════════════════════════
+  //  PANNEAU ACCESSIBILITÉ
+  // ════════════════════════
+  let a11yOpen = false;
+  function toggleA11yPanel() {
+    a11yOpen = !a11yOpen;
+    const panel = document.getElementById('a11y-bar-panel');
+    if (panel) panel.classList.toggle('open', a11yOpen);
+    const btn = document.getElementById('a11y-toggle');
+    if (btn) btn.classList.toggle('active', a11yOpen);
+    // Si on ferme le menu, enlever le surlignage
+    if (!a11yOpen) clearHL();
+    if (!isMobile()) {
+      positionAllPanels();
+      setTimeout(positionAllPanels, 50);
+    } else {
+      positionMobile();
+    }
+  }
+
+  // ════════════════════════
+  //  COULEUR DE FOND
+  // ════════════════════════
+  let currentBg = 'default';
+  function setBg(color) {
+    const bgs = ['default','beige','blue','yellow'];
+    bgs.forEach(b => {
+      document.body.classList.remove('bg-' + b);
+      const sw = document.getElementById('bg-' + b);
+      if (sw) sw.style.border = '1.5px solid #c5c2f0';
+    });
+    if (color !== 'default') document.body.classList.add('bg-' + color);
+    currentBg = color;
+    const sw = document.getElementById('bg-' + color);
+    if (sw) sw.style.border = '2.5px solid #f5883a';
+  }
+
+  // ════════════════════════
+  //  POLICE OPENDYSLEXIC
+  // ════════════════════════
+  let isDyslexic = false;
+  function toggleDyslexic() {
+    isDyslexic = !isDyslexic;
+    document.body.classList.toggle('dyslexic', isDyslexic);
+    const btn = document.getElementById('btn-dyslexic');
+    if (btn) btn.classList.toggle('active', isDyslexic);
+  }
+
+  // ════════════════════════
+  //  ESPACEMENT
+  // ════════════════════════
+  let isSpacing = false;
+  function toggleSpacing() {
+    isSpacing = !isSpacing;
+    document.body.classList.toggle('spacing-high', isSpacing);
+    const btn = document.getElementById('btn-spacing');
+    if (btn) btn.classList.toggle('active', isSpacing);
+  }
+
+  // ════════════════════════
+  //  RÈGLE DE LECTURE
+  // ════════════════════════
+  let isRuler = false;
+  function toggleRuler() {
+    isRuler = !isRuler;
+    document.body.classList.toggle('ruler-on', isRuler);
+    const btn = document.getElementById('btn-ruler');
+    if (btn) btn.classList.toggle('active', isRuler);
+  }
+  document.addEventListener('mousemove', (e) => {
+    if (!isRuler) return;
+    const ruler = document.getElementById('reading-ruler');
+    if (ruler) ruler.style.top = (e.clientY - 18) + 'px';
+  });
+
+  // ════════════════════════
+  //  MARQUE-PAGE
+  // ════════════════════════
+  let bookmarks = {};
+  function toggleBookmark(sectionId) {
+    const lang = document.getElementById('lang-select').value || 'fr';
+    const btn  = document.getElementById('bm-' + sectionId);
+    bookmarks[sectionId] = !bookmarks[sectionId];
+    if (btn) btn.classList.toggle('active', bookmarks[sectionId]);
+    const msgs = {
+      fr: bookmarks[sectionId] ? '🔖 Section marquée !' : '🔖 Marque supprimée',
+      en: bookmarks[sectionId] ? '🔖 Section bookmarked!' : '🔖 Bookmark removed',
+      es: bookmarks[sectionId] ? '🔖 Sección marcada!' : '🔖 Marca eliminada'
+    };
+    showBookmarkToast(msgs[lang] || msgs.fr);
+    updateSummaryBookmarks();
+  }
+  function updateSummaryBookmarks() {
+    ['section1','section2','section3','section4','section5','section6'].forEach(sid => {
+      const link = document.querySelector('.summary-box a[href="#' + sid + '"]');
+      if (!link) return;
+      const old = link.querySelector('.bm-dot');
+      if (old) old.remove();
+      if (bookmarks[sid]) {
+        const dot = document.createElement('span');
+        dot.className = 'bm-dot';
+        dot.textContent = ' 🔖';
+        dot.style.cssText = 'font-size:0.8em;';
+        link.appendChild(dot);
+      }
+    });
+  }
+  function showBookmarkToast(msg) {
+    const toast = document.getElementById('bookmark-toast');
+    if (!toast) return;
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+  }
+
+  // ════════════════════════
+  //  MODE FALC
+  // ════════════════════════
+  let isFALC = false;
+  function toggleFALC() {
+    isFALC = !isFALC;
+    document.getElementById('content-wrap').classList.toggle('falc', isFALC);
+    document.body.classList.toggle('falc', isFALC);
+    const btn = document.getElementById('btn-falc');
+    if (btn) btn.classList.toggle('active', isFALC);
+    requestAnimationFrame(() => requestAnimationFrame(positionAllPanels));
+  }
+
+  // ════════════════════════
+  //  MODE NUIT
+  // ════════════════════════
+  // isGray already declared above
+  function toggleGray() {
+    isGray = !isGray;
+    [
+      document.getElementById('content-wrap'),
+      document.querySelector('.summary-box'),
+      document.getElementById('a11y-bar-panel'),
+      document.getElementById('audio-panel'),
+      document.getElementById('pdf-panel'),
+      document.getElementById('falc-popup'),
+      document.getElementById('btn-falc-info')
+    ].forEach(el => { if (el) el.classList.toggle('night', isGray); });
+    document.body.classList.toggle('night', isGray);
+    const btn = document.getElementById('btn-gray');
+    if (btn) btn.classList.toggle('active', isGray);
+    ['fr','en','es'].forEach(l => {
+      const day   = document.getElementById('lbl-day-'   + l);
+      const night = document.getElementById('lbl-night-' + l);
+      if (!day || !night) return;
+      const lang = document.getElementById('lang-select').value || 'fr';
+      if (l === lang) {
+        day.style.display   = isGray ? 'none'   : 'inline';
+        night.style.display = isGray ? 'inline' : 'none';
+      } else {
+        day.style.display = 'none'; night.style.display = 'none';
+      }
+    });
+  }
+
+  // ════════════════════════
+  //  TAILLE DU TEXTE
+  // ════════════════════════
+  // sizes already declared above
+  function setSize(s) {
+    document.documentElement.style.fontSize = sizes[s];
+    ['small','normal','large'].forEach(id => {
+      const btn = document.getElementById('btn-' + id);
+      if (btn) btn.classList.toggle('active', id === s);
+    });
+    requestAnimationFrame(() => requestAnimationFrame(positionAllPanels));
+  }
+
+  // ════════════════════════
+  //  LANGUE
+  // ════════════════════════
+  function setLang(lang) {
+    const sel = document.getElementById('lang-select');
+    if (sel) sel.value = lang;
+    document.querySelectorAll('[data-lang]').forEach(el => {
+      el.style.display = el.getAttribute('data-lang') === lang ? 'inline' : 'none';
+    });
+    document.getElementById('html-root').setAttribute('lang', lang);
+    updateFlagActive(lang);
+    ['fr','en','es'].forEach(l => {
+      const day   = document.getElementById('lbl-day-'   + l);
+      const night = document.getElementById('lbl-night-' + l);
+      if (!day || !night) return;
+      if (l === lang) {
+        day.style.display   = isGray ? 'none'   : 'inline';
+        night.style.display = isGray ? 'inline' : 'none';
+      } else {
+        day.style.display = 'none'; night.style.display = 'none';
+      }
+    });
+  }
+
+  // ════════════════════════
+  //  RÉINITIALISER
+  // ════════════════════════
+  function resetAll() {
+    setSize('normal');
+    if (isGray)     toggleGray();
+    if (isDyslexic) toggleDyslexic();
+    if (isSpacing)  toggleSpacing();
+    if (isRuler)    toggleRuler();
+    if (isFALC)     toggleFALC();
+    setBg('default');
+    bookmarks = {};
+    updateSummaryBookmarks();
+    setLang('fr');
+    audioReset();
+    positionAllPanels();
+  }
+
+  // ════════════════════════
+  //  QUIZ
+  // ════════════════════════
+  const QUIZ_IDS = ['q1', 'q2', 'q3'];
+  let currentQ  = 0;
+  let quizScore = 0;
+
+  function updateProgress() {
+    const fill  = document.getElementById('quiz-progress-fill');
+    const label = document.getElementById('quiz-progress-label');
+    const lang  = document.getElementById('lang-select').value || 'fr';
+    if (fill) fill.style.width = (currentQ / QUIZ_IDS.length * 100) + '%';
+    const labels = { fr: 'Question ' + (currentQ+1) + ' / 3', en: 'Question ' + (currentQ+1) + ' of 3', es: 'Pregunta ' + (currentQ+1) + ' de 3' };
+    if (label) label.textContent = labels[lang] || labels.fr;
+  }
+
+  function answer(qId, btn) {
+    const q = document.getElementById(qId);
+    if (!q || q.dataset.answered) return;
+    q.dataset.answered = '1';
+    const isCorrect = btn.dataset.correct === 'true';
+    const fbId = btn.dataset.fb;
+    const lang = document.getElementById('lang-select').value || 'fr';
+    q.querySelectorAll('.quiz-option').forEach(b => b.classList.add('disabled'));
+    if (isCorrect) {
+      btn.classList.add('correct');
+    } else {
+      btn.classList.add('wrong');
+      q.querySelectorAll('.quiz-option').forEach(b => { if (b.dataset.correct === 'true') b.classList.add('correct'); });
+    }
+    const fb = document.getElementById(fbId);
+    if (fb) { fb.querySelectorAll('[data-lang]').forEach(el => { el.style.display = el.getAttribute('data-lang') === lang ? 'inline' : 'none'; }); fb.classList.add('show'); }
+    if (isCorrect) quizScore++;
+    const nextBtn = document.getElementById('quiz-next');
+    if (currentQ < QUIZ_IDS.length - 1) {
+      if (nextBtn) { nextBtn.querySelectorAll('[data-lang]').forEach(el => { el.style.display = el.getAttribute('data-lang') === lang ? 'inline' : 'none'; }); nextBtn.style.display = 'block'; }
+    } else {
+      if (nextBtn) nextBtn.style.display = 'none';
+      setTimeout(showQuizScore, 600);
+    }
+  }
+
+  function nextQuestion() {
+    currentQ++;
+    document.getElementById('quiz-next').style.display = 'none';
+    document.getElementById(QUIZ_IDS[currentQ-1]).style.display = 'none';
+    const next = document.getElementById(QUIZ_IDS[currentQ]);
+    if (next) { next.style.display = 'block'; }
+    updateProgress();
+    const lang = document.getElementById('lang-select').value || 'fr';
+    if (next) next.querySelectorAll('[data-lang]').forEach(el => { el.style.display = el.getAttribute('data-lang') === lang ? 'inline' : 'none'; });
+  }
+
+  function showQuizScore() {
+    const lang = document.getElementById('lang-select').value || 'fr';
+    const scoreEl = document.getElementById('quiz-score');
+    const resetEl = document.getElementById('quiz-reset');
+    const fill = document.getElementById('quiz-progress-fill');
+    if (fill) fill.style.width = '100%';
+    const msgs = {
+      fr: ['🌟 Score parfait ! Vous maîtrisez Atypie-Friendly !', '👍 Bien joué ! Vous avez bien lu la newsletter !', '📖 Relisez la newsletter pour tout retenir.'],
+      en: ['🌟 Perfect score! You know Atypie-Friendly!', '👍 Well done! You read the newsletter carefully!', '📖 Re-read the newsletter to remember everything.'],
+      es: ['🌟 ¡Puntuación perfecta!', '👍 ¡Bien hecho!', '📖 Vuelve a leer el boletín.']
+    };
+    const idx = quizScore === 3 ? 0 : quizScore === 2 ? 1 : 2;
+    if (scoreEl) { scoreEl.textContent = (msgs[lang]||msgs.fr)[idx] + ' (' + quizScore + '/3)'; scoreEl.classList.add('show'); }
+    if (resetEl) { resetEl.querySelectorAll('[data-lang]').forEach(el => { el.style.display = el.getAttribute('data-lang') === lang ? 'inline' : 'none'; }); resetEl.classList.add('show'); }
+  }
+
+  function resetQuiz() {
+    currentQ = 0; quizScore = 0;
+    QUIZ_IDS.forEach((qId, i) => {
+      const q = document.getElementById(qId);
+      if (!q) return;
+      delete q.dataset.answered;
+      q.style.display = i === 0 ? 'block' : 'none';
+      q.querySelectorAll('.quiz-option').forEach(b => b.classList.remove('correct','wrong','disabled'));
+      q.querySelectorAll('.quiz-feedback').forEach(fb => fb.classList.remove('show'));
+    });
+    document.getElementById('quiz-score').classList.remove('show');
+    document.getElementById('quiz-reset').classList.remove('show');
+    const nextBtn = document.getElementById('quiz-next');
+    if (nextBtn) nextBtn.style.display = 'none';
+    document.getElementById('quiz-progress-fill').style.width = '0%';
+    updateProgress();
+    initQuiz();
+  }
+
+  function initQuiz() {
+    QUIZ_IDS.forEach(qId => {
+      const q = document.getElementById(qId);
+      if (!q) return;
+      q.querySelectorAll('.quiz-option').forEach(btn => {
+        btn.onclick = () => answer(qId, btn);
+      });
+    });
+    updateProgress();
+  }
+
+  // Keyboard nav for tuto
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && a11yOpen) { toggleA11yPanel(); return; }
+    if (!document.getElementById('tuto-overlay').classList.contains('active')) return;
+    if (e.key === 'ArrowRight' || e.key === 'Enter') tutoStep(1);
+    if (e.key === 'ArrowLeft') tutoStep(-1);
+    if (e.key === 'Escape') endTuto();
+  });
+
+  // Le menu se ferme uniquement via le bouton bonhomme
+
+</script>
+</body>
+</html><div class="mobile-top-panels">
+
+
+<!-- ── PANNEAU PDF ── -->
+<div class="pdf-panel" id="pdf-panel">
+  <span class="a11y-label">
+    <span data-lang="fr">📄 Télécharger</span>
+    <span data-lang="en">📄 Download</span>
+    <span data-lang="es">📄 Descargar</span>
+  </span>
+  <button class="pdf-btn" onclick="downloadPDF()">
+    <span data-lang="fr">⬇ Sauvegarder en PDF</span>
+    <span data-lang="en">⬇ Save as PDF</span>
+    <span data-lang="es">⬇ Guardar como PDF</span>
+  </button>
+  <p class="pdf-tip">
+    <span data-lang="fr">Dans la boîte d'impression, choisissez « Enregistrer en PDF »</span>
+    <span data-lang="en">In the print dialog, choose "Save as PDF"</span>
+    <span data-lang="es">En el diálogo de impresión, elija «Guardar como PDF»</span>
+  </p>
+  <button class="pdf-btn" style="margin-top:6px;" onclick="downloadWord()">
+    ⬇ Word (.docx)
+  </button>
+  <div id="word-status" class="pdf-tip" style="display:none; color:#3d3a9e; margin-top:4px;">
+    <span data-lang="fr">⏳ Génération…</span>
+    <span data-lang="en">⏳ Generating…</span>
+    <span data-lang="es">⏳ Generando…</span>
+  </div>
+</div>
+</div><!-- /mobile-top-panels -->
 
 <!-- ── HEADER ── -->
 <div id="content-wrap">
@@ -1589,1109 +3569,6 @@
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // ════════════════════════════
-  //  AUDIO — section par section
-  //  Pause/Resume natif + keepalive
-  // ════════════════════════════
-
-  const synth = window.speechSynthesis;
-
-  // Toutes les sections du document
-  const SECTIONS = [
-    { id: null,       label: 'Éditorial' },
-    { id: 'section1', label: 'Transition' },
-    { id: 'section2', label: 'Pédagogie' },
-    { id: 'section3', label: 'Formations' },
-    { id: 'section4', label: 'Vie étudiante' },
-    { id: 'section5', label: 'Insertion pro' },
-    { id: 'section6', label: 'Recherche' },
-  ];
-
-  let sectionIdx  = 0;
-  let isPlaying   = false;
-  let isPaused    = false;
-  let audioSpeed  = 1;
-  let keepAlive   = null;
-  let hlEls       = [];   // éléments surlignés
-
-  // ── Keepalive : Chrome tue la synthèse après ~15s ──
-  function startKeepAlive() {
-    stopKeepAlive();
-    keepAlive = setInterval(() => {
-      if (synth.speaking && !synth.paused) {
-        synth.pause();
-        setTimeout(() => synth.resume(), 50);
-      }
-    }, 12000);
-  }
-  function stopKeepAlive() {
-    if (keepAlive) { clearInterval(keepAlive); keepAlive = null; }
-  }
-
-  // ── Texte d'une section — ne lit que ce qui est visible ──
-  function getSectionText(idx) {
-    const lang = document.getElementById('lang-select').value || 'fr';
-    let nodes = [];
-    if (idx === 0) {
-      const page = document.querySelector('.page');
-      if (!page) return '';
-      for (const child of page.children) {
-        if (child.id === 'section1') break;
-        nodes.push(child);
-      }
-    } else {
-      const title = document.getElementById(SECTIONS[idx].id);
-      if (!title) return '';
-      nodes.push(title);
-      let n = title.nextElementSibling;
-      while (n) {
-        if (n.classList.contains('section-title') ||
-            n.tagName === 'svg' || n.tagName === 'SVG' ||
-            n.tagName === 'HR') break;
-        nodes.push(n);
-        n = n.nextElementSibling;
-      }
-    }
-    let text = '';
-    nodes.forEach(node => {
-      const style = window.getComputedStyle(node);
-      if (style.display === 'none' || style.visibility === 'hidden') return;
-      const clone = node.cloneNode(true);
-      clone.querySelectorAll('[data-lang]').forEach(el => {
-        if (el.getAttribute('data-lang') !== lang) el.remove();
-      });
-      clone.querySelectorAll('a.wave-btn, .summary-box, .a11y-bar, .audio-panel, .bookmark-btn, .quiz-section').forEach(el => el.remove());
-      if (isFALC) {
-        clone.querySelectorAll('.normal-text').forEach(el => el.remove());
-      } else {
-        clone.querySelectorAll('.falc-text, .falc-icon').forEach(el => el.remove());
-      }
-      const t = clone.innerText.replace(/\s+/g, ' ').trim();
-      if (t) text += ' ' + t;
-    });
-    return text.replace(/\s+/g, ' ').trim();
-  }
-
-  // ── Surbrillance ──
-  function clearHL() {
-    hlEls.forEach(e => e.classList.remove('reading-highlight'));
-    hlEls = [];
-  }
-  function highlightSection(idx) {
-    clearHL();
-    let nodes = [];
-    if (idx === 0) {
-      const page = document.querySelector('.page');
-      if (page) for (const c of page.children) {
-        if (c.id === 'section1') break;
-        nodes.push(c);
-      }
-    } else {
-      const title = document.getElementById(SECTIONS[idx].id);
-      if (title) {
-        nodes.push(title);
-        let n = title.nextElementSibling;
-        while (n) {
-          if (n.classList.contains('section-title') ||
-              n.tagName === 'svg' || n.tagName === 'SVG' ||
-              n.tagName === 'HR') break;
-          nodes.push(n);
-          n = n.nextElementSibling;
-        }
-      }
-    }
-    nodes.forEach(n => { n.classList.add('reading-highlight'); hlEls.push(n); });
-    if (nodes[0]) nodes[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  // ── Lit une section puis enchaîne ──
-  function playSection(idx) {
-    if (idx >= SECTIONS.length) { audioReset(); return; }
-    sectionIdx = idx;
-    highlightSection(idx);
-    setStatus((idx + 1) + '/' + SECTIONS.length + ' — ' + SECTIONS[idx].label);
-    updateNavBtns();
-
-    const text = getSectionText(idx);
-    if (!text) { playSection(idx + 1); return; }
-
-    const lang = document.getElementById('lang-select').value || 'fr';
-    const utt = new SpeechSynthesisUtterance(text);
-    utt.rate = audioSpeed;
-    utt.lang = lang === 'en' ? 'en-GB' : lang === 'es' ? 'es-ES' : 'fr-FR';
-    utt.onend = () => {
-      stopKeepAlive();
-      if (isPlaying && !isPaused) playSection(idx + 1);
-    };
-    utt.onerror = (e) => {
-      if (e.error !== 'interrupted' && e.error !== 'canceled') {
-        stopKeepAlive(); audioReset();
-      }
-    };
-    synth.speak(utt);
-    startKeepAlive();
-  }
-
-  // ── PLAY ──
-  // isSynthPaused = true  → vraie pause synth, on fait resume()
-  // isSynthPaused = false → pause de navigation (audioGoto), on lance playSection()
-  let isSynthPaused = false;
-
-  function audioPlay() {
-    if (isPaused) {
-      isPaused  = false;
-      isPlaying = true;
-      updateUI();
-      if (isSynthPaused) {
-        // Vraie pause synth → resume natif, conserve la position
-        isSynthPaused = false;
-        synth.resume();
-        startKeepAlive();
-        setStatus('Reprise — ' + (sectionIdx+1) + '/' + SECTIONS.length + ' — ' + SECTIONS[sectionIdx].label);
-      } else {
-        // Pause de navigation → on relit la section depuis le début
-        playSection(sectionIdx);
-      }
-      return;
-    }
-    // Départ frais
-    synth.cancel();
-    isSynthPaused = false;
-    isPlaying = true;
-    isPaused  = false;
-    updateUI();
-    playSection(sectionIdx);
-  }
-
-  // ── PAUSE ──
-  function audioPause() {
-    if (!isPlaying) return;
-    synth.pause();           // pause native — conserve la position exacte
-    stopKeepAlive();
-    isSynthPaused = true;    // marque que synth est vraiment en pause
-    isPlaying = false;
-    isPaused  = true;
-    setStatus('En pause — ' + (sectionIdx+1) + '/' + SECTIONS.length);
-    updateUI();
-  }
-
-  // ── Navigation ──
-  function audioGoto(idx) {
-    if (idx < 0 || idx >= SECTIONS.length) return;
-    synth.cancel();
-    stopKeepAlive();
-    isSynthPaused = false;   // pas de vraie pause synth, juste navigation
-    isPlaying  = false;
-    isPaused   = true;
-    sectionIdx = idx;
-    highlightSection(idx);
-    setStatus((idx + 1) + '/' + SECTIONS.length + ' — ' + SECTIONS[idx].label);
-    updateUI();
-  }
-
-  function audioReset() {
-    synth.cancel();
-    stopKeepAlive();
-    isSynthPaused = false;
-    isPlaying  = false;
-    isPaused   = false;
-    sectionIdx = 0;
-    clearHL();
-    setStatus('Prêt');
-    updateUI();
-  }
-
-  // ── Téléchargement Word ──
-  function downloadWord() {
-    if (typeof docx === 'undefined') {
-      alert('Bibliothèque Word non chargée, vérifiez votre connexion.');
-      return;
-    }
-    const lang    = document.getElementById('lang-select').value || 'fr';
-    const isFalcOn = isFALC;
-    const statusEl = document.getElementById('word-status');
-    if (statusEl) {
-      statusEl.style.display = 'block';
-      statusEl.querySelectorAll('[data-lang]').forEach(el => {
-        el.style.display = el.getAttribute('data-lang') === lang ? 'inline' : 'none';
-      });
-    }
-
-    // Labels selon langue
-    const subtitles = {
-      fr: "La newsletter du TND à l'Université de Bordeaux",
-      en: "The NDD newsletter at the University of Bordeaux",
-      es: "El boletín del TNS en la Universidad de Burdeos"
-    };
-    const falcLabels = {
-      fr: "Version Facile à Lire et à Comprendre (FALC)",
-      en: "Easy-to-Read version (FALC)",
-      es: "Versión Fácil de Leer y Comprender (FALC)"
-    };
-
-    setTimeout(() => {
-      try {
-        const { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType } = docx;
-        const children = [];
-        const bodySize  = isFalcOn ? 26 : 20;
-        const titleAlign = AlignmentType.CENTER;
-        const bodyAlign  = isFalcOn ? AlignmentType.LEFT : AlignmentType.JUSTIFIED;
-        const lineSpace  = isFalcOn ? { line: 480, lineRule: "auto" } : { line: 360, lineRule: "auto" };
-
-        // ── Titre ──
-        children.push(new Paragraph({
-          children: [new TextRun({ text: "Les Atyp'Infos #1", bold: true, size: 52, color: "2d2b6b", font: "Arial" })],
-          alignment: titleAlign, spacing: { after: 100 }
-        }));
-        children.push(new Paragraph({
-          children: [new TextRun({ text: subtitles[lang], size: 24, italics: true, color: "3d3a9e", font: "Arial" })],
-          alignment: titleAlign, spacing: { after: isFalcOn ? 200 : 100 }
-        }));
-        if (isFalcOn) {
-          children.push(new Paragraph({
-            children: [new TextRun({ text: falcLabels[lang], size: 22, bold: true, color: "f5883a", font: "Arial" })],
-            alignment: titleAlign, spacing: { after: 400 }
-          }));
-        }
-
-        // ── Sections ──
-        SECTIONS.forEach((sec, idx) => {
-          // Titre de section
-          children.push(new Paragraph({
-            children: [new TextRun({ text: sec.label, bold: true, size: 30, color: "3d3a9e", font: "Arial" })],
-            spacing: { before: 400, after: 120 },
-            border: { bottom: { style: "single", size: 4, color: "3d3a9e", space: 4 } }
-          }));
-
-          if (isFalcOn) {
-            // Contenu FALC : lire les <p> du div data-lang correspondant
-            const falcDiv = document.querySelectorAll('.falc-text')[idx];
-            if (falcDiv) {
-              const langDiv = falcDiv.querySelector('[data-lang="' + lang + '"]');
-              if (langDiv) {
-                langDiv.querySelectorAll('p').forEach(p => {
-                  // Nettoyer le texte (enlever emojis décoratifs si souhaité)
-                  const txt = p.innerText.trim();
-                  if (txt) {
-                    children.push(new Paragraph({
-                      children: [new TextRun({ text: txt, size: bodySize, font: "Arial" })],
-                      alignment: bodyAlign,
-                      spacing: { before: 80, after: 80, ...lineSpace }
-                    }));
-                  }
-                });
-              }
-            }
-          } else {
-            // Contenu normal via getSectionText
-            const text = getSectionText(idx);
-            if (text) {
-              text.split(/\n+/).map(l => l.trim()).filter(Boolean).forEach(line => {
-                children.push(new Paragraph({
-                  children: [new TextRun({ text: line, size: bodySize, font: "Arial" })],
-                  alignment: bodyAlign,
-                  spacing: { before: 40, after: 40, ...lineSpace }
-                }));
-              });
-            }
-          }
-        });
-
-        // ── Pied de page ──
-        children.push(new Paragraph({
-          children: [new TextRun({ text: "bf-atypie.friendly@u-bordeaux.fr  |  atypie-friendly.fr", size: 18, color: "888888", italics: true, font: "Arial" })],
-          alignment: titleAlign, spacing: { before: 400 }
-        }));
-
-        const doc = new Document({
-          sections: [{
-            properties: { page: { size: { width: 11906, height: 16838 }, margin: { top: 1000, right: 1000, bottom: 1000, left: 1000 } } },
-            children
-          }]
-        });
-
-        const filename = 'Les_Atyp_Infos_1' + (isFalcOn ? '_FALC' : '') + '_' + lang.toUpperCase() + '.docx';
-        Packer.toBlob(doc).then(blob => {
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url; a.download = filename;
-          document.body.appendChild(a); a.click();
-          document.body.removeChild(a); URL.revokeObjectURL(url);
-          if (statusEl) statusEl.style.display = 'none';
-        });
-
-      } catch(e) {
-        console.error(e);
-        if (statusEl) statusEl.style.display = 'none';
-        alert('Erreur : ' + e.message);
-      }
-    }, 100);
-  }
-
-  // ── Téléchargement PDF ──
-  function downloadPDF() {
-    // Stoppe la lecture audio avant d'imprimer
-    if (isPlaying || isPaused) audioReset();
-    // Retire la surbrillance
-    clearHL();
-    // Déclenche la boîte d'impression du navigateur
-    window.print();
-  }
-
-  function setSpeed(val) {
-    audioSpeed = parseFloat(val);
-    document.getElementById('speed-val').textContent = audioSpeed + '×';
-    // Si lecture en cours : annule et relit la section depuis le début avec la nouvelle vitesse
-    if (isPlaying) {
-      synth.cancel();
-      stopKeepAlive();
-      playSection(sectionIdx);
-    }
-  }
-
-  function setStatus(msg) {
-    const el = document.getElementById('audio-status');
-    if (el) el.textContent = msg;
-  }
-
-  function updateNavBtns() {
-    const prev = document.getElementById('btn-prev');
-    const next = document.getElementById('btn-next');
-    if (prev) prev.disabled = sectionIdx === 0;
-    if (next) next.disabled = sectionIdx >= SECTIONS.length - 1;
-  }
-
-  function updateUI() {
-    document.getElementById('btn-play').disabled  = isPlaying;
-    document.getElementById('btn-pause').disabled = !isPlaying;
-    document.getElementById('btn-play').classList.toggle('active',  isPlaying);
-    document.getElementById('btn-pause').classList.toggle('active', isPaused);
-    updateNavBtns();
-    if (!isPlaying && !isPaused) setStatus('Prêt');
-  }
-
-  // ════════════════════════
-  //  ACCESSIBILITÉ
-  // ════════════════════════
-  const sizes = { small: '11px', normal: '13.5px', large: '16.5px' };
-  let isGray = false;
-
-  // Positionne les panneaux en cascade
-  function updateFlagActive(lang) {
-    ['fr','en','es'].forEach(l => {
-      const btn = document.getElementById('flag-' + l);
-      if (btn) btn.classList.toggle('active', l === lang);
-    });
-  }
-
-  function positionAllPanels() {
-    const summary   = document.querySelector('.summary-box');
-    const bar       = document.querySelector('.a11y-bar');
-    const audio     = document.getElementById('audio-panel');
-    const pdf       = document.getElementById('pdf-panel');
-    const langFlags = document.getElementById('lang-flags');
-
-    // Rangée drapeaux+bonhomme : alignée avec le haut du sommaire
-    if (summary && langFlags) {
-      langFlags.style.top = summary.getBoundingClientRect().top + 'px';
-    }
-    // Barre accessibilité : sous la rangée drapeaux
-    if (langFlags && bar) {
-      bar.style.top = (langFlags.getBoundingClientRect().bottom + 8) + 'px';
-    }
-    // Audio : visible seulement si menu ouvert, positionné sous la barre
-    if (audio) {
-      if (a11yOpen) {
-        audio.style.display = 'block';
-        const ref = (bar && bar.classList.contains('open')) ? bar : langFlags;
-        if (ref) audio.style.top = (ref.getBoundingClientRect().bottom + 12) + 'px';
-      } else {
-        audio.style.display = 'none';
-      }
-    }
-    // PDF : sous le sommaire (côté droit)
-    if (summary && pdf) {
-      pdf.style.top = (summary.getBoundingClientRect().bottom + 12) + 'px';
-    }
-  }
-
-  // Observer la hauteur du sommaire et de chaque panneau
-  const summaryObserver = new ResizeObserver(() => positionAllPanels());
-  const a11yObserver    = new ResizeObserver(() => positionAllPanels());
-  const audioObserver   = new ResizeObserver(() => positionAllPanels());
-  const flagsObserver   = new ResizeObserver(() => positionAllPanels());
-
-
-  function setSize(s) {
-    document.documentElement.style.fontSize = sizes[s];
-    ['small','normal','large'].forEach(id =>
-      document.getElementById('btn-' + id).classList.toggle('active', id === s)
-    );
-    requestAnimationFrame(() => requestAnimationFrame(positionAllPanels));
-  }
-
-  // ════════════════════════
-  //  TUTORIEL
-  // ════════════════════════
-  let tutoIdx = 0;
-
-  const TUTO_STEPS = [
-    {
-      target: '#btn-small',
-      targetGroup: '.a11y-group',
-      arrow: 'right',
-      title: { fr: '🔤 Taille du texte', en: '🔤 Text size', es: '🔤 Tamaño del texto' },
-      text: {
-        fr: 'Ajustez la taille du texte avec A−, A et A+. Tout le contenu de la page se redimensionne proportionnellement.',
-        en: 'Adjust the text size with A−, A and A+. All page content resizes proportionally.',
-        es: 'Ajusta el tamaño del texto con A−, A y A+. Todo el contenido se redimensiona proporcionalmente.'
-      }
-    },
-    {
-      target: '#btn-gray',
-      arrow: 'right',
-      title: { fr: '🌙 Mode nuit', en: '🌙 Night mode', es: '🌙 Modo noche' },
-      text: {
-        fr: 'Activez le mode nuit pour un fond sombre et un texte clair. Idéal pour réduire la fatigue visuelle.',
-        en: 'Enable night mode for a dark background and light text. Ideal to reduce eye strain.',
-        es: 'Activa el modo noche para un fondo oscuro y texto claro. Ideal para reducir la fatiga visual.'
-      }
-    },
-    {
-      target: '#btn-falc',
-      arrow: 'right',
-      title: { fr: '🧩 Mode FALC', en: '🧩 FALC mode', es: '🧩 Modo FALC' },
-      text: {
-        fr: 'Le mode FALC simplifie la mise en page et le texte. Phrases courtes, police agrandie, une seule colonne.',
-        en: 'FALC mode simplifies the layout and text. Short sentences, larger font, single column.',
-        es: 'El modo FALC simplifica el diseño y el texto. Frases cortas, fuente grande, una sola columna.'
-      }
-    },
-    {
-      target: '#btn-falc-info',
-      arrow: 'right',
-      title: { fr: 'ⓘ Info FALC', en: 'ⓘ FALC info', es: 'ⓘ Info FALC' },
-      text: {
-        fr: "Survolez ou cliquez sur ce bouton pour afficher le détail de toutes les fonctionnalités du mode FALC.",
-        en: 'Hover or click this button to display all FALC mode features in detail.',
-        es: 'Pasa el ratón o haz clic en este botón para ver en detalle las funciones del modo FALC.'
-      }
-    },
-    {
-      target: '.lang-flags',
-      arrow: 'right',
-      title: { fr: '🌍 Langue', en: '🌍 Language', es: '🌍 Idioma' },
-      text: {
-        fr: 'Changez la langue avec les drapeaux : français, anglais ou espagnol. Tout le contenu bascule automatiquement.',
-        en: 'Change the language using the flags: French, English or Spanish. All content switches automatically.',
-        es: 'Cambie el idioma con las banderas: francés, inglés o español. Todo el contenido cambia automáticamente.'
-      }
-    },
-
-    {
-      target: '.a11y-btn.reset',
-      arrow: 'right',
-      title: { fr: '↺ Réinitialiser', en: '↺ Reset', es: '↺ Reiniciar' },
-      text: {
-        fr: "Ce bouton remet toutes les options à leur valeur par défaut : taille normale, couleurs, français, sans FALC.",
-        en: 'This button resets all options to their default: normal size, colours, French, no FALC.',
-        es: 'Este botón restablece todas las opciones: tamaño normal, colores, francés, sin FALC.'
-      }
-    },
-    {
-      target: '#bg-beige',
-      arrow: 'right',
-      title: { fr: '🎨 Couleur de fond', en: '🎨 Background colour', es: '🎨 Color de fondo' },
-      text: {
-        fr: "Changez la couleur de fond pour réduire la fatigue visuelle. Beige, bleu, jaune ou vert : choisissez ce qui vous convient le mieux.",
-        en: "Change the background colour to reduce eye strain. Beige, blue, yellow or green: choose what suits you best.",
-        es: "Cambie el color de fondo para reducir la fatiga visual. Beige, azul, amarillo o verde: elija el que más le convenga."
-      }
-    },
-    {
-      target: '#btn-dyslexic',
-      arrow: 'right',
-      title: { fr: '𝖽 Police dyslexie', en: '𝖽 Dyslexia font', es: '𝖽 Fuente dislexia' },
-      text: {
-        fr: "Active la police OpenDyslexic, spécialement conçue pour faciliter la lecture des personnes dyslexiques.",
-        en: "Activates the OpenDyslexic font, specially designed to make reading easier for people with dyslexia.",
-        es: "Activa la fuente OpenDyslexic, especialmente diseñada para facilitar la lectura a personas con dislexia."
-      }
-    },
-    {
-      target: '#btn-spacing',
-      arrow: 'right',
-      title: { fr: '↔ Espacement+', en: '↔ Spacing+', es: '↔ Espaciado+' },
-      text: {
-        fr: "Augmente l'espacement entre les lettres, les mots et les lignes pour faciliter la lecture.",
-        en: "Increases the spacing between letters, words and lines to make reading easier.",
-        es: "Aumenta el espacio entre letras, palabras y líneas para facilitar la lectura."
-      }
-    },
-    {
-      target: '#btn-ruler',
-      arrow: 'right',
-      title: { fr: '📏 Règle de lecture', en: '📏 Reading ruler', es: '📏 Regla de lectura' },
-      text: {
-        fr: "Une ligne de couleur suit votre souris pour vous aider à ne pas perdre votre ligne. Très utile pour le TDAH et la dyslexie.",
-        en: "A coloured line follows your mouse to help you keep track of your line. Very useful for ADHD and dyslexia.",
-        es: "Una línea de color sigue su ratón para ayudarle a no perder la línea. Muy útil para el TDAH y la dislexia."
-      }
-    },
-    {
-      target: '.bookmark-btn',
-      arrow: 'right',
-      title: { fr: '🔖 Marque-page', en: '🔖 Bookmark', es: '🔖 Marcador' },
-      text: {
-        fr: "Marquez les sections qui vous intéressent. Un 🔖 apparaît dans le sommaire pour y revenir facilement.",
-        en: "Bookmark the sections that interest you. A 🔖 appears in the contents for easy navigation back.",
-        es: "Marque las secciones que le interesen. Aparece un 🔖 en el índice para volver fácilmente."
-      }
-    },
-    {
-      target: '.summary-box',
-      arrow: 'left',
-      title: { fr: '📋 Sommaire', en: '📋 Contents', es: '📋 Índice' },
-      text: {
-        fr: "Cliquez sur un titre du sommaire pour accéder directement à la section correspondante.",
-        en: 'Click a title in the contents to jump directly to the corresponding section.',
-        es: 'Haz clic en un título del índice para ir directamente a la sección correspondiente.'
-      }
-    },
-    {
-      target: '#audio-panel',
-      arrow: 'right',
-      title: { fr: '🎧 Lecture audio', en: '🎧 Audio reader', es: '🎧 Lectura audio' },
-      text: {
-        fr: 'Écoutez la newsletter à voix haute. Naviguez section par section avec ◀ ▶, ajustez la vitesse et mettez en pause.',
-        en: 'Listen to the newsletter read aloud. Navigate section by section with ◀ ▶, adjust speed and pause.',
-        es: 'Escucha el boletín en voz alta. Navega sección por sección con ◀ ▶, ajusta la velocidad y pausa.'
-      }
-    },
-    {
-      target: '#pdf-panel',
-      arrow: 'left',
-      title: { fr: '📄 Télécharger', en: '📄 Download', es: '📄 Descargar' },
-      text: {
-        fr: "Téléchargez la newsletter en PDF ou en Word. Le fichier s'adapte à la langue et au mode FALC actifs.",
-        en: 'Download the newsletter as PDF or Word. The file adapts to the active language and FALC mode.',
-        es: 'Descarga el boletín en PDF o Word. El archivo se adapta al idioma y al modo FALC activos.'
-      }
-    },
-  ];
-
-  function startTuto() {
-    tutoIdx = 0;
-    if (!a11yOpen) toggleA11yPanel();
-    document.getElementById('tuto-overlay').classList.add('active');
-    renderTutoStep();
-  }
-
-  function endTuto() {
-    document.getElementById('tuto-overlay').classList.remove('active');
-    document.querySelectorAll('.tuto-focused').forEach(el => el.classList.remove('tuto-focused'));
-  }
-
-  function tutoStep(dir) {
-    tutoIdx = Math.max(0, Math.min(TUTO_STEPS.length - 1, tutoIdx + dir));
-    renderTutoStep();
-  }
-
-  function renderTutoStep() {
-    const step   = TUTO_STEPS[tutoIdx];
-    const lang   = document.getElementById('lang-select').value || 'fr';
-    const target = document.querySelector(step.target);
-    if (!target) { tutoStep(1); return; }
-
-    const rect   = target.getBoundingClientRect();
-    const pad    = 8;
-    const top    = rect.top    - pad;
-    const left   = rect.left   - pad;
-    const right  = rect.right  + pad;
-    const bottom = rect.bottom + pad;
-    const W = window.innerWidth;
-    const H = window.innerHeight;
-
-    // Position the 4 dark panels
-    const pTop    = document.getElementById('tuto-p-top');
-    const pBottom = document.getElementById('tuto-p-bottom');
-    const pLeft   = document.getElementById('tuto-p-left');
-    const pRight  = document.getElementById('tuto-p-right');
-
-    pTop.style.cssText    = `top:0; left:0; right:0; height:${top}px;`;
-    pBottom.style.cssText = `top:${bottom}px; left:0; right:0; bottom:0;`;
-    pLeft.style.cssText   = `top:${top}px; left:0; width:${left}px; height:${bottom-top}px;`;
-    pRight.style.cssText  = `top:${top}px; left:${right}px; right:0; height:${bottom-top}px;`;
-
-    // Highlight border
-    const hl = document.getElementById('tuto-highlight');
-    hl.style.cssText = `top:${top}px; left:${left}px; width:${right-left}px; height:${bottom-top}px;`;
-
-    // Bubble
-    const bubble = document.getElementById('tuto-bubble');
-    bubble.className = 'tuto-bubble' + (isGray ? ' night' : '');
-
-    // Position bubble
-    const bw = 256; // bubble width + margin
-    let bLeft, bTop;
-    const arrow = step.arrow || 'right';
-
-    if (arrow === 'right') {
-      bLeft = right + 14;
-      bTop  = top;
-      bubble.classList.add('arrow-left');
-    } else if (arrow === 'left') {
-      bLeft = left - bw - 14;
-      bTop  = top;
-      bubble.classList.add('arrow-right');
-    } else if (arrow === 'bottom') {
-      bLeft = left;
-      bTop  = top - 160;
-      bubble.classList.add('arrow-bottom');
-    } else {
-      bLeft = left;
-      bTop  = bottom + 14;
-      bubble.classList.add('arrow-top');
-    }
-
-    // Keep bubble within viewport
-    bLeft = Math.max(10, Math.min(W - bw - 10, bLeft));
-    bTop  = Math.max(10, Math.min(H - 200, bTop));
-
-    bubble.style.left = bLeft + 'px';
-    bubble.style.top  = bTop  + 'px';
-
-    // Content
-    document.getElementById('tuto-title').textContent = step.title[lang] || step.title.fr;
-    document.getElementById('tuto-text').textContent  = step.text[lang]  || step.text.fr;
-    document.getElementById('tuto-counter').textContent = (tutoIdx + 1) + ' / ' + TUTO_STEPS.length;
-
-    // Nav buttons
-    document.getElementById('tuto-prev').disabled = tutoIdx === 0;
-    const nextBtn = document.getElementById('tuto-next');
-    nextBtn.textContent = tutoIdx === TUTO_STEPS.length - 1
-      ? (lang === 'fr' ? 'Terminer ✓' : lang === 'en' ? 'Finish ✓' : 'Terminar ✓')
-      : '→';
-    nextBtn.onclick = tutoIdx === TUTO_STEPS.length - 1
-      ? endTuto
-      : () => tutoStep(1);
-
-    // Apply lang to skip button
-    bubble.querySelectorAll('[data-lang]').forEach(el => {
-      el.style.display = el.getAttribute('data-lang') === lang ? 'inline' : 'none';
-    });
-
-    // Scroll target into view smoothly
-    target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }
-
-  // Keyboard navigation
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && a11yOpen) { toggleA11yPanel(); return; }
-    if (!document.getElementById('tuto-overlay').classList.contains('active')) return;
-    if (e.key === 'ArrowRight' || e.key === 'Enter') tutoStep(1);
-    if (e.key === 'ArrowLeft')  tutoStep(-1);
-    if (e.key === 'Escape')     endTuto();
-  });
-
-  // ── Popup info FALC ──
-  let falcPopupPinned = false; // true = ouvert par clic, pas juste survol
-
-  function positionFalcPopup() {
-    const popup = document.getElementById('falc-popup');
-    const btn   = document.getElementById('btn-falc-info');
-    const rect  = btn.getBoundingClientRect();
-    popup.style.left = (rect.right + 8) + 'px';
-    popup.style.top  = rect.top + 'px';
-    if (isGray) popup.classList.add('night');
-    else popup.classList.remove('night');
-  }
-
-  function showFalcPopup(event) {
-    positionFalcPopup();
-    document.getElementById('falc-popup').classList.add('visible');
-  }
-
-  function hideFalcPopup(event) {
-    // Ne ferme pas si le popup est épinglé par clic
-    if (!falcPopupPinned) {
-      const popup = document.getElementById('falc-popup');
-      // Vérifie qu'on ne survole pas le popup lui-même
-      const related = event.relatedTarget;
-      if (related && popup.contains(related)) return;
-      popup.classList.remove('visible');
-    }
-  }
-
-  function toggleFalcPopup(event) {
-    event.stopPropagation();
-    falcPopupPinned = !falcPopupPinned;
-    positionFalcPopup();
-    const popup = document.getElementById('falc-popup');
-    popup.classList.toggle('visible', falcPopupPinned);
-  }
-
-  function closeFalcPopup() {
-    falcPopupPinned = false;
-    document.getElementById('falc-popup').classList.remove('visible');
-  }
-
-  // Ferme si clic en dehors
-  document.addEventListener('click', (e) => {
-    const popup = document.getElementById('falc-popup');
-    const btn   = document.getElementById('btn-falc-info');
-    if (popup && !popup.contains(e.target) && e.target !== btn) {
-      falcPopupPinned = false;
-      popup.classList.remove('visible');
-    }
-  });
-
-  // Garde le popup visible quand on le survole (depuis le bouton)
-  document.addEventListener('DOMContentLoaded', () => {
-    setLang('fr');
-    updateFlagActive('fr');
-    positionAllPanels();
-    requestAnimationFrame(() => requestAnimationFrame(positionAllPanels));
-    const summary = document.querySelector('.summary-box');
-    if (summary) summaryObserver.observe(summary);
-    const bar = document.querySelector('.a11y-bar');
-    if (bar) a11yObserver.observe(bar);
-    const audio = document.getElementById('audio-panel');
-    if (audio) audioObserver.observe(audio);
-    const flags = document.getElementById('lang-flags');
-    if (flags) flagsObserver.observe(flags);
-    updateUI();
-    setBg('default');
-    initQuiz();
-  });
-
-  window.addEventListener('resize', positionAllPanels);
-
-
-
-
-  // ════════════════════════
-  //  PANNEAU ACCESSIBILITÉ
-  // ════════════════════════
-  let a11yOpen = false;
-  function toggleA11yPanel() {
-    a11yOpen = !a11yOpen;
-    const panel = document.getElementById('a11y-bar-panel');
-    if (panel) panel.classList.toggle('open', a11yOpen);
-    const btn = document.getElementById('a11y-toggle');
-    if (btn) btn.classList.toggle('active', a11yOpen);
-    // Si on ferme le menu, enlever le surlignage
-    if (!a11yOpen) clearHL();
-    positionAllPanels();
-    setTimeout(positionAllPanels, 50);
-  }
-
-  // ════════════════════════
-  //  COULEUR DE FOND
-  // ════════════════════════
-  let currentBg = 'default';
-  function setBg(color) {
-    const bgs = ['default','beige','blue','yellow'];
-    bgs.forEach(b => {
-      document.body.classList.remove('bg-' + b);
-      const sw = document.getElementById('bg-' + b);
-      if (sw) sw.style.border = '1.5px solid #c5c2f0';
-    });
-    if (color !== 'default') document.body.classList.add('bg-' + color);
-    currentBg = color;
-    const sw = document.getElementById('bg-' + color);
-    if (sw) sw.style.border = '2.5px solid #f5883a';
-  }
-
-  // ════════════════════════
-  //  POLICE OPENDYSLEXIC
-  // ════════════════════════
-  let isDyslexic = false;
-  function toggleDyslexic() {
-    isDyslexic = !isDyslexic;
-    document.body.classList.toggle('dyslexic', isDyslexic);
-    const btn = document.getElementById('btn-dyslexic');
-    if (btn) btn.classList.toggle('active', isDyslexic);
-  }
-
-  // ════════════════════════
-  //  ESPACEMENT
-  // ════════════════════════
-  let isSpacing = false;
-  function toggleSpacing() {
-    isSpacing = !isSpacing;
-    document.body.classList.toggle('spacing-high', isSpacing);
-    const btn = document.getElementById('btn-spacing');
-    if (btn) btn.classList.toggle('active', isSpacing);
-  }
-
-  // ════════════════════════
-  //  RÈGLE DE LECTURE
-  // ════════════════════════
-  let isRuler = false;
-  function toggleRuler() {
-    isRuler = !isRuler;
-    document.body.classList.toggle('ruler-on', isRuler);
-    const btn = document.getElementById('btn-ruler');
-    if (btn) btn.classList.toggle('active', isRuler);
-  }
-  document.addEventListener('mousemove', (e) => {
-    if (!isRuler) return;
-    const ruler = document.getElementById('reading-ruler');
-    if (ruler) ruler.style.top = (e.clientY - 18) + 'px';
-  });
-
-  // ════════════════════════
-  //  MARQUE-PAGE
-  // ════════════════════════
-  let bookmarks = {};
-  function toggleBookmark(sectionId) {
-    const lang = document.getElementById('lang-select').value || 'fr';
-    const btn  = document.getElementById('bm-' + sectionId);
-    bookmarks[sectionId] = !bookmarks[sectionId];
-    if (btn) btn.classList.toggle('active', bookmarks[sectionId]);
-    const msgs = {
-      fr: bookmarks[sectionId] ? '🔖 Section marquée !' : '🔖 Marque supprimée',
-      en: bookmarks[sectionId] ? '🔖 Section bookmarked!' : '🔖 Bookmark removed',
-      es: bookmarks[sectionId] ? '🔖 Sección marcada!' : '🔖 Marca eliminada'
-    };
-    showBookmarkToast(msgs[lang] || msgs.fr);
-    updateSummaryBookmarks();
-  }
-  function updateSummaryBookmarks() {
-    ['section1','section2','section3','section4','section5','section6'].forEach(sid => {
-      const link = document.querySelector('.summary-box a[href="#' + sid + '"]');
-      if (!link) return;
-      const old = link.querySelector('.bm-dot');
-      if (old) old.remove();
-      if (bookmarks[sid]) {
-        const dot = document.createElement('span');
-        dot.className = 'bm-dot';
-        dot.textContent = ' 🔖';
-        dot.style.cssText = 'font-size:0.8em;';
-        link.appendChild(dot);
-      }
-    });
-  }
-  function showBookmarkToast(msg) {
-    const toast = document.getElementById('bookmark-toast');
-    if (!toast) return;
-    toast.textContent = msg;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 2500);
-  }
-
-  // ════════════════════════
-  //  MODE FALC
-  // ════════════════════════
-  let isFALC = false;
-  function toggleFALC() {
-    isFALC = !isFALC;
-    document.getElementById('content-wrap').classList.toggle('falc', isFALC);
-    document.body.classList.toggle('falc', isFALC);
-    const btn = document.getElementById('btn-falc');
-    if (btn) btn.classList.toggle('active', isFALC);
-    requestAnimationFrame(() => requestAnimationFrame(positionAllPanels));
-  }
-
-  // ════════════════════════
-  //  MODE NUIT
-  // ════════════════════════
-  // isGray already declared above
-  function toggleGray() {
-    isGray = !isGray;
-    [
-      document.getElementById('content-wrap'),
-      document.querySelector('.summary-box'),
-      document.getElementById('a11y-bar-panel'),
-      document.getElementById('audio-panel'),
-      document.getElementById('pdf-panel'),
-      document.getElementById('falc-popup'),
-      document.getElementById('btn-falc-info')
-    ].forEach(el => { if (el) el.classList.toggle('night', isGray); });
-    document.body.classList.toggle('night', isGray);
-    const btn = document.getElementById('btn-gray');
-    if (btn) btn.classList.toggle('active', isGray);
-    ['fr','en','es'].forEach(l => {
-      const day   = document.getElementById('lbl-day-'   + l);
-      const night = document.getElementById('lbl-night-' + l);
-      if (!day || !night) return;
-      const lang = document.getElementById('lang-select').value || 'fr';
-      if (l === lang) {
-        day.style.display   = isGray ? 'none'   : 'inline';
-        night.style.display = isGray ? 'inline' : 'none';
-      } else {
-        day.style.display = 'none'; night.style.display = 'none';
-      }
-    });
-  }
-
-  // ════════════════════════
-  //  TAILLE DU TEXTE
-  // ════════════════════════
-  // sizes already declared above
-  function setSize(s) {
-    document.documentElement.style.fontSize = sizes[s];
-    ['small','normal','large'].forEach(id => {
-      const btn = document.getElementById('btn-' + id);
-      if (btn) btn.classList.toggle('active', id === s);
-    });
-    requestAnimationFrame(() => requestAnimationFrame(positionAllPanels));
-  }
-
-  // ════════════════════════
-  //  LANGUE
-  // ════════════════════════
-  function setLang(lang) {
-    const sel = document.getElementById('lang-select');
-    if (sel) sel.value = lang;
-    document.querySelectorAll('[data-lang]').forEach(el => {
-      el.style.display = el.getAttribute('data-lang') === lang ? 'inline' : 'none';
-    });
-    document.getElementById('html-root').setAttribute('lang', lang);
-    updateFlagActive(lang);
-    ['fr','en','es'].forEach(l => {
-      const day   = document.getElementById('lbl-day-'   + l);
-      const night = document.getElementById('lbl-night-' + l);
-      if (!day || !night) return;
-      if (l === lang) {
-        day.style.display   = isGray ? 'none'   : 'inline';
-        night.style.display = isGray ? 'inline' : 'none';
-      } else {
-        day.style.display = 'none'; night.style.display = 'none';
-      }
-    });
-  }
-
-  // ════════════════════════
-  //  RÉINITIALISER
-  // ════════════════════════
-  function resetAll() {
-    setSize('normal');
-    if (isGray)     toggleGray();
-    if (isDyslexic) toggleDyslexic();
-    if (isSpacing)  toggleSpacing();
-    if (isRuler)    toggleRuler();
-    if (isFALC)     toggleFALC();
-    setBg('default');
-    bookmarks = {};
-    updateSummaryBookmarks();
-    setLang('fr');
-    audioReset();
-    positionAllPanels();
-  }
-
-  // ════════════════════════
-  //  QUIZ
-  // ════════════════════════
-  const QUIZ_IDS = ['q1', 'q2', 'q3'];
-  let currentQ  = 0;
-  let quizScore = 0;
-
-  function updateProgress() {
-    const fill  = document.getElementById('quiz-progress-fill');
-    const label = document.getElementById('quiz-progress-label');
-    const lang  = document.getElementById('lang-select').value || 'fr';
-    if (fill) fill.style.width = (currentQ / QUIZ_IDS.length * 100) + '%';
-    const labels = { fr: 'Question ' + (currentQ+1) + ' / 3', en: 'Question ' + (currentQ+1) + ' of 3', es: 'Pregunta ' + (currentQ+1) + ' de 3' };
-    if (label) label.textContent = labels[lang] || labels.fr;
-  }
-
-  function answer(qId, btn) {
-    const q = document.getElementById(qId);
-    if (!q || q.dataset.answered) return;
-    q.dataset.answered = '1';
-    const isCorrect = btn.dataset.correct === 'true';
-    const fbId = btn.dataset.fb;
-    const lang = document.getElementById('lang-select').value || 'fr';
-    q.querySelectorAll('.quiz-option').forEach(b => b.classList.add('disabled'));
-    if (isCorrect) {
-      btn.classList.add('correct');
-    } else {
-      btn.classList.add('wrong');
-      q.querySelectorAll('.quiz-option').forEach(b => { if (b.dataset.correct === 'true') b.classList.add('correct'); });
-    }
-    const fb = document.getElementById(fbId);
-    if (fb) { fb.querySelectorAll('[data-lang]').forEach(el => { el.style.display = el.getAttribute('data-lang') === lang ? 'inline' : 'none'; }); fb.classList.add('show'); }
-    if (isCorrect) quizScore++;
-    const nextBtn = document.getElementById('quiz-next');
-    if (currentQ < QUIZ_IDS.length - 1) {
-      if (nextBtn) { nextBtn.querySelectorAll('[data-lang]').forEach(el => { el.style.display = el.getAttribute('data-lang') === lang ? 'inline' : 'none'; }); nextBtn.style.display = 'block'; }
-    } else {
-      if (nextBtn) nextBtn.style.display = 'none';
-      setTimeout(showQuizScore, 600);
-    }
-  }
-
-  function nextQuestion() {
-    currentQ++;
-    document.getElementById('quiz-next').style.display = 'none';
-    document.getElementById(QUIZ_IDS[currentQ-1]).style.display = 'none';
-    const next = document.getElementById(QUIZ_IDS[currentQ]);
-    if (next) { next.style.display = 'block'; }
-    updateProgress();
-    const lang = document.getElementById('lang-select').value || 'fr';
-    if (next) next.querySelectorAll('[data-lang]').forEach(el => { el.style.display = el.getAttribute('data-lang') === lang ? 'inline' : 'none'; });
-  }
-
-  function showQuizScore() {
-    const lang = document.getElementById('lang-select').value || 'fr';
-    const scoreEl = document.getElementById('quiz-score');
-    const resetEl = document.getElementById('quiz-reset');
-    const fill = document.getElementById('quiz-progress-fill');
-    if (fill) fill.style.width = '100%';
-    const msgs = {
-      fr: ['🌟 Score parfait ! Vous maîtrisez Atypie-Friendly !', '👍 Bien joué ! Vous avez bien lu la newsletter !', '📖 Relisez la newsletter pour tout retenir.'],
-      en: ['🌟 Perfect score! You know Atypie-Friendly!', '👍 Well done! You read the newsletter carefully!', '📖 Re-read the newsletter to remember everything.'],
-      es: ['🌟 ¡Puntuación perfecta!', '👍 ¡Bien hecho!', '📖 Vuelve a leer el boletín.']
-    };
-    const idx = quizScore === 3 ? 0 : quizScore === 2 ? 1 : 2;
-    if (scoreEl) { scoreEl.textContent = (msgs[lang]||msgs.fr)[idx] + ' (' + quizScore + '/3)'; scoreEl.classList.add('show'); }
-    if (resetEl) { resetEl.querySelectorAll('[data-lang]').forEach(el => { el.style.display = el.getAttribute('data-lang') === lang ? 'inline' : 'none'; }); resetEl.classList.add('show'); }
-  }
-
-  function resetQuiz() {
-    currentQ = 0; quizScore = 0;
-    QUIZ_IDS.forEach((qId, i) => {
-      const q = document.getElementById(qId);
-      if (!q) return;
-      delete q.dataset.answered;
-      q.style.display = i === 0 ? 'block' : 'none';
-      q.querySelectorAll('.quiz-option').forEach(b => b.classList.remove('correct','wrong','disabled'));
-      q.querySelectorAll('.quiz-feedback').forEach(fb => fb.classList.remove('show'));
-    });
-    document.getElementById('quiz-score').classList.remove('show');
-    document.getElementById('quiz-reset').classList.remove('show');
-    const nextBtn = document.getElementById('quiz-next');
-    if (nextBtn) nextBtn.style.display = 'none';
-    document.getElementById('quiz-progress-fill').style.width = '0%';
-    updateProgress();
-    initQuiz();
-  }
-
-  function initQuiz() {
-    QUIZ_IDS.forEach(qId => {
-      const q = document.getElementById(qId);
-      if (!q) return;
-      q.querySelectorAll('.quiz-option').forEach(btn => {
-        btn.onclick = () => answer(qId, btn);
-      });
-    });
-    updateProgress();
-  }
-
-  // Keyboard nav for tuto
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && a11yOpen) { toggleA11yPanel(); return; }
-    if (!document.getElementById('tuto-overlay').classList.contains('active')) return;
-    if (e.key === 'ArrowRight' || e.key === 'Enter') tutoStep(1);
-    if (e.key === 'ArrowLeft') tutoStep(-1);
-    if (e.key === 'Escape') endTuto();
-  });
-
-  // Le menu se ferme uniquement via le bouton bonhomme
-
-</script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 </body>
 </html>
