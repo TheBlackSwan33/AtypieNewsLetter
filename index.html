@@ -1,0 +1,2940 @@
+<!DOCTYPE html>
+<html lang="fr" id="html-root">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Les Atyp'Infos #1 – Atypie-Friendly UB</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* Taille de base : tout le reste en em pour que A-/A/A+ fonctionnent */
+  html { font-size: 13.5px; }
+  body { font-family: 'Nunito', Arial, sans-serif; font-size: 1rem; color: #1a1a2e; background: #fff; max-width: 794px; margin: 0 auto; padding-top: 16px; transition: font-size 0.2s; }
+  /* ── MODE NUIT ── */
+  body.night { background: #1a1a2e; }
+
+  #content-wrap { transition: background 0.3s, color 0.3s; }
+  #content-wrap.night { background: #1a1a2e; }
+  #content-wrap.night .page,
+  #content-wrap.night .header { background: #1a1a2e; }
+  #content-wrap.night .intro-text,
+  #content-wrap.night ul.custom li,
+  #content-wrap.night p,
+  #content-wrap.night .footer-contact p { color: #e0deff; }
+  #content-wrap.night .section-title { color: #b8b4e8; }
+  #content-wrap.night .highlight-text { color: #c2185b; }
+  #content-wrap.night .sub-title { color: #e0deff; }
+  #content-wrap.night hr.separator { border-top-color: #3d3a6e; }
+  #content-wrap.night .kpi-bordeaux { background: #3d1a2e; }
+  #content-wrap.night .kpi-bordeaux .kpi-num   { color: #f48fb1; }
+  #content-wrap.night .kpi-bordeaux .kpi-label { color: #e0b0c0; }
+  #content-wrap.night .kpi-teal     { background: #0d2e2a; }
+  #content-wrap.night .kpi-teal .kpi-num       { color: #80cbc4; }
+  #content-wrap.night .kpi-teal .kpi-label     { color: #a0d8d4; }
+  #content-wrap.night .kpi-purple   { background: #1e1a3d; }
+  #content-wrap.night .kpi-purple .kpi-num     { color: #b39ddb; }
+  #content-wrap.night .kpi-purple .kpi-label   { color: #c5b8e8; }
+  #content-wrap.night .kpi-orange   { background: #2e1e0a; }
+  #content-wrap.night .kpi-orange .kpi-num     { color: #ffb74d; }
+  #content-wrap.night .kpi-orange .kpi-label   { color: #ffd180; }
+  #content-wrap.night .card-purple  { background: #1e1a3d; }
+  #content-wrap.night .card-purple h4 { color: #b39ddb; }
+  #content-wrap.night .card-teal    { background: #0d2e2a; }
+  #content-wrap.night .card-teal h4   { color: #80cbc4; }
+  #content-wrap.night .card-orange  { background: #2e1e0a; }
+  #content-wrap.night .card-orange h4 { color: #ffb74d; }
+  #content-wrap.night .action-card p  { color: #d0cce8 !important; }
+  #content-wrap.night .action-card *   { color: #d0cce8 !important; }
+  #content-wrap.night .card-purple *   { color: #c5b8e8 !important; }
+  #content-wrap.night .card-purple h4  { color: #b39ddb !important; }
+  #content-wrap.night .card-teal *     { color: #a0d8d4 !important; }
+  #content-wrap.night .card-teal h4    { color: #80cbc4 !important; }
+  #content-wrap.night .card-orange *   { color: #ffd180 !important; }
+  #content-wrap.night .card-orange h4  { color: #ffb74d !important; }
+  #content-wrap.night .actualite-box   { background: #2a2010; border-left-color: #f5c842; }
+  #content-wrap.night .actualite-box * { color: #d0cce8 !important; }
+  #content-wrap.night .actualite-box strong { color: #f5c842 !important; }
+  #content-wrap.night .footer-contact { background: #12122a; border-color: #b5527a; }
+  #content-wrap.night .footer-contact h3 { color: #e0deff; }
+  #content-wrap.night .footer-contact p  { color: #b8b4e8 !important; }
+  #content-wrap.night .footer-contact a  { color: #b8b4e8; }
+  #content-wrap.night .logo-txt { color: #e0deff; }
+  #content-wrap.night .logo-sub { color: #7b77cc; }
+
+  .summary-box { transition: background 0.3s, color 0.3s, border-color 0.3s; }
+  .summary-box.night { background: #12122a; border-color: #7b77cc; }
+  .summary-box.night h3 { color: #e0deff; }
+  .summary-box.night ol { color: #b8b4e8; }
+  .summary-box.night a { color: #b8b4e8; }
+  .summary-box.night a:hover { color: #f06292; text-decoration: none; }
+
+  .a11y-bar.night { background: #12122a; border-color: #7b77cc; }
+  .a11y-bar.night .a11y-label { color: #7b77cc; }
+  .a11y-bar.night .a11y-btn { background: #1e1a3d; border-color: #3d3a6e; color: #e0deff; }
+  .a11y-bar.night .a11y-btn:hover { background: #2d2b6b; }
+  .a11y-bar.night .lang-select { background: #1e1a3d; border-color: #3d3a6e; color: #e0deff; }
+
+  #audio-panel { transition: background 0.3s, border-color 0.3s; }
+  #audio-panel.night { background: #12122a; border-color: #7b77cc; }
+  #audio-panel.night .a11y-label { color: #7b77cc; }
+  #audio-panel.night .audio-btn  { background: #1e1a3d; border-color: #3d3a6e; color: #e0deff; }
+  #audio-panel.night .audio-nav-btn { background: #1e1a3d; border-color: #3d3a6e; color: #e0deff; }
+  #audio-panel.night .audio-speed-label { color: #4a4690; }
+  #audio-panel.night #audio-status { color: #4a4690; }
+  #audio-panel.night input[type=range] { accent-color: #7b77cc; }
+
+  /* ── BARRE ACCESSIBILITÉ — colonne à gauche sous le sommaire ── */
+  /* ── DRAPEAUX LANGUE ── */
+  /* ── DRAPEAUX + BOUTON ACCESSIBILITÉ (même rangée) ── */
+  .lang-flags {
+    position: fixed; top: 60px;
+    left: calc(50% - 397px - 220px);
+    display: flex; flex-direction: row; align-items: center; gap: 5px;
+    z-index: 1001;
+  }
+  .lang-flag-btn {
+    width: 34px; height: 34px;
+    border-radius: 50%; border: 2.5px solid #fff;
+    cursor: pointer; font-size: 1.3em;
+    display: flex; align-items: center; justify-content: center;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    transition: transform 0.15s, box-shadow 0.15s;
+    line-height: 1; padding: 0;
+  }
+  .lang-flag-btn:hover { transform: scale(1.12); box-shadow: 0 4px 12px rgba(0,0,0,0.25); }
+  .lang-flag-btn.active { border-color: #f5883a; box-shadow: 0 0 0 2px #f5883a; }
+
+  /* Le bouton accessibilité est maintenant DANS .lang-flags */
+  .a11y-toggle-btn {
+    width: 34px; height: 34px;
+    background: none; border: 2.5px solid #fff;
+    cursor: pointer; padding: 0; border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    transition: transform 0.15s, box-shadow 0.15s;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .a11y-toggle-btn:hover { transform: scale(1.12); box-shadow: 0 4px 12px rgba(0,0,0,0.25); }
+  .a11y-toggle-btn.active { border-color: #f5883a; box-shadow: 0 0 0 2px #f5883a; }
+  .a11y-toggle-btn img { width: 34px; height: 34px; border-radius: 50%; display: block; }
+
+  .a11y-bar {
+    position: fixed; left: calc(50% - 397px - 262px); top: 60px;
+    width: 240px;
+    background: #fff; color: #1a1a2e;
+    display: none; flex-direction: column; align-items: stretch;
+    padding: 12px 14px; z-index: 1000;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    transition: background 0.3s, border-color 0.3s;
+    border-radius: 10px; gap: 8px;
+    border: 2px dashed #3d3a9e;
+    overflow: visible;
+  }
+  .a11y-bar.open { display: flex; }
+  .a11y-group { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+  .a11y-group-row { display: flex; flex-direction: row; gap: 5px; }
+  .a11y-label { font-size: 0.7em; font-weight: 800; color: #3d3a9e; text-transform: uppercase; letter-spacing: 0.5px; }
+  .a11y-btn {
+    background: #f0eeff; border: 1.5px solid #c5c2f0;
+    color: #2d2b6b; border-radius: 6px; padding: 5px 0; font-size: 0.85em;
+    font-family: 'Nunito', Arial, sans-serif; font-weight: 700;
+    cursor: pointer; transition: background 0.15s; flex: 1; text-align: center;
+  }
+  .a11y-btn:hover { background: #2d2b6b; color: #fff; border-color: #2d2b6b; }
+  .a11y-btn.active { background: #f5883a; border-color: #f5883a; color: #4a2800; }
+  .a11y-btn.reset { background: #fff3e0; border: 1.5px dashed #f5883a; color: #1a1a2e; font-size: 0.78em; }
+  .a11y-btn.reset:hover { background: #f5883a; color: #4a2800; }
+  .lang-select {
+    background: #f0eeff; border: 1.5px solid #c5c2f0;
+    color: #2d2b6b; border-radius: 6px; padding: 5px 6px; font-size: 0.85em;
+    font-family: 'Nunito', Arial, sans-serif; font-weight: 700; cursor: pointer; width: 100%;
+  }
+  .lang-select option { background: #fff; color: #1a1a2e; }
+
+  /* ── SOMMAIRE FIXE — positionné à DROITE de la newsletter ── */
+  .summary-box {
+    position: fixed; top: 60px; right: calc(50% - 397px - 220px);
+    width: 170px; border: 2px dashed #e87ab0; border-radius: 10px;
+    padding: 12px 14px; background: #fff;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.10); z-index: 999;
+  }
+  .summary-box h3 { font-size: 0.96em; font-weight: 800; color: #1a1a2e; margin-bottom: 7px; text-align: center; }
+  .summary-box ol { padding-left: 16px; font-size: 0.85em; color: #333; line-height: 1.75; }
+  .summary-box a { color: #333; text-decoration: none; }
+  .summary-box ol li a { text-decoration: none !important; }
+  .summary-box a:hover { color: #2d2b6b; font-weight: 800; text-decoration: none; }
+
+  /* ── LAYOUT ── */
+  .header { background: #2d2b6b; padding: 28px 36px 0 36px; position: relative; overflow: hidden; }
+  .header-wave { display: block; width: 100%; margin-top: 10px; }
+  .header-top-label { font-size: 0.81em; color: #b8b4e8; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .header-title { font-size: 4.3em; font-weight: 900; color: #fff; line-height: 1; letter-spacing: -1px; }
+  .header-title span { color: #f06292; }
+  .header-subtitle { font-size: 1.26em; font-weight: 700; color: #e0deff; margin-top: 6px; margin-bottom: 4px; }
+  .page { padding: 22px 36px 0 36px; }
+  .section-title { display: flex; align-items: center; gap: 10px; font-size: 1.18em; font-weight: 800; color: #3d3a9e; margin: 18px 0 10px 0; scroll-margin-top: 60px; }
+  .section-dot { width: 18px; height: 18px; border-radius: 50%; background: #f5883a; flex-shrink: 0; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 10px 0; }
+  .intro-text { text-align: justify; line-height: 1.65; font-size: 0.96em; color: #1a1a2e; }
+  .sub-title { font-size: 1em; font-weight: 800; color: #1a1a2e; margin: 10px 0 5px 0; }
+  ul.custom { list-style: none; padding: 0; margin: 0; }
+  ul.custom li { padding-left: 14px; position: relative; font-size: 0.93em; color: #1a1a2e; line-height: 1.6; margin-bottom: 5px; text-align: justify; }
+  ul.custom li::before { content: "•"; position: absolute; left: 0; color: #3d3a9e; font-weight: 900; font-size: 1.04em; }
+  .wave-btn { display: inline-block; background: #2d2b6b; color: #fff !important; font-size: 0.85em; font-weight: 700; padding: 7px 18px; border-radius: 30px; text-decoration: none !important; margin: 4px 0; }
+  .kpi-row { display: flex; gap: 12px; margin: 10px 0; }
+  .kpi-card { flex: 1; border-radius: 10px; padding: 12px 10px; text-align: center; }
+  .kpi-card .kpi-num { font-size: 2.22em; font-weight: 900; line-height: 1; }
+  .kpi-card .kpi-label { font-size: 0.81em; font-weight: 600; margin-top: 4px; line-height: 1.3; }
+  .kpi-bordeaux { background: #fce4ec; } .kpi-bordeaux .kpi-num { color: #c2185b; } .kpi-bordeaux .kpi-label { color: #880e4f; }
+  .kpi-teal { background: #e0f2f1; } .kpi-teal .kpi-num { color: #00796b; } .kpi-teal .kpi-label { color: #004d40; }
+  .kpi-purple { background: #ede7f6; } .kpi-purple .kpi-num { color: #512da8; } .kpi-purple .kpi-label { color: #311b92; }
+  .kpi-orange { background: #fff3e0; } .kpi-orange .kpi-num { color: #bf360c; } .kpi-orange .kpi-label { color: #bf360c; }
+  .action-card { border-radius: 10px; padding: 12px 14px; margin: 6px 0; }
+  .action-card h4 { font-size: 0.93em; font-weight: 800; margin-bottom: 6px; }
+  .card-purple { background: #ede7f6; } .card-purple h4 { color: #4527a0; }
+  .card-teal { background: #e0f2f1; } .card-teal h4 { color: #00695c; }
+  .card-orange { background: #fff3e0; } .card-orange h4 { color: #e65100; }
+  .footer-contact { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 14px 0 8px 0; border: 2px dashed #e87ab0; border-radius: 10px; padding: 14px 16px; background: #fff; }
+  .footer-contact h3 { font-size: 0.96em; font-weight: 800; color: #1a1a2e; margin-bottom: 7px; }
+  .footer-contact p, .footer-contact a { font-size: 0.89em; color: #333; line-height: 1.65; text-decoration: none; }
+  .footer-contact a { color: #3d3a9e; text-decoration: underline; }
+  .logo-txt { font-size: 0.96em; font-weight: 900; color: #2d2b6b; letter-spacing: -0.5px; }
+  .logo-sub { font-size: 0.67em; color: #9e9bd4; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; display: block; }
+  .bottom-wave { margin-top: 16px; width: 100%; display: block; }
+  hr.separator { border: none; border-top: 1.5px solid #e0deff; margin: 14px 0; }
+  .highlight-text { font-weight: 700; color: #3d3a9e; }
+  .actualite-box { background: #fff8e1; border-left: 4px solid #f5c842; border-radius: 0 10px 10px 0; padding: 12px 16px; margin: 10px 0; font-size: 0.93em; line-height: 1.65; }
+  .actualite-box strong { color: #bf360c; font-weight: 800; }
+
+  /* ── LECTURE AUDIO ── */
+  .audio-panel {
+    position: fixed; left: calc(50% - 397px - 262px);
+    display: none;
+    width: 240px; background: #fff;
+    border: 2px dashed #3d3a9e; border-radius: 10px;
+    padding: 12px 14px; z-index: 998;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  }
+  .audio-panel .a11y-label { font-size: 9.5px; font-weight: 800; color: #3d3a9e; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 6px; }
+  .audio-controls { display: flex; gap: 5px; margin-bottom: 8px; }
+  .audio-btn {
+    flex: 1; background: #f0eeff; border: 1.5px solid #c5c2f0;
+    color: #2d2b6b; border-radius: 6px; padding: 5px 0; font-size: 0.85em;
+    cursor: pointer; transition: background 0.15s; text-align: center;
+  }
+  .audio-btn:hover { background: #2d2b6b; color: #fff; border-color: #2d2b6b; }
+  .audio-btn.active { background: #f5883a; border-color: #f5883a; color: #fff; }
+  .audio-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  .audio-mode { display: flex; gap: 5px; margin-bottom: 8px; }
+  .audio-mode-btn {
+    flex: 1; background: #f0eeff; border: 1.5px solid #c5c2f0;
+    color: #2d2b6b; border-radius: 6px; padding: 4px 0; font-size: 0.7em;
+    font-family: 'Nunito', Arial, sans-serif; font-weight: 800;
+    cursor: pointer; text-align: center; text-transform: uppercase; letter-spacing: 0.3px;
+    transition: background 0.15s;
+  }
+  .audio-mode-btn.active { background: #3d3a9e; border-color: #3d3a9e; color: #fff; }
+  .audio-speed { width: 100%; margin-bottom: 6px; }
+  .audio-speed-label { font-size: 0.67em; color: #3d3a9e; font-weight: 700; display: flex; justify-content: space-between; margin-bottom: 3px; }
+  .audio-speed input[type=range] { width: 100%; accent-color: #3d3a9e; }
+  .audio-section-nav { display: flex; gap: 5px; }
+  .audio-section-nav button {
+    flex: 1; background: #f0eeff; border: 1.5px solid #c5c2f0;
+    color: #2d2b6b; border-radius: 6px; padding: 4px 0; font-size: 0.78em;
+    font-family: 'Nunito', Arial, sans-serif; font-weight: 700;
+    cursor: pointer; transition: background 0.15s;
+  }
+  .audio-section-nav button:hover { background: #2d2b6b; color: #fff; border-color: #2d2b6b; }
+  .audio-section-nav button:disabled { opacity: 0.35; cursor: not-allowed; }
+  .audio-section-nav { display: flex; gap: 5px; margin: 4px 0; }
+  .audio-nav-btn {
+    flex: 1; background: #f0eeff; border: 1.5px solid #c5c2f0;
+    color: #2d2b6b; border-radius: 6px; padding: 4px 0; font-size: 0.9em;
+    font-family: 'Nunito', Arial, sans-serif; font-weight: 700;
+    cursor: pointer; transition: background 0.15s; text-align: center;
+  }
+  .audio-nav-btn:hover { background: #2d2b6b; color: #fff; border-color: #2d2b6b; }
+  .audio-nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  .audio-progress { font-size: 0.67em; color: #666; text-align: center; margin-top: 4px; }
+
+  /* Surbrillance texte en lecture */
+  .reading-highlight {
+    background: #fff176;
+    border-radius: 3px;
+    transition: background 0.2s;
+  }
+
+  /* ── IMPRESSION PDF ── */
+  @media print {
+    /* ── Masquer tous les éléments UI ── */
+    .a11y-bar, .audio-panel, .pdf-panel, .summary-box,
+    .lang-flags, .a11y-toggle-btn, .reading-ruler,
+    .tuto-overlay, .falc-popup, .bookmark-toast,
+    .wave-btn, .bookmark-btn, .quiz-next, .quiz-reset,
+    .quiz-progress-bar, .quiz-progress-label,
+    #tuto-overlay { display: none !important; }
+
+    /* ── Page & corps ── */
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    html, body { margin: 0 !important; padding: 0 !important; background: #fff !important; font-size: 11pt !important; }
+    #content-wrap { background: #fff !important; }
+    .page { padding: 0 !important; margin: 0 !important; box-shadow: none !important; }
+
+    /* ── En-tête ── */
+    .header { padding: 18pt 24pt !important; break-inside: avoid; }
+    .header-title { font-size: 28pt !important; }
+    .header-subtitle { font-size: 12pt !important; }
+    .bottom-wave { height: 30px !important; }
+
+    /* ── Sauts de page ── */
+    .section-title { break-before: auto; break-inside: avoid; margin-top: 14pt !important; }
+    .kpi-row { break-inside: avoid; }
+    .action-card, .actualite-box, .footer-contact { break-inside: avoid; }
+    .two-col { break-inside: avoid; }
+    hr.separator { border-top: 1pt solid #ddd !important; margin: 10pt 0 !important; }
+
+    /* ── Typographie ── */
+    p, ul.custom li, .intro-text { font-size: 10pt !important; line-height: 1.55 !important; }
+    .section-title .highlight-text { font-size: 12pt !important; }
+    h3 { font-size: 11pt !important; }
+
+    /* ── KPI ── */
+    .kpi-num { font-size: 22pt !important; }
+    .kpi-label { font-size: 8pt !important; }
+    .kpi-card { padding: 8pt !important; border-radius: 6pt !important; }
+
+    /* ── Liens ── */
+    a { color: inherit !important; text-decoration: none !important; }
+    a[href]::after { content: none !important; }
+
+    /* ── Surlignage & effets ── */
+    .reading-highlight { background: none !important; }
+    .falc-icon { font-size: 14pt !important; }
+
+    /* ── Quiz ── */
+    .quiz-option.correct { background: #e8f5e9 !important; border-color: #43a047 !important; }
+    .quiz-option.wrong   { background: #fce4ec !important; border-color: #e53935 !important; }
+    .quiz-feedback.show  { display: block !important; }
+
+    /* ── Pied de page ── */
+    .footer-contact { margin-top: 12pt !important; padding: 10pt 14pt !important; }
+
+    /* ── Mode nuit : forcer couleurs claires à l'impression ── */
+    body.night, #content-wrap.night, #content-wrap.night .page,
+    #content-wrap.night .header { background: #fff !important; }
+    #content-wrap.night p, #content-wrap.night ul.custom li,
+    #content-wrap.night .intro-text, #content-wrap.night .section-title,
+    #content-wrap.night .sub-title { color: #1a1a2e !important; }
+    #content-wrap.night .action-card *, #content-wrap.night .actualite-box * { color: #1a1a2e !important; }
+
+    /* ── FALC : garder la lisibilité ── */
+    #content-wrap.falc p, #content-wrap.falc .intro-text { font-size: 12pt !important; line-height: 1.8 !important; }
+  }
+
+  /* ── PANNEAU PDF ── */
+  .pdf-panel {
+    position: fixed; right: calc(50% - 397px - 220px);
+    width: 170px; background: #fff;
+    border: 2px dashed #e87ab0; border-radius: 10px;
+    padding: 12px 14px; z-index: 997;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  }
+  .pdf-panel .a11y-label { font-size: 0.7em; font-weight: 800; color: #b5527a; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 8px; }
+  .pdf-btn {
+    width: 100%; background: #f0eeff; border: 1.5px solid #c5c2f0;
+    color: #2d2b6b; border-radius: 6px; padding: 7px 0; font-size: 0.85em;
+    font-family: 'Nunito', Arial, sans-serif; font-weight: 700;
+    cursor: pointer; transition: background 0.15s; text-align: center;
+  }
+  .pdf-btn:hover { background: #2d2b6b; color: #fff; border-color: #2d2b6b; }
+  .pdf-tip { font-size: 0.67em; color: #666; margin-top: 6px; line-height: 1.4; text-align: center; }
+  .pdf-panel.night { background: #12122a; border-color: #7b77cc; }
+  .pdf-panel.night .a11y-label { color: #7b77cc; }
+  .pdf-panel.night .pdf-tip { color: #7b77cc; }
+  .pdf-panel.night .a11y-label { color: #7b77cc; }
+  .pdf-panel.night .pdf-btn { background: #1e1a3d; border-color: #3d3a6e; color: #e0deff; }
+  .pdf-panel.night .pdf-btn:hover { background: #2d2b6b; color: #fff; }
+  .pdf-panel.night .pdf-tip { color: #7b77cc; }
+
+  /* ── MODE FALC ── */
+  body.falc { background: #fff; }
+  body.falc .summary-box,
+  body.falc .a11y-bar,
+  body.falc #audio-panel,
+  body.falc #pdf-panel { display: block; }
+
+  #content-wrap.falc .header-title { font-size: 2.2em; }
+  #content-wrap.falc .header-subtitle { font-size: 1em; }
+  #content-wrap.falc .bottom-wave { display: none; }
+  #content-wrap.falc hr.separator { border-top: 2px solid #2d2b6b; margin: 20px 0; }
+
+  #content-wrap.falc .two-col,
+  #content-wrap.falc .two-col-wide { display: block; }
+
+  #content-wrap.falc .intro-text,
+  #content-wrap.falc ul.custom li,
+  #content-wrap.falc p,
+  #content-wrap.falc .action-card p {
+    font-size: 1.1em;
+    line-height: 1.9;
+    text-align: left;
+    font-family: Arial, sans-serif;
+    letter-spacing: 0.02em;
+  }
+  #content-wrap.falc .section-title { font-size: 1.3em; margin-top: 24px; }
+  #content-wrap.falc .kpi-row { display: none; }
+  #content-wrap.falc .action-card { border-left: 4px solid #f5883a; border-radius: 0; background: #fff8f0 !important; margin-bottom: 12px; }
+  #content-wrap.falc .action-card h4 { color: #e65100 !important; }
+  #content-wrap.falc .actualite-box { border-left: 4px solid #2d2b6b; background: #f0eeff; border-radius: 0 8px 8px 0; }
+  #content-wrap.falc .wave-btn { display: none; }
+
+  /* Texte FALC : masquer normal, montrer FALC */
+  .falc-text { display: none; }
+  .falc-icon { display: none; font-size: 2em; margin-bottom: 8px; }
+  #content-wrap.falc .falc-text { display: block; }
+  #content-wrap.falc .falc-icon { display: block; }
+  #content-wrap.falc .normal-text { display: none; }
+
+  /* ── INFO POPUP FALC ── */
+  .falc-info-btn {
+    background: none; border: 1.5px solid #c5c2f0;
+    color: #3d3a9e; border-radius: 50%;
+    width: 22px; height: 22px; font-size: 0.78em;
+    font-family: Arial, sans-serif; font-weight: 900;
+    cursor: pointer; display: inline-flex;
+    align-items: center; justify-content: center;
+    flex-shrink: 0; transition: background 0.15s;
+    line-height: 1; padding: 0;
+  }
+  .falc-info-btn:hover { background: #2d2b6b; color: #fff; border-color: #2d2b6b; }
+
+  .falc-popup {
+    display: none;
+    position: fixed;
+    background: #fff;
+    border: 2px dashed #3d3a9e;
+    border-radius: 10px;
+    padding: 14px 16px;
+    width: 220px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    z-index: 2000;
+    font-size: 0.82em;
+    line-height: 1.6;
+    color: #1a1a2e;
+  }
+  .falc-popup.visible { display: block; }
+  .falc-popup h4 {
+    font-size: 0.92em; font-weight: 800;
+    color: #3d3a9e; margin-bottom: 8px;
+    border-bottom: 1.5px solid #e0deff;
+    padding-bottom: 5px;
+  }
+  .falc-popup ul {
+    list-style: none; padding: 0; margin: 0;
+  }
+  .falc-popup ul li {
+    padding: 3px 0 3px 18px;
+    position: relative; color: #1a1a2e;
+  }
+  .falc-popup ul li::before {
+    content: "✓"; position: absolute; left: 0;
+    color: #f5883a; font-weight: 900;
+  }
+  .falc-popup .popup-close {
+    position: absolute; top: 8px; right: 10px;
+    background: none; border: none; cursor: pointer;
+    font-size: 1em; color: #888; font-weight: 700;
+    line-height: 1; padding: 0;
+  }
+  .falc-popup .popup-close:hover { color: #2d2b6b; }
+
+  /* Night mode */
+  .falc-popup.night { background: #12122a; border-color: #7b77cc; color: #e0deff; }
+  .falc-popup.night h4 { color: #b8b4e8; border-bottom-color: #3d3a6e; }
+  .falc-popup.night ul li { color: #e0deff; }
+  .falc-info-btn.night { border-color: #7b77cc; color: #b8b4e8; }
+
+  /* ── QUIZ ── */
+  .quiz-section { margin: 10px 0; }
+  .quiz-question { margin-bottom: 18px; }
+  .quiz-question p {
+    font-size: 0.96em; font-weight: 800; color: #2d2b6b;
+    margin-bottom: 8px; line-height: 1.4;
+  }
+  .quiz-options { display: flex; flex-direction: column; gap: 6px; }
+  .quiz-option {
+    display: flex; align-items: flex-start; gap: 8px;
+    padding: 8px 12px; border-radius: 8px;
+    border: 1.5px solid #e0deff; background: #f8f7ff;
+    cursor: pointer; font-size: 0.88em; line-height: 1.4;
+    transition: background 0.15s, border-color 0.15s;
+    text-align: left; width: 100%;
+    font-family: 'Nunito', Arial, sans-serif; color: #1a1a2e;
+  }
+  .quiz-option:hover { background: #ede7f6; border-color: #3d3a9e; }
+  .quiz-option.correct { background: #e8f5e9 !important; border-color: #43a047 !important; color: #1b5e20 !important; font-weight: 700; }
+  .quiz-option.wrong   { background: #fce4ec !important; border-color: #e53935 !important; color: #b71c1c !important; font-weight: 700; }
+  .quiz-option.disabled { cursor: not-allowed; }
+  .quiz-option.disabled:not(.correct):not(.wrong):hover { background: #f8f7ff; border-color: #e0deff; }
+  .quiz-option.correct:hover { background: #e8f5e9 !important; border-color: #43a047 !important; color: #1b5e20 !important; }
+  .quiz-option.wrong:hover   { background: #fce4ec !important; border-color: #e53935 !important; color: #b71c1c !important; }
+  .quiz-feedback {
+    display: none; margin-top: 8px; padding: 8px 12px;
+    border-radius: 8px; font-size: 0.85em; line-height: 1.5;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.correct-fb { background: #e8f5e9; border-left: 3px solid #43a047; color: #1b5e20; }
+  .quiz-feedback.wrong-fb   { background: #fff3e0; border-left: 3px solid #f5883a; color: #4a2800; }
+  .quiz-score {
+    opacity: 0; max-height: 0; overflow: hidden;
+    text-align: center; padding: 0 16px;
+    background: #ede7f6; border-radius: 10px;
+    font-weight: 800; font-size: 1.1em; color: #2d2b6b;
+    margin-top: 12px;
+    transition: opacity 0.2s ease, max-height 0.2s ease, padding 0.2s ease;
+  }
+  .quiz-score.show { opacity: 1; max-height: 200px; padding: 16px; }
+  .quiz-score.visible { opacity: 1; }
+  .quiz-reset {
+    opacity: 0; margin: 10px auto 0; padding: 7px 20px;
+    background: #2d2b6b; color: #fff; border: none;
+    border-radius: 20px; font-family: 'Nunito', Arial, sans-serif;
+    font-size: 0.88em; font-weight: 700; cursor: pointer;
+    display: block; pointer-events: none;
+    transition: opacity 0.25s ease 0.15s;
+  }
+  .quiz-reset.show { opacity: 1; pointer-events: auto; }
+  .quiz-reset:hover { background: #3d3a9e; }
+  .quiz-next {
+    display: none; margin: 12px 0 0; padding: 8px 22px;
+    background: #3d3a9e; color: #fff; border: none;
+    border-radius: 20px; font-family: 'Nunito', Arial, sans-serif;
+    font-size: 0.9em; font-weight: 700; cursor: pointer;
+    transition: background 0.15s;
+  }
+  .quiz-next:hover { background: #2d2b6b; }
+  .quiz-progress-bar {
+    height: 6px; background: #e0deff; border-radius: 3px;
+    margin-bottom: 6px; overflow: hidden;
+  }
+  .quiz-progress-fill {
+    height: 100%; background: #3d3a9e;
+    border-radius: 3px; transition: width 0.25s ease;
+    width: 0%;
+  }
+  .quiz-progress-label {
+    font-size: 0.75em; color: #888; margin-bottom: 12px;
+    font-weight: 700; text-align: right;
+  }
+  #content-wrap.night .quiz-next { background: #3d3a9e; }
+  #content-wrap.night .quiz-progress-bar { background: #1e1a3d; }
+  #content-wrap.night .quiz-progress-fill { background: #7b77cc; }
+  #content-wrap.night .quiz-progress-label { color: #7b77cc; }
+
+  /* Night mode */
+  #content-wrap.night .quiz-option { background: #1e1a3d; border-color: #3d3a6e; color: #e0deff; }
+  #content-wrap.night .quiz-option:hover { background: #2d2b6b; border-color: #7b77cc; }
+  #content-wrap.night .quiz-question p { color: #b8b4e8; }
+  #content-wrap.night .quiz-score { background: #1e1a3d; color: #e0deff; }
+
+  /* ── TUTORIEL ── */
+  .tuto-btn {
+    background: #f0eeff; border: 1.5px solid #c5c2f0;
+    color: #2d2b6b; border-radius: 6px;
+    padding: 5px 0; font-size: 0.85em;
+    font-family: 'Nunito', Arial, sans-serif; font-weight: 700;
+    cursor: pointer; transition: background 0.15s;
+    display: block; width: 100%; margin-top: 4px;
+    text-align: center;
+  }
+  .tuto-btn:hover { background: #2d2b6b; color: #fff; border-color: #2d2b6b; }
+
+  /* Overlay */
+  .tuto-overlay {
+    display: none; position: fixed; inset: 0;
+    z-index: 9000;
+    pointer-events: none;
+  }
+  .tuto-overlay.active { display: block; }
+
+  /* 4 dark panels around the highlighted element */
+  .tuto-panel {
+    position: fixed; background: rgba(0,0,0,0.55);
+    pointer-events: all; z-index: 9001;
+    transition: all 0.3s ease;
+  }
+
+  /* Highlight border around target */
+  .tuto-highlight {
+    position: fixed; z-index: 9002;
+    border: 3px solid #f5883a;
+    border-radius: 10px;
+    box-shadow: 0 0 0 3px rgba(245,136,58,0.3);
+    pointer-events: none;
+    transition: all 0.3s ease;
+  }
+
+  /* Bubble */
+  .tuto-bubble {
+    position: fixed; z-index: 9003;
+    background: #fff; border-radius: 12px;
+    padding: 16px 18px; width: 240px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    border: 2px solid #f5883a;
+    transition: all 0.3s ease;
+    pointer-events: all;
+  }
+  .tuto-bubble h4 {
+    font-size: 0.95em; font-weight: 800;
+    color: #2d2b6b; margin-bottom: 8px;
+  }
+  .tuto-bubble p {
+    font-size: 0.82em; color: #333;
+    line-height: 1.55; margin-bottom: 12px;
+  }
+  .tuto-bubble-footer {
+    display: flex; align-items: center;
+    justify-content: space-between; gap: 6px;
+  }
+  .tuto-counter {
+    font-size: 0.75em; color: #999; font-weight: 700;
+  }
+  .tuto-nav { display: flex; gap: 6px; }
+  .tuto-nav button {
+    padding: 5px 12px; border-radius: 20px;
+    font-size: 0.8em; font-weight: 700;
+    font-family: 'Nunito', Arial, sans-serif;
+    cursor: pointer; border: none; transition: background 0.15s;
+  }
+  .tuto-btn-prev {
+    background: #f0eeff; color: #2d2b6b;
+  }
+  .tuto-btn-prev:hover { background: #ddd9ff; }
+  .tuto-btn-next {
+    background: #2d2b6b; color: #fff;
+  }
+  .tuto-btn-next:hover { background: #3d3a9e; }
+  .tuto-btn-skip {
+    background: none; color: #aaa; font-size: 0.75em;
+    font-weight: 700; cursor: pointer; border: none;
+    font-family: 'Nunito', Arial, sans-serif;
+    text-decoration: underline; padding: 0;
+  }
+  .tuto-btn-skip:hover { color: #666; }
+
+  /* Arrow on bubble */
+  .tuto-bubble::before {
+    content: ''; position: absolute;
+    border: 8px solid transparent;
+  }
+  .tuto-bubble.arrow-left::before {
+    left: -16px; top: 20px;
+    border-right-color: #f5883a;
+  }
+  .tuto-bubble.arrow-right::before {
+    right: -16px; top: 20px;
+    border-left-color: #f5883a;
+  }
+  .tuto-bubble.arrow-top::before {
+    top: -16px; left: 20px;
+    border-bottom-color: #f5883a;
+  }
+  .tuto-bubble.arrow-bottom::before {
+    bottom: -16px; left: 20px;
+    border-top-color: #f5883a;
+  }
+
+  /* Night mode */
+  .tuto-bubble.night { background: #12122a; border-color: #f5883a; }
+  .tuto-bubble.night h4 { color: #e0deff; }
+  .tuto-bubble.night p  { color: #b8b4e8; }
+  .tuto-btn-prev.night  { background: #1e1a3d; color: #e0deff; }
+
+  /* ── POLICE OPENDYSLEXIC ── */
+  @font-face {
+    font-family: 'OpenDyslexic';
+    src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/fonts/OpenDyslexic-Regular.otf') format('opentype');
+    font-weight: normal;
+  }
+  @font-face {
+    font-family: 'OpenDyslexic';
+    src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/fonts/OpenDyslexic-Bold.otf') format('opentype');
+    font-weight: bold;
+  }
+  body.dyslexic, body.dyslexic * {
+    font-family: 'OpenDyslexic', Arial, sans-serif !important;
+  }
+
+  /* ── FILTRE COULEUR FOND ── */
+  body.bg-beige #content-wrap,
+  body.bg-beige { background: #fdf6e3 !important; }
+  body.bg-blue #content-wrap,
+  body.bg-blue { background: #e8f4fc !important; }
+  body.bg-yellow #content-wrap,
+  body.bg-yellow { background: #fefde7 !important; }
+  body.bg-green #content-wrap,
+  body.bg-green { background: #edf7ee !important; }
+
+  /* ── ESPACEMENT ── */
+  body.spacing-high .intro-text,
+  body.spacing-high ul.custom li,
+  body.spacing-high p,
+  body.spacing-high .action-card p,
+  body.spacing-high .actualite-box {
+    letter-spacing: 0.08em !important;
+    word-spacing: 0.2em !important;
+    line-height: 2.1 !important;
+  }
+
+  /* ── RÈGLE DE LECTURE ── */
+  .reading-ruler {
+    display: none;
+    position: fixed; left: 0; right: 0;
+    height: 36px;
+    background: rgba(245, 136, 58, 0.13);
+    border-top: 2px solid rgba(245,136,58,0.5);
+    border-bottom: 2px solid rgba(245,136,58,0.5);
+    pointer-events: none;
+    z-index: 8000;
+    transition: top 0.05s linear;
+  }
+  body.ruler-on .reading-ruler { display: block; }
+
+
+
+  /* ── MARQUE-PAGE ── */
+  .bookmark-btn {
+    position: absolute; right: -36px; top: 0;
+    background: none; border: none; cursor: pointer;
+    font-size: 1.1em; opacity: 0.3; transition: opacity 0.2s;
+    padding: 2px 4px;
+  }
+  .bookmark-btn:hover { opacity: 1; }
+  .bookmark-btn.active { opacity: 1; color: #f5883a; }
+  .section-title { position: relative; }
+  .bookmark-toast {
+    position: fixed; bottom: 30px; left: 50%;
+    transform: translateX(-50%);
+    background: #2d2b6b; color: #fff;
+    padding: 8px 20px; border-radius: 20px;
+    font-size: 0.85em; font-weight: 700;
+    z-index: 9999; opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+  .bookmark-toast.show { opacity: 1; }
+
+  /* Sur desktop, le wrapper est invisible (les enfants sont fixed) */
+  .mobile-top-panels { display: contents; }
+
+  /* ══════════════════════════════════════
+     RESPONSIVE MOBILE
+     ══════════════════════════════════════ */
+  /* Desktop: wrapper invisible, children keep fixed positioning */
+  .mobile-top-panels { display: contents; }
+
+  @media (max-width: 900px) {
+
+    /* ── Page centrée ── */
+    .page { width: 100% !important; padding: 12px 16px !important; }
+    #content-wrap { padding: 0 !important; }
+
+    /* ── Drapeaux + bonhomme : barre fixe en haut ── */
+    .lang-flags {
+      position: fixed !important;
+      top: 0 !important; left: 0 !important; right: 0 !important;
+      width: 100% !important;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      padding: 6px 12px;
+      display: flex !important;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+      z-index: 1100;
+      border-bottom: 1.5px solid #e0deff;
+    }
+    body.night .lang-flags { background: #12122a; border-bottom-color: #3d3a6e; }
+
+    /* Décaler le contenu pour la barre du haut */
+    body { padding-top: 58px !important; }
+
+    /* ── Sommaire + Téléchargement : côte à côte au-dessus du contenu ── */
+    .summary-box {
+      position: static !important;
+      width: auto !important;
+      flex: 1;
+      margin: 0 !important;
+      display: block !important;
+    }
+
+    /* ── Barre accessibilité : panneau pleine largeur depuis le bas ── */
+    .a11y-bar {
+      position: fixed !important;
+      left: 0 !important; right: 0 !important; bottom: 0 !important;
+      top: auto !important;
+      width: 100% !important;
+      max-height: 70vh;
+      overflow-y: auto;
+      border-radius: 16px 16px 0 0 !important;
+      border-left: none !important; border-right: none !important; border-bottom: none !important;
+      border-top: 2px dashed #3d3a9e !important;
+      display: none;
+      flex-direction: column;
+      z-index: 1050;
+      box-shadow: 0 -4px 24px rgba(0,0,0,0.15) !important;
+    }
+    .a11y-bar.open { display: flex !important; }
+
+    /* Grille 2 colonnes pour les groupes d'options */
+    .a11y-bar .a11y-group { flex-direction: row; flex-wrap: wrap; gap: 6px; }
+    .a11y-bar .a11y-group .a11y-btn { flex: 1; min-width: 80px; }
+
+    /* ── Panneau audio : positionné par JS sur mobile ── */
+    #audio-panel {
+      width: 100% !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+    }
+
+    /* ── Panneau PDF/téléchargement : côte à côte avec sommaire ── */
+    #pdf-panel {
+      position: static !important;
+      width: auto !important;
+      flex: 1;
+      top: auto !important; left: auto !important; right: auto !important;
+      bottom: auto !important;
+    }
+
+    /* Conteneur flex pour sommaire + pdf ── */
+    .mobile-top-panels {
+      display: flex !important;
+      gap: 12px;
+      align-items: flex-start;
+      margin: 12px 16px 16px !important;
+      flex-wrap: wrap;
+    }
+
+    /* ── Mise en page 1 colonne ── */
+    .two-col, .two-col-wide { flex-direction: column !important; }
+    .kpi-row { flex-wrap: wrap !important; }
+    .kpi-card { min-width: calc(50% - 8px) !important; }
+
+    /* ── Header ── */
+    .header-title { font-size: 2em !important; }
+    .header-subtitle { font-size: 0.9em !important; }
+
+    /* ── Popup FALC : centrée ── */
+    .falc-popup {
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      width: 90vw !important;
+      max-width: 320px !important;
+    }
+
+    /* ── Tutoriel bubble : centrée ── */
+    .tuto-bubble {
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      top: auto !important;
+      bottom: 20px !important;
+      width: 85vw !important;
+      max-width: 320px !important;
+    }
+    .tuto-bubble::before { display: none !important; }
+  }
+
+  /* ── TRADUCTIONS ── */
+  [data-lang] { display: none; }
+  [data-lang="fr"] { display: inline; }
+</style>
+<script src="https://unpkg.com/docx@8.5.0/build/index.umd.js"></script>
+</head>
+<body id="body-root">
+
+<!-- ── DRAPEAUX LANGUE + ACCESSIBILITÉ ── -->
+<div class="lang-flags" id="lang-flags">
+  <button class="lang-flag-btn active" id="flag-fr" onclick="setLang('fr'); updateFlagActive('fr');" title="Français">🇫🇷</button>
+  <button class="lang-flag-btn" id="flag-en" onclick="setLang('en'); updateFlagActive('en');" title="English">🇬🇧</button>
+  <button class="lang-flag-btn" id="flag-es" onclick="setLang('es'); updateFlagActive('es');" title="Español">🇪🇸</button>
+  <button class="a11y-toggle-btn" id="a11y-toggle" onclick="toggleA11yPanel()" title="Accessibilité">
+    <img src="data:image/png;base64,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" alt="Accessibilité">
+  </button>
+</div>
+
+<!-- ── BARRE ACCESSIBILITÉ ── -->
+<div class="a11y-bar" id="a11y-bar-panel">
+  <div class="a11y-group">
+    <span class="a11y-label">
+      <span data-lang="fr">Taille du texte</span>
+      <span data-lang="en">Text size</span>
+      <span data-lang="es">Tamaño texto</span>
+    </span>
+    <div class="a11y-group-row">
+      <button class="a11y-btn" onclick="setSize('small')" id="btn-small">A−</button>
+      <button class="a11y-btn active" onclick="setSize('normal')" id="btn-normal">A</button>
+      <button class="a11y-btn" onclick="setSize('large')" id="btn-large">A+</button>
+    </div>
+  </div>
+  <div class="a11y-group">
+    <span class="a11y-label">
+      <span data-lang="fr">Thème &amp; fond</span>
+      <span data-lang="en">Theme &amp; background</span>
+      <span data-lang="es">Tema &amp; fondo</span>
+    </span>
+    <button class="a11y-btn" onclick="toggleGray()" id="btn-gray" style="font-size:0.78em; padding:5px 2px; margin-bottom:4px;">
+      <span id="lbl-day-fr" data-lang="fr">🌙 Mode nuit</span>
+      <span id="lbl-day-en" data-lang="en">🌙 Night mode</span>
+      <span id="lbl-day-es" data-lang="es">🌙 Modo noche</span>
+      <span id="lbl-night-fr" data-lang="fr" style="display:none">☀️ Mode jour</span>
+      <span id="lbl-night-en" data-lang="en" style="display:none">☀️ Day mode</span>
+      <span id="lbl-night-es" data-lang="es" style="display:none">☀️ Modo día</span>
+    </button>
+    <div style="display:flex; gap:5px;">
+      <button class="color-swatch" onclick="setBg('default')" title="Blanc"  style="background:#fff;     flex:1; height:22px; border:2px solid #c5c2f0; border-radius:4px; cursor:pointer;" id="bg-default"></button>
+      <button class="color-swatch" onclick="setBg('beige')"   title="Beige"  style="background:#fdf6e3; flex:1; height:22px; border:1.5px solid #c5c2f0; border-radius:4px; cursor:pointer;" id="bg-beige"></button>
+      <button class="color-swatch" onclick="setBg('blue')"    title="Bleu"   style="background:#e8f4fc; flex:1; height:22px; border:1.5px solid #c5c2f0; border-radius:4px; cursor:pointer;" id="bg-blue"></button>
+      <button class="color-swatch" onclick="setBg('yellow')"  title="Jaune"  style="background:#fefde7; flex:1; height:22px; border:1.5px solid #c5c2f0; border-radius:4px; cursor:pointer;" id="bg-yellow"></button>
+    </div>
+  </div>
+  <div class="a11y-group" style="border-top: 1px solid #e0deff; padding-top:8px;">
+    <span class="a11y-label">
+      <span data-lang="fr">Lisibilité / Compréhension</span>
+      <span data-lang="en">Readability / Comprehension</span>
+      <span data-lang="es">Legibilidad / Comprensión</span>
+    </span>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:5px;">
+      <button class="a11y-btn" onclick="toggleDyslexic()" id="btn-dyslexic" style="font-size:0.72em; padding:5px 2px;">
+        <span data-lang="fr">𝖽 Dyslexie</span>
+        <span data-lang="en">𝖽 Dyslexia</span>
+        <span data-lang="es">𝖽 Dislexia</span>
+      </button>
+      <button class="a11y-btn" onclick="toggleSpacing()" id="btn-spacing" style="font-size:0.72em; padding:5px 2px;">
+        <span data-lang="fr">↔ Espacement</span>
+        <span data-lang="en">↔ Spacing</span>
+        <span data-lang="es">↔ Espaciado</span>
+      </button>
+      <button class="a11y-btn" onclick="toggleRuler()" id="btn-ruler" style="font-size:0.72em; padding:5px 2px;">
+        <span data-lang="fr">📏 Règle</span>
+        <span data-lang="en">📏 Ruler</span>
+        <span data-lang="es">📏 Regla</span>
+      </button>
+      <div style="display:flex; gap:3px; align-items:center;">
+        <button class="a11y-btn" onclick="toggleFALC()" id="btn-falc" style="font-size:0.72em; padding:5px 2px; flex:1;">
+          🧩 FALC
+        </button>
+        <button class="falc-info-btn" id="btn-falc-info" onclick="toggleFalcPopup(event)" onmouseenter="showFalcPopup(event)" onmouseleave="hideFalcPopup(event)" title="Info">i</button>
+      </div>
+    </div>
+  </div>
+  <div class="a11y-group" style="margin-top:2px; border-top: 1px solid #e0deff; padding-top:8px;">
+    <button class="a11y-btn reset" onclick="resetAll()">
+      <span data-lang="fr">↺ Réinitialiser</span>
+      <span data-lang="en">↺ Reset</span>
+      <span data-lang="es">↺ Reiniciar</span>
+    </button>
+    <button class="tuto-btn" onclick="startTuto()">
+      <span data-lang="fr">? Tutoriel</span>
+      <span data-lang="en">? Tutorial</span>
+      <span data-lang="es">? Tutorial</span>
+    </button>
+  </div>
+</div>
+
+<div class="mobile-top-panels">
+<div class="summary-box">
+  <h3><span data-lang="fr">Sommaire</span><span data-lang="en">Contents</span><span data-lang="es">Índice</span></h3>
+  <ol>
+    <li><a href="#section1"><span data-lang="fr">Transition université</span><span data-lang="en">University transition</span><span data-lang="es">Transición universidad</span></a></li>
+    <li><a href="#section2"><span data-lang="fr">Pédagogie inclusive</span><span data-lang="en">Inclusive teaching</span><span data-lang="es">Pedagogía inclusiva</span></a></li>
+    <li><a href="#section3"><span data-lang="fr">Formations TND</span><span data-lang="en">NDD training</span><span data-lang="es">Formaciones TNS</span></a></li>
+    <li><a href="#section4"><span data-lang="fr">Vie étudiante</span><span data-lang="en">Student life</span><span data-lang="es">Vida estudiantil</span></a></li>
+    <li><a href="#section5"><span data-lang="fr">Insertion pro</span><span data-lang="en">Career support</span><span data-lang="es">Inserción profesional</span></a></li>
+    <li><a href="#section6"><span data-lang="fr">Recherche</span><span data-lang="en">Research</span><span data-lang="es">Investigación</span></a></li>
+    <li><a href="#section-quiz"><span data-lang="fr">🧠 Quiz Atypique</span><span data-lang="en">🧠 Atypical Quiz</span><span data-lang="es">🧠 Quiz Atípico</span></a></li>
+  </ol>
+</div>
+
+<!-- ── PANNEAU PDF ── -->
+<div class="pdf-panel" id="pdf-panel">
+  <span class="a11y-label">
+    <span data-lang="fr">📄 Télécharger</span>
+    <span data-lang="en">📄 Download</span>
+    <span data-lang="es">📄 Descargar</span>
+  </span>
+  <button class="pdf-btn" onclick="downloadPDF()">
+    <span data-lang="fr">⬇ Sauvegarder en PDF</span>
+    <span data-lang="en">⬇ Save as PDF</span>
+    <span data-lang="es">⬇ Guardar como PDF</span>
+  </button>
+  <p class="pdf-tip">
+    <span data-lang="fr">Dans la boîte d'impression, choisissez « Enregistrer en PDF »</span>
+    <span data-lang="en">In the print dialog, choose "Save as PDF"</span>
+    <span data-lang="es">En el diálogo de impresión, elija «Guardar como PDF»</span>
+  </p>
+  <button class="pdf-btn" style="margin-top:6px;" onclick="downloadWord()">
+    ⬇ Word (.docx)
+  </button>
+  <div id="word-status" class="pdf-tip" style="display:none; color:#3d3a9e; margin-top:4px;">
+    <span data-lang="fr">⏳ Génération…</span>
+    <span data-lang="en">⏳ Generating…</span>
+    <span data-lang="es">⏳ Generando…</span>
+  </div>
+</div><!-- /mobile-top-panels -->
+</div><!-- /mobile-top-panels -->
+
+<!-- ── HEADER ── -->
+<div id="content-wrap">
+<div class="header">
+  <div class="header-top-label">
+    <span data-lang="fr">par l'équipe Atypie-Friendly de l'UB</span>
+    <span data-lang="en">by the Atypie-Friendly team at UB</span>
+    <span data-lang="es">por el equipo Atypie-Friendly de la UB</span>
+  </div>
+  <div class="header-title">Les Atyp'Infos <span>#1</span></div>
+  <div class="header-subtitle">
+    <span data-lang="fr">La newsletter du TND à l'Université de Bordeaux</span>
+    <span data-lang="en">The NDD newsletter at the University of Bordeaux</span>
+    <span data-lang="es">El boletín del TNS en la Universidad de Burdeos</span>
+  </div>
+  <svg class="header-wave" viewBox="0 0 794 38" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,20 C120,5 200,35 320,18 C440,2 520,30 640,15 C720,5 760,25 794,18 L794,38 L0,38 Z" fill="#fff"/>
+  </svg>
+</div>
+
+<!-- ── PAGE 1 ── -->
+<div class="page">
+  <div class="section-title"><div class="section-dot"></div>
+    <span data-lang="fr">Éditorial : Pour une Université Atypie-Friendly</span>
+    <span data-lang="en">Editorial: For an Atypie-Friendly University</span>
+    <span data-lang="es">Editorial: Por una Universidad Atypie-Friendly</span>
+  </div>
+
+  <div class="falc-icon">🎓</div>
+  <div class="falc-text">
+    <div data-lang="fr">
+      <p class="intro-text"><strong>Atypie-Friendly</strong>, c'est un programme pour aider les étudiants.</p>
+      <p class="intro-text">Certains étudiants ont un cerveau qui fonctionne différemment.</p>
+      <p class="intro-text">Par exemple : l'autisme, le TDAH, ou les troubles dys.</p>
+      <p class="intro-text">Ces étudiants peuvent avoir des difficultés à l'université.</p>
+      <p class="intro-text">Le programme Atypie-Friendly veut les aider.</p>
+      <p class="intro-text">30 universités en France participent à ce programme.</p>
+      <p class="intro-text">L'Université de Bordeaux fait partie de ce programme depuis 2018.</p>
+    </div>
+    <div data-lang="en">
+      <p class="intro-text"><strong>Atypie-Friendly</strong> is a programme to help students.</p>
+      <p class="intro-text">Some students have a brain that works differently.</p>
+      <p class="intro-text">For example: autism, ADHD, or dyslexia.</p>
+      <p class="intro-text">These students may find university difficult.</p>
+      <p class="intro-text">The Atypie-Friendly programme wants to help them.</p>
+      <p class="intro-text">30 universities in France are part of this programme.</p>
+      <p class="intro-text">The University of Bordeaux has been part of it since 2018.</p>
+    </div>
+    <div data-lang="es">
+      <p class="intro-text"><strong>Atypie-Friendly</strong> es un programa para ayudar a los estudiantes.</p>
+      <p class="intro-text">Algunos estudiantes tienen un cerebro que funciona de manera diferente.</p>
+      <p class="intro-text">Por ejemplo: autismo, TDAH o dislexia.</p>
+      <p class="intro-text">Estos estudiantes pueden tener dificultades en la universidad.</p>
+      <p class="intro-text">El programa Atypie-Friendly quiere ayudarles.</p>
+      <p class="intro-text">30 universidades en Francia participan en este programa.</p>
+      <p class="intro-text">La Universidad de Burdeos participa desde 2018.</p>
+    </div>
+  </div>
+
+  <div class="normal-text">
+  <p class="intro-text">
+    <span data-lang="fr">Inscrit dans la <strong>Stratégie nationale pour l'autisme (2018-2028)</strong> et sélectionné par le Programme Investissements d'Avenir, le projet <strong>« Construire une Université Atypie-Friendly »</strong> engage une trentaine d'universités dans l'inclusion globale des étudiants et personnels présentant un trouble du neurodéveloppement (TND) : autisme, TDAH, troubles dys, et bien d'autres.</span>
+    <span data-lang="en">Rooted in the <strong>National Autism Strategy (2018-2028)</strong> and selected by the Investment for the Future Programme, the project <strong>"Building an Atypie-Friendly University"</strong> engages some thirty universities in the full inclusion of students and staff with a neurodevelopmental disorder (NDD): autism, ADHD, learning difficulties, and more.</span>
+    <span data-lang="es">Inscrito en la <strong>Estrategia nacional para el autismo (2018-2028)</strong> y seleccionado por el Programa de Inversiones de Futuro, el proyecto <strong>«Construir una Universidad Atypie-Friendly»</strong> compromete a una treintena de universidades en la inclusión global de estudiantes y personal con trastorno del neurodesarrollo (TNS): autismo, TDAH, dislexia, y más.</span>
+  </p>
+  <br>
+  <p class="intro-text">
+    <span data-lang="fr">L'Université de Bordeaux est partenaire depuis 2018. L'objectif : améliorer l'inclusion dans l'enseignement supérieur et accompagner vers une <strong>insertion sociale et professionnelle réussie</strong>, en lien avec le service PHASE, l'Espace Santé Étudiant, la MAPI, le CROUS et les associations étudiantes.</span>
+    <span data-lang="en">The University of Bordeaux has been a partner since 2018. The goal: to improve inclusion in higher education and support students towards <strong>successful social and professional integration</strong>, working with the PHASE service, the Student Health Centre, MAPI, CROUS and student associations.</span>
+    <span data-lang="es">La Universidad de Burdeos es socia desde 2018. El objetivo: mejorar la inclusión en la enseñanza superior y acompañar hacia una <strong>inserción social y profesional exitosa</strong>, en colaboración con el servicio PHASE, el Espacio de Salud Estudiantil, la MAPI, el CROUS y las asociaciones estudiantiles.</span>
+  </p>
+
+  </div><!-- /normal-text -->
+
+  <div class="kpi-row">
+    <div class="kpi-card kpi-bordeaux">
+      <div class="kpi-num">8%</div>
+      <div class="kpi-label"><span data-lang="fr">de la population a un TND</span><span data-lang="en">of the population has an NDD</span><span data-lang="es">de la población tiene un TNS</span></div>
+    </div>
+    <div class="kpi-card kpi-teal">
+      <div class="kpi-num">- de 1%</div>
+      <div class="kpi-label"><span data-lang="fr">à l'Université</span><span data-lang="en">at University</span><span data-lang="es">en la Universidad</span></div>
+    </div>
+    <div class="kpi-card kpi-purple">
+      <div class="kpi-num">2018</div>
+      <div class="kpi-label"><span data-lang="fr">année de lancement</span><span data-lang="en">launch year</span><span data-lang="es">año de lanzamiento</span></div>
+    </div>
+    <div class="kpi-card kpi-orange">
+      <div class="kpi-num">~40</div>
+      <div class="kpi-label"><span data-lang="fr">universités partenaires</span><span data-lang="en">partner universities</span><span data-lang="es">universidades asociadas</span></div>
+    </div>
+  </div>
+
+  <hr class="separator">
+
+  <div class="section-title" id="section1"><div class="section-dot"></div>
+  <button class="bookmark-btn" id="bm-section1" onclick="toggleBookmark('section1')" title="Marquer">🔖</button>
+    <span data-lang="fr">1. Transition vers l'enseignement supérieur</span>
+    <span data-lang="en">1. Transition to higher education</span>
+    <span data-lang="es">1. Transición a la enseñanza superior</span>
+  </div>
+  <div class="falc-icon">🏫</div>
+  <div class="falc-text">
+    <div data-lang="fr">
+      <p class="intro-text">Passer du lycée à l'université, c'est un grand changement.</p>
+      <p class="intro-text">Atypie-Friendly vous aide à préparer cette étape.</p>
+      <p class="intro-text">📖 Il y a des <strong>guides simples</strong> pour vous préparer.</p>
+      <p class="intro-text">💻 Vous pouvez faire une <strong>visite virtuelle</strong> de l'université.</p>
+      <p class="intro-text">🎮 Il y a un <strong>jeu vidéo</strong> pour découvrir l'université.</p>
+      <p class="intro-text">📋 Il y a un <strong>mémo</strong> avec les choses importantes à faire.</p>
+      <p class="intro-text">📚 Il y a un <strong>module gratuit</strong> pour apprendre à travailler à l'université.</p>
+    </div>
+    <div data-lang="en">
+      <p class="intro-text">Moving from school to university is a big change.</p>
+      <p class="intro-text">Atypie-Friendly helps you prepare for this step.</p>
+      <p class="intro-text">📖 There are <strong>simple guides</strong> to help you get ready.</p>
+      <p class="intro-text">💻 You can take a <strong>virtual tour</strong> of the university.</p>
+      <p class="intro-text">🎮 There is a <strong>video game</strong> to discover university life.</p>
+      <p class="intro-text">📋 There is a <strong>memo</strong> with the important things to do.</p>
+      <p class="intro-text">📚 There is a <strong>free module</strong> to learn how to study at university.</p>
+    </div>
+    <div data-lang="es">
+      <p class="intro-text">El paso del instituto a la universidad es un gran cambio.</p>
+      <p class="intro-text">Atypie-Friendly te ayuda a preparar este paso.</p>
+      <p class="intro-text">📖 Hay <strong>guías sencillas</strong> para prepararte.</p>
+      <p class="intro-text">💻 Puedes hacer una <strong>visita virtual</strong> a la universidad.</p>
+      <p class="intro-text">🎮 Hay un <strong>videojuego</strong> para descubrir la universidad.</p>
+      <p class="intro-text">📋 Hay un <strong>memo</strong> con las cosas importantes que hacer.</p>
+      <p class="intro-text">📚 Hay un <strong>módulo gratuito</strong> para aprender a trabajar en la universidad.</p>
+    </div>
+  </div>
+  <div class="normal-text">
+  <div class="two-col">
+    <div>
+      <p class="intro-text" style="margin-bottom:7px;">
+        <span data-lang="fr">En complément de l'accompagnement par les services spécialisés, le programme propose :</span>
+        <span data-lang="en">In addition to support from specialist services, the programme offers:</span>
+        <span data-lang="es">Además del acompañamiento de los servicios especializados, el programa propone:</span>
+      </p>
+      <ul class="custom">
+        <li><span data-lang="fr">Des <strong>guides lycée → université</strong> diffusés chaque année auprès des lycées et CIO de l'académie de Bordeaux</span><span data-lang="en"><strong>Secondary-to-university guides</strong> distributed annually to schools and careers offices in the Bordeaux academy</span><span data-lang="es"><strong>Guías bachillerato → universidad</strong> distribuidas cada año a los institutos y orientadores de la academia de Burdeos</span></li>
+        <li><span data-lang="fr">Un <strong>module MTU</strong> (Méthodologie du Travail Universitaire) gratuit et en libre accès</span><span data-lang="en">A free, open-access <strong>UTM module</strong> (University Study Methods)</span><span data-lang="es">Un <strong>módulo MTU</strong> (Metodología del Trabajo Universitario) gratuito y de libre acceso</span></li>
+        <li><span data-lang="fr">Des <strong>visites virtuelles</strong> du service PHASE et de l'Espace Santé Étudiant</span><span data-lang="en"><strong>Virtual tours</strong> of the PHASE service and the Student Health Centre</span><span data-lang="es"><strong>Visitas virtuales</strong> al servicio PHASE y al Espacio de Salud Estudiantil</span></li>
+        <li><span data-lang="fr">Le <strong>serious game Univ'défis</strong> pour découvrir les défis de l'université de façon ludique</span><span data-lang="en">The <strong>Univ'défis serious game</strong> to explore university challenges in a fun way</span><span data-lang="es">El <strong>serious game Univ'défis</strong> para descubrir los retos universitarios de forma lúdica</span></li>
+        <li><span data-lang="fr">Un <strong>mémo transition</strong> pour préparer sa rentrée pas à pas</span><span data-lang="en">A <strong>transition memo</strong> to prepare for the start of term step by step</span><span data-lang="es">Un <strong>memo de transición</strong> para preparar la vuelta a las aulas paso a paso</span></li>
+      </ul>
+    </div>
+    <div>
+      <div class="action-card card-purple">
+        <h4>📋 <span data-lang="fr">Le saviez-vous ?</span><span data-lang="en">Did you know?</span><span data-lang="es">¿Lo sabía?</span></h4>
+        <p style="font-size:12px;color:#333;line-height:1.6;">
+          <span data-lang="fr">Un groupe de travail national sur la transition lycée/université est piloté en partenariat avec l'Université Paris Cité. Ressources gratuites sur <strong>atypie-friendly.fr</strong></span>
+          <span data-lang="en">A national working group on the secondary-to-university transition is led in partnership with Université Paris Cité. Free resources at <strong>atypie-friendly.fr</strong></span>
+          <span data-lang="es">Un grupo de trabajo nacional sobre la transición bachillerato/universidad está coordinado con la Universidad París Cité. Recursos gratuitos en <strong>atypie-friendly.fr</strong></span>
+        </p>
+      </div>
+      <div style="margin-top:8px;"><a class="wave-btn" href="https://atypie-friendly.fr/contact/"><span data-lang="fr">Contacter l'équipe</span><span data-lang="en">Contact the team</span><span data-lang="es">Contactar al equipo</span></a></div>
+      <div style="margin-top:5px;"><a class="wave-btn" href="https://atypie-friendly.fr/wp-content/uploads/2023/09/Memo-Transition-Universitaire-2023-2024.pdf"><span data-lang="fr">Mémo transition</span><span data-lang="en">Transition memo</span><span data-lang="es">Memo transición</span></a></div>
+    </div>
+  </div>
+
+  <hr class="separator">
+
+  </div><!-- /normal-text -->
+  <div class="section-title" id="section2"><div class="section-dot"></div>
+  <button class="bookmark-btn" id="bm-section2" onclick="toggleBookmark('section2')" title="Marquer">🔖</button>
+    <span data-lang="fr">2. Pédagogie innovante et inclusive</span>
+    <span data-lang="en">2. Innovative and inclusive teaching</span>
+    <span data-lang="es">2. Pedagogía innovadora e inclusiva</span>
+  </div>
+  <div class="falc-icon">📚</div>
+  <div class="falc-text">
+    <div data-lang="fr">
+      <p class="intro-text">Les professeurs peuvent adapter leurs cours.</p>
+      <p class="intro-text">Atypie-Friendly donne des <strong>outils aux professeurs</strong>.</p>
+      <p class="intro-text">📋 Une <strong>boîte à outils</strong> avec des modèles de cours adaptés.</p>
+      <p class="intro-text">✅ Une <strong>grille</strong> pour vérifier que le cours est accessible.</p>
+      <p class="intro-text">💾 Un outil informatique pour créer des <strong>supports accessibles</strong>.</p>
+    </div>
+    <div data-lang="en">
+      <p class="intro-text">Teachers can adapt their courses.</p>
+      <p class="intro-text">Atypie-Friendly gives <strong>tools to teachers</strong>.</p>
+      <p class="intro-text">📋 A <strong>toolkit</strong> with adapted course templates.</p>
+      <p class="intro-text">✅ A <strong>grid</strong> to check that the course is accessible.</p>
+      <p class="intro-text">💾 A computer tool to create <strong>accessible materials</strong>.</p>
+    </div>
+    <div data-lang="es">
+      <p class="intro-text">Los profesores pueden adaptar sus clases.</p>
+      <p class="intro-text">Atypie-Friendly da <strong>herramientas a los profesores</strong>.</p>
+      <p class="intro-text">📋 Una <strong>caja de herramientas</strong> con modelos de clases adaptadas.</p>
+      <p class="intro-text">✅ Una <strong>cuadrícula</strong> para comprobar que la clase es accesible.</p>
+      <p class="intro-text">💾 Una herramienta informática para crear <strong>materiales accesibles</strong>.</p>
+    </div>
+  </div>
+  <div class="normal-text">
+  <div class="two-col">
+    <div>
+      <div class="sub-title"><span data-lang="fr">Boîte à outils pédagogique (BOP)</span><span data-lang="en">Teaching Toolkit (BOP)</span><span data-lang="es">Caja de herramientas pedagógicas (BOP)</span></div>
+      <ul class="custom">
+        <li><span data-lang="fr">Templates PPT et Syllabus adaptés</span><span data-lang="en">Adapted PPT templates and Syllabi</span><span data-lang="es">Plantillas PPT y Syllabus adaptados</span></li>
+        <li><span data-lang="fr">Dispositifs pour les travaux de groupe</span><span data-lang="en">Group work frameworks</span><span data-lang="es">Dispositivos para trabajos en grupo</span></li>
+        <li><span data-lang="fr">Outils pour adapter les enseignements aux étudiants avec un TND</span><span data-lang="en">Tools to adapt teaching for students with NDDs</span><span data-lang="es">Herramientas para adaptar la enseñanza a estudiantes con TNS</span></li>
+      </ul>
+      <div style="margin-top:7px;"><a class="wave-btn" href="https://moodle.unil.ch/login/index.php"><span data-lang="fr">Accéder à la BOP</span><span data-lang="en">Access the BOP</span><span data-lang="es">Acceder a la BOP</span></a></div>
+    </div>
+    <div>
+      <div class="sub-title"><span data-lang="fr">Grille d'analyse & Scenari</span><span data-lang="en">Analysis grid & Scenari</span><span data-lang="es">Cuadrícula de análisis & Scenari</span></div>
+      <ul class="custom">
+        <li><span data-lang="fr">Une <strong>grille d'analyse des pratiques pédagogiques</strong> pour des cours plus inclusifs</span><span data-lang="en">A <strong>teaching practice analysis grid</strong> for more inclusive courses</span><span data-lang="es">Una <strong>cuadrícula de análisis de prácticas pedagógicas</strong> para clases más inclusivas</span></li>
+        <li><span data-lang="fr">L'outil <strong>Scenari</strong> pour créer des supports de cours accessibles</span><span data-lang="en">The <strong>Scenari</strong> tool to create accessible course materials</span><span data-lang="es">La herramienta <strong>Scenari</strong> para crear materiales de curso accesibles</span></li>
+      </ul>
+      <div style="margin-top:7px;"><a class="wave-btn" href="https://doc.scenari.software/Opale/fr/"><span data-lang="fr">Découvrir Scenari</span><span data-lang="en">Discover Scenari</span><span data-lang="es">Descubrir Scenari</span></a></div>
+    </div>
+  </div>
+  </div><!-- /normal-text -->
+</div>
+
+<svg class="bottom-wave" viewBox="0 0 794 55" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0,25 C80,5 160,45 260,28 C360,12 430,42 530,22 C610,8 700,38 794,20 L794,55 L0,55 Z" fill="#f5883a" opacity="0.7"/>
+  <path d="M0,32 C100,12 180,50 290,35 C390,20 470,48 570,30 C650,16 730,44 794,28 L794,55 L0,55 Z" fill="#7b77cc" opacity="0.5"/>
+  <path d="M0,40 C120,22 220,52 330,38 C430,26 510,50 620,35 C700,24 760,46 794,35 L794,55 L0,55 Z" fill="#e87ab0" opacity="0.45"/>
+  <path d="M0,47 C130,32 240,55 360,44 C470,34 550,54 660,42 C730,34 770,50 794,44 L794,55 L0,55 Z" fill="#4fc3a1" opacity="0.6"/>
+</svg>
+
+<!-- ── PAGE 2 ── -->
+<div class="page" style="padding-top:18px;">
+
+  <div class="section-title" id="section3"><div class="section-dot"></div>
+  <button class="bookmark-btn" id="bm-section3" onclick="toggleBookmark('section3')" title="Marquer">🔖</button>
+    <span data-lang="fr">3. Formations aux TND</span>
+    <span data-lang="en">3. NDD Training</span>
+    <span data-lang="es">3. Formaciones sobre TNS</span>
+  </div>
+  <div class="falc-icon">🎓</div>
+  <div class="falc-text">
+    <div data-lang="fr">
+      <p class="intro-text">Vous pouvez vous former sur les TND.</p>
+      <p class="intro-text">Les TND sont des façons différentes de fonctionner.</p>
+      <p class="intro-text">📱 Il y a <strong>11 formations en ligne</strong>. Elles sont gratuites.</p>
+      <p class="intro-text">🎮 Il y a un <strong>jeu</strong> pour comprendre le handicap.</p>
+      <p class="intro-text">📅 Il y a des <strong>formations pour les doctorants</strong> en avril 2026.</p>
+      <p class="intro-text">☕ Les <strong>Cafés Atypie</strong> ont lieu chaque vendredi en ligne.</p>
+    </div>
+    <div data-lang="en">
+      <p class="intro-text">You can train yourself on NDDs.</p>
+      <p class="intro-text">NDDs are different ways of functioning.</p>
+      <p class="intro-text">📱 There are <strong>11 free online training modules</strong>.</p>
+      <p class="intro-text">🎮 There is a <strong>game</strong> to understand disability.</p>
+      <p class="intro-text">📅 There is <strong>training for PhD students</strong> in April 2026.</p>
+      <p class="intro-text">☕ <strong>Atypie Cafés</strong> take place every Friday online.</p>
+    </div>
+    <div data-lang="es">
+      <p class="intro-text">Puede formarse sobre los TNS.</p>
+      <p class="intro-text">Los TNS son formas diferentes de funcionar.</p>
+      <p class="intro-text">📱 Hay <strong>11 formaciones en línea gratuitas</strong>.</p>
+      <p class="intro-text">🎮 Hay un <strong>juego</strong> para entender la discapacidad.</p>
+      <p class="intro-text">📅 Hay <strong>formaciones para doctorandos</strong> en abril de 2026.</p>
+      <p class="intro-text">☕ Los <strong>Cafés Atypie</strong> se celebran cada viernes en línea.</p>
+    </div>
+  </div>
+  <div class="normal-text">
+  <div class="two-col">
+    <div>
+      <ul class="custom">
+        <li><span data-lang="fr"><strong>11 autoformations en ligne</strong> : sensibilisation aux TND, troubles dys, cadre réglementaire…</span><span data-lang="en"><strong>11 online self-training modules</strong>: NDD awareness, learning difficulties, regulatory framework…</span><span data-lang="es"><strong>11 autoformaciones en línea</strong>: sensibilización a los TNS, trastornos dys, marco reglamentario…</span></li>
+        <li><span data-lang="fr"><strong>MOOC AUTISPOC</strong> : socle commun de connaissances TSA, en accès libre sur France Université Numérique</span><span data-lang="en"><strong>MOOC AUTISPOC</strong>: core ASD knowledge, freely available on France Université Numérique</span><span data-lang="es"><strong>MOOC AUTISPOC</strong>: base común de conocimientos TEA, acceso libre en France Université Numérique</span></li>
+        <li><span data-lang="fr"><strong>Serious game</strong> « En quête d'inclusivité » pour réfléchir à sa posture face au handicap</span><span data-lang="en"><strong>Serious game</strong> "In search of inclusivity" to reflect on one's approach to disability</span><span data-lang="es"><strong>Serious game</strong> «En busca de la inclusividad» para reflexionar sobre la actitud ante la discapacidad</span></li>
+        <li><span data-lang="fr"><strong>Formation pour doctorant·es</strong> — « TND, parcours et réussite académique » (9-10 avril 2026)</span><span data-lang="en"><strong>Training for PhD students</strong> — "NDD, pathways and academic success" (9-10 April 2026)</span><span data-lang="es"><strong>Formación para doctorandos</strong> — «TNS, trayectoria y éxito académico» (9-10 abril 2026)</span></li>
+      </ul>
+      <div style="margin-top:8px; display:flex; gap:8px; flex-wrap:wrap;">
+        <a class="wave-btn" href="https://formation.atypie-friendly.fr/?redirect=0"><span data-lang="fr">Accéder aux formations</span><span data-lang="en">Access training</span><span data-lang="es">Acceder a las formaciones</span></a>
+        <a class="wave-btn" href="https://cra.ch-perrens.fr/01-mooc-autispoc">MOOC AUTISPOC</a>
+      </div>
+    </div>
+    <div>
+      <div class="action-card card-teal">
+        <h4>📅 <span data-lang="fr">Prochains rendez-vous</span><span data-lang="en">Upcoming events</span><span data-lang="es">Próximas citas</span></h4>
+        <ul class="custom" style="margin-top:4px;">
+          <li><span data-lang="fr">Formation doctorant·es : <strong>9-10 avril 2026</strong></span><span data-lang="en">PhD training: <strong>9-10 April 2026</strong></span><span data-lang="es">Formación doctorandos: <strong>9-10 abril 2026</strong></span></li>
+          <li><span data-lang="fr">Cafés Atypie : <strong>chaque vendredi</strong>, 17h30–18h45 (Teams)</span><span data-lang="en">Atypie Cafés: <strong>every Friday</strong>, 5:30–6:45 pm (Teams)</span><span data-lang="es">Cafés Atypie: <strong>cada viernes</strong>, 17h30–18h45 (Teams)</span></li>
+          <li><span data-lang="fr">Webinaire Atypie-Friendly : <strong>date à venir</strong></span><span data-lang="en">Webinar: <strong>date TBC</strong></span><span data-lang="es">Webinario: <strong>fecha por confirmar</strong></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <hr class="separator">
+
+  </div><!-- /normal-text -->
+  <div class="section-title" id="section4"><div class="section-dot"></div>
+  <button class="bookmark-btn" id="bm-section4" onclick="toggleBookmark('section4')" title="Marquer">🔖</button>
+    <span data-lang="fr">4. Vie étudiante & accompagnement social</span>
+    <span data-lang="en">4. Student life & social support</span>
+    <span data-lang="es">4. Vida estudiantil y acompañamiento social</span>
+  </div>
+  <div class="falc-icon">☕</div>
+  <div class="falc-text">
+    <div data-lang="fr">
+      <p class="intro-text">La vie à l'université peut être difficile.</p>
+      <p class="intro-text">Atypie-Friendly propose des espaces pour parler.</p>
+      <p class="intro-text">☕ Les <strong>Cafés Atypie</strong> : chaque vendredi, de 17h30 à 18h45, en ligne.</p>
+      <p class="intro-text">On peut parler librement. Sans jugement.</p>
+      <p class="intro-text">🤝 L'association <strong>Bord'autisme</strong> organise des activités.</p>
+      <p class="intro-text">🎬 Il y a une <strong>série vidéo</strong> sur les TND : 2 saisons, 19 épisodes.</p>
+      <p class="intro-text">📦 Un <strong>Kit Asso</strong> pour créer une association étudiante.</p>
+    </div>
+    <div data-lang="en">
+      <p class="intro-text">University life can be difficult.</p>
+      <p class="intro-text">Atypie-Friendly offers spaces to talk.</p>
+      <p class="intro-text">☕ <strong>Atypie Cafés</strong>: every Friday, 5:30–6:45 pm, online.</p>
+      <p class="intro-text">You can speak freely. Without judgement.</p>
+      <p class="intro-text">🤝 The <strong>Bord'autisme</strong> association organises activities.</p>
+      <p class="intro-text">🎬 There is a <strong>video series</strong> on NDDs: 2 seasons, 19 episodes.</p>
+      <p class="intro-text">📦 An <strong>Association Kit</strong> to create a student association.</p>
+    </div>
+    <div data-lang="es">
+      <p class="intro-text">La vida universitaria puede ser difícil.</p>
+      <p class="intro-text">Atypie-Friendly ofrece espacios para hablar.</p>
+      <p class="intro-text">☕ <strong>Cafés Atypie</strong>: cada viernes, de 17h30 a 18h45, en línea.</p>
+      <p class="intro-text">Se puede hablar libremente. Sin juicios.</p>
+      <p class="intro-text">🤝 La asociación <strong>Bord'autisme</strong> organiza actividades.</p>
+      <p class="intro-text">🎬 Hay una <strong>serie de vídeo</strong> sobre los TNS: 2 temporadas, 19 episodios.</p>
+      <p class="intro-text">📦 Un <strong>Kit Asso</strong> para crear una asociación estudiantil.</p>
+    </div>
+  </div>
+  <div class="normal-text">
+  <div class="two-col">
+    <div>
+      <div class="sub-title"><span data-lang="fr">Cafés Atypie</span><span data-lang="en">Atypie Cafés</span><span data-lang="es">Cafés Atypie</span></div>
+      <p class="intro-text">
+        <span data-lang="fr">Des espaces de parole libre <strong>sans jugement</strong>, ouverts à toute personne concernée par les TND. Chaque vendredi de 17h30 à 18h45, en ligne sur Teams.</span>
+        <span data-lang="en">Free, <strong>judgement-free</strong> discussion spaces open to anyone affected by NDDs. Every Friday, 5:30–6:45 pm, online on Teams.</span>
+        <span data-lang="es">Espacios de expresión libre <strong>sin juicios</strong>, abiertos a cualquier persona concernida por los TNS. Cada viernes de 17h30 a 18h45, en línea en Teams.</span>
+      </p>
+      <div style="margin-top:6px;"><a class="wave-btn" href="https://atypie-friendly.fr/le-cafe-atypie-friendly/"><span data-lang="fr">Rejoindre un café Atypie</span><span data-lang="en">Join an Atypie Café</span><span data-lang="es">Unirse a un café Atypie</span></a></div>
+    </div>
+    <div>
+      <div class="sub-title"><span data-lang="fr">Bord'autisme & associations</span><span data-lang="en">Bord'autisme & associations</span><span data-lang="es">Bord'autisme & asociaciones</span></div>
+      <ul class="custom">
+        <li><span data-lang="fr">Association <strong>Bord'autisme</strong> : groupes de parole, goûters, Discord</span><span data-lang="en"><strong>Bord'autisme</strong> association: discussion groups, social events, Discord</span><span data-lang="es">Asociación <strong>Bord'autisme</strong>: grupos de conversación, meriendas, Discord</span></li>
+        <li><span data-lang="fr"><strong>Série vidéo</strong> sur les TND : 2 saisons, 19 épisodes</span><span data-lang="en"><strong>Video series</strong> on NDDs: 2 seasons, 19 episodes</span><span data-lang="es"><strong>Serie de vídeo</strong> sobre los TNS: 2 temporadas, 19 episodios</span></li>
+        <li><span data-lang="fr"><strong>Kit Asso</strong> pour créer ou rejoindre une association étudiante</span><span data-lang="en"><strong>Association Kit</strong> to create or join a student association</span><span data-lang="es"><strong>Kit Asso</strong> para crear o unirse a una asociación estudiantil</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="separator">
+
+  </div><!-- /normal-text -->
+  <div class="section-title" id="section5"><div class="section-dot"></div>
+  <button class="bookmark-btn" id="bm-section5" onclick="toggleBookmark('section5')" title="Marquer">🔖</button>
+    <span data-lang="fr">5. Insertion professionnelle</span>
+    <span data-lang="en">5. Career integration</span>
+    <span data-lang="es">5. Inserción profesional</span>
+  </div>
+  <div class="falc-icon">💼</div>
+  <div class="falc-text">
+    <div data-lang="fr">
+      <p class="intro-text">Trouver un travail peut être difficile.</p>
+      <p class="intro-text">Atypie-Friendly aide à trouver un travail.</p>
+      <p class="intro-text">📄 Des <strong>ateliers pour écrire un CV</strong> et une lettre.</p>
+      <p class="intro-text">🗣️ Des <strong>ateliers pour préparer les entretiens</strong>.</p>
+      <p class="intro-text">🤝 Des <strong>entreprises partenaires</strong> s'engagent à accueillir des personnes avec TND.</p>
+      <p class="intro-text">🌍 Un projet européen donne des <strong>conseils aux employeurs</strong>.</p>
+    </div>
+    <div data-lang="en">
+      <p class="intro-text">Finding a job can be difficult.</p>
+      <p class="intro-text">Atypie-Friendly helps you find a job.</p>
+      <p class="intro-text">📄 <strong>Workshops to write a CV</strong> and a cover letter.</p>
+      <p class="intro-text">🗣️ <strong>Workshops to prepare for interviews</strong>.</p>
+      <p class="intro-text">🤝 <strong>Partner companies</strong> commit to welcoming people with NDDs.</p>
+      <p class="intro-text">🌍 A European project gives <strong>advice to employers</strong>.</p>
+    </div>
+    <div data-lang="es">
+      <p class="intro-text">Encontrar trabajo puede ser difícil.</p>
+      <p class="intro-text">Atypie-Friendly ayuda a encontrar trabajo.</p>
+      <p class="intro-text">📄 <strong>Talleres para escribir un CV</strong> y una carta de motivación.</p>
+      <p class="intro-text">🗣️ <strong>Talleres para preparar las entrevistas</strong>.</p>
+      <p class="intro-text">🤝 <strong>Empresas socias</strong> se comprometen a acoger a personas con TNS.</p>
+      <p class="intro-text">🌍 Un proyecto europeo da <strong>consejos a los empleadores</strong>.</p>
+    </div>
+  </div>
+  <div class="normal-text">
+  <div class="two-col">
+    <div>
+      <ul class="custom">
+        <li><span data-lang="fr"><strong>Charte Atypie-Friendly</strong> de partenariat avec les entreprises engagées</span><span data-lang="en"><strong>Atypie-Friendly Charter</strong> for partnerships with committed employers</span><span data-lang="es"><strong>Carta Atypie-Friendly</strong> de colaboración con empresas comprometidas</span></li>
+        <li><span data-lang="fr"><strong>Ateliers CV, lettre de motivation et entretiens</strong> de recrutement adaptés</span><span data-lang="en"><strong>CV, cover letter and interview workshops</strong> adapted for NDD students</span><span data-lang="es"><strong>Talleres de CV, carta de motivación y entrevistas</strong> de selección adaptados</span></li>
+        <li><span data-lang="fr">Projet européen <strong>IMAGE</strong> : 4 guides de bonnes pratiques pour les employeurs</span><span data-lang="en">European <strong>IMAGE</strong> project: 4 best practice guides for employers</span><span data-lang="es">Proyecto europeo <strong>IMAGE</strong>: 4 guías de buenas prácticas para empleadores</span></li>
+        <li><span data-lang="fr">Construction d'un <strong>réseau d'acteurs</strong> de l'accompagnement professionnel</span><span data-lang="en">Building a <strong>professional support network</strong></span><span data-lang="es">Construcción de una <strong>red de actores</strong> de acompañamiento profesional</span></li>
+      </ul>
+    </div>
+    <div>
+      <div class="action-card card-orange">
+        <h4>💼 <span data-lang="fr">Mois de l'inclusivité</span><span data-lang="en">Inclusivity Month</span><span data-lang="es">Mes de la inclusividad</span></h4>
+        <p style="font-size:12px;color:#333;line-height:1.6;">
+          <span data-lang="fr">Chaque année, l'Université organise un mois dédié à l'inclusion, avec tables rondes, ateliers et événements ouverts à tous.</span>
+          <span data-lang="en">Every year, the University hosts a month dedicated to inclusion, with round tables, workshops and events open to all.</span>
+          <span data-lang="es">Cada año, la Universidad organiza un mes dedicado a la inclusión, con mesas redondas, talleres y eventos abiertos a todos.</span>
+        </p>
+      </div>
+      <div style="margin-top:6px;"><a class="wave-btn" href="https://atypie-friendly.fr/des-ateliers-insertion-professionnelle/"><span data-lang="fr">Ateliers insertion pro</span><span data-lang="en">Career workshops</span><span data-lang="es">Talleres inserción pro</span></a></div>
+    </div>
+  </div>
+
+  <hr class="separator">
+
+  </div><!-- /normal-text -->
+  <div class="section-title" id="section6"><div class="section-dot"></div>
+  <button class="bookmark-btn" id="bm-section6" onclick="toggleBookmark('section6')" title="Marquer">🔖</button>
+    <span data-lang="fr">6. Recherche & actualité : le Centre SOUND</span>
+    <span data-lang="en">6. Research & news: the SOUND Centre</span>
+    <span data-lang="es">6. Investigación & actualidad: el Centro SOUND</span>
+  </div>
+  <div class="falc-icon">🔬</div>
+  <div class="falc-text">
+    <div data-lang="fr">
+      <p class="intro-text">Des chercheurs travaillent sur les TND.</p>
+      <p class="intro-text">En décembre 2025, un nouveau centre a ouvert à Bordeaux.</p>
+      <p class="intro-text">Il s'appelle le <strong>Centre SOUND</strong>.</p>
+      <p class="intro-text">Plus de <strong>30 équipes de chercheurs</strong> y travaillent.</p>
+      <p class="intro-text">Leur mission : mieux comprendre les TND.</p>
+      <p class="intro-text">Et former les professionnels qui accompagnent les personnes avec TND.</p>
+    </div>
+    <div data-lang="en">
+      <p class="intro-text">Researchers are working on NDDs.</p>
+      <p class="intro-text">In December 2025, a new centre opened in Bordeaux.</p>
+      <p class="intro-text">It is called the <strong>SOUND Centre</strong>.</p>
+      <p class="intro-text">More than <strong>30 research teams</strong> work there.</p>
+      <p class="intro-text">Their mission: to better understand NDDs.</p>
+      <p class="intro-text">And to train professionals who support people with NDDs.</p>
+    </div>
+    <div data-lang="es">
+      <p class="intro-text">Los investigadores trabajan sobre los TNS.</p>
+      <p class="intro-text">En diciembre de 2025, se abrió un nuevo centro en Burdeos.</p>
+      <p class="intro-text">Se llama el <strong>Centro SOUND</strong>.</p>
+      <p class="intro-text">Más de <strong>30 equipos de investigadores</strong> trabajan allí.</p>
+      <p class="intro-text">Su misión: comprender mejor los TNS.</p>
+      <p class="intro-text">Y formar a los profesionales que acompañan a las personas con TNS.</p>
+    </div>
+  </div>
+  <div class="normal-text">
+  <div class="actualite-box">
+    <strong>🔬 <span data-lang="fr">Nouveauté — Décembre 2025 :</span><span data-lang="en">News — December 2025:</span><span data-lang="es">Novedad — Diciembre 2025:</span></strong>
+    <span data-lang="fr"> Création à Bordeaux du <strong>6ème Centre d'Excellence national dédié aux TND</strong>, le Centre SOUND, sous la direction du Pr Anouck Amestoy. Il fédère plus de <strong>30 équipes de recherche et cliniciens de Nouvelle-Aquitaine</strong> (CNRS, INSERM, INRIA…).</span>
+    <span data-lang="en"> Creation in Bordeaux of the <strong>6th national Centre of Excellence for NDDs</strong>, the SOUND Centre, led by Prof. Anouck Amestoy. It brings together over <strong>30 research teams and clinicians from Nouvelle-Aquitaine</strong> (CNRS, INSERM, INRIA…).</span>
+    <span data-lang="es"> Creación en Burdeos del <strong>6.º Centro de Excelencia nacional dedicado a los TNS</strong>, el Centro SOUND, bajo la dirección del Pr. Anouck Amestoy. Reúne a más de <strong>30 equipos de investigación y clínicos de Nueva Aquitania</strong> (CNRS, INSERM, INRIA…).</span>
+    <div style="margin-top:8px;"><a class="wave-btn" href="https://handicap.gouv.fr/creation-dun-sixieme-centre-dexcellence-pour-les-troubles-du-neurodeveloppement-bordeaux"><span data-lang="fr">En savoir plus</span><span data-lang="en">Learn more</span><span data-lang="es">Saber más</span></a></div>
+  </div>
+
+  <hr class="separator">
+
+  </div><!-- /normal-text -->
+
+  <hr class="separator">
+
+  <!-- ══ QUIZ ══ -->
+  <div class="section-title" id="section-quiz"><div class="section-dot"></div>
+    <span data-lang="fr">🧠 Le Quiz Atypique</span>
+    <span data-lang="en">🧠 The Atypical Quiz</span>
+    <span data-lang="es">🧠 El Quiz Atípico</span>
+  </div>
+
+  <div class="quiz-section" id="quiz">
+
+    <!-- Barre de progression -->
+    <div class="quiz-progress-bar">
+      <div class="quiz-progress-fill" id="quiz-progress-fill"></div>
+    </div>
+    <div class="quiz-progress-label" id="quiz-progress-label"></div>
+
+    <!-- Q1 -->
+    <div class="quiz-question" id="q1">
+      <p>
+        <span data-lang="fr">1. Depuis quelle année l'Université de Bordeaux est-elle partenaire du programme Atypie-Friendly ?</span>
+        <span data-lang="en">1. Since which year has the University of Bordeaux been a partner of the Atypie-Friendly programme?</span>
+        <span data-lang="es">1. ¿Desde qué año es la Universidad de Burdeos socia del programa Atypie-Friendly?</span>
+      </p>
+      <div class="quiz-options">
+        <button class="quiz-option" data-correct="false" data-fb="q1-fb-wrong">
+          <span data-lang="fr">2015</span><span data-lang="en">2015</span><span data-lang="es">2015</span>
+        </button>
+        <button class="quiz-option" data-correct="true" data-fb="q1-fb-correct">
+          <span data-lang="fr">2018</span><span data-lang="en">2018</span><span data-lang="es">2018</span>
+        </button>
+        <button class="quiz-option" data-correct="false" data-fb="q1-fb-wrong">
+          <span data-lang="fr">2020</span><span data-lang="en">2020</span><span data-lang="es">2020</span>
+        </button>
+        <button class="quiz-option" data-correct="false" data-fb="q1-fb-wrong">
+          <span data-lang="fr">2022</span><span data-lang="en">2022</span><span data-lang="es">2022</span>
+        </button>
+      </div>
+      <div class="quiz-feedback correct-fb" id="q1-fb-correct">
+        ✅ <span data-lang="fr"><strong>Bonne réponse !</strong> L'Université de Bordeaux est partenaire depuis sa création en <strong>2018</strong>, inscrit dans la Stratégie nationale pour l'autisme (2018-2028).</span>
+        <span data-lang="en"><strong>Correct!</strong> The University of Bordeaux has been a partner since <strong>2018</strong>, as part of the National Autism Strategy (2018-2028).</span>
+        <span data-lang="es"><strong>¡Correcto!</strong> La Universidad de Burdeos es socia desde <strong>2018</strong>, en el marco de la Estrategia nacional para el autismo (2018-2028).</span>
+      </div>
+      <div class="quiz-feedback wrong-fb" id="q1-fb-wrong">
+        ❌ <span data-lang="fr"><strong>Pas tout à fait !</strong> L'Université de Bordeaux a rejoint le programme en <strong>2018</strong>, année de son lancement dans le cadre de la Stratégie nationale pour l'autisme.</span>
+        <span data-lang="en"><strong>Not quite!</strong> The University of Bordeaux joined the programme in <strong>2018</strong>, the year it was launched as part of the National Autism Strategy.</span>
+        <span data-lang="es"><strong>¡No del todo!</strong> La Universidad de Burdeos se unió al programa en <strong>2018</strong>.</span>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="quiz-question" id="q2" style="display:none;">
+      <p>
+        <span data-lang="fr">2. Quelle proportion de la population est concernée par un Trouble du Neurodéveloppement ?</span>
+        <span data-lang="en">2. What proportion of the population is affected by a Neurodevelopmental Disorder?</span>
+        <span data-lang="es">2. ¿Qué proporción de la población tiene un Trastorno del Neurodesarrollo?</span>
+      </p>
+      <div class="quiz-options">
+        <button class="quiz-option" data-correct="false" data-fb="q2-fb-wrong">
+          <span data-lang="fr">Environ 2% de la population</span>
+          <span data-lang="en">Around 2% of the population</span>
+          <span data-lang="es">Alrededor del 2% de la población</span>
+        </button>
+        <button class="quiz-option" data-correct="false" data-fb="q2-fb-wrong">
+          <span data-lang="fr">Environ 5% de la population</span>
+          <span data-lang="en">Around 5% of the population</span>
+          <span data-lang="es">Alrededor del 5% de la población</span>
+        </button>
+        <button class="quiz-option" data-correct="true" data-fb="q2-fb-correct">
+          <span data-lang="fr">Environ 8%, mais moins de 1% à l'université</span>
+          <span data-lang="en">Around 8%, but less than 1% at university</span>
+          <span data-lang="es">Alrededor del 8%, pero menos del 1% en la universidad</span>
+        </button>
+        <button class="quiz-option" data-correct="false" data-fb="q2-fb-wrong">
+          <span data-lang="fr">Environ 15% de la population</span>
+          <span data-lang="en">Around 15% of the population</span>
+          <span data-lang="es">Alrededor del 15% de la población</span>
+        </button>
+      </div>
+      <div class="quiz-feedback correct-fb" id="q2-fb-correct">
+        ✅ <span data-lang="fr"><strong>Excellent !</strong> Environ <strong>8% de la population</strong> est concernée, mais moins de <strong>1%</strong> des étudiants sont identifiés à l'université — d'où l'importance du programme.</span>
+        <span data-lang="en"><strong>Excellent!</strong> Around <strong>8% of the population</strong> is affected, but less than <strong>1%</strong> of students are identified at university — hence the importance of the programme.</span>
+        <span data-lang="es"><strong>¡Excelente!</strong> Alrededor del <strong>8% de la población</strong> está afectada, pero menos del <strong>1%</strong> de los estudiantes están identificados en la universidad.</span>
+      </div>
+      <div class="quiz-feedback wrong-fb" id="q2-fb-wrong">
+        ❌ <span data-lang="fr"><strong>Pas tout à fait !</strong> D'après la newsletter, environ <strong>8% de la population</strong> est concernée, mais seulement moins de <strong>1%</strong> des étudiants sont identifiés à l'université.</span>
+        <span data-lang="en"><strong>Not quite!</strong> According to the newsletter, around <strong>8%</strong> of the population is affected, but less than <strong>1%</strong> of students are identified at university.</span>
+        <span data-lang="es"><strong>¡No del todo!</strong> Según el boletín, alrededor del <strong>8%</strong> está afectada, pero menos del <strong>1%</strong> de los estudiantes están identificados.</span>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="quiz-question" id="q3" style="display:none;">
+      <p>
+        <span data-lang="fr">3. Qu'est-ce que le Centre SOUND, créé à Bordeaux en décembre 2025 ?</span>
+        <span data-lang="en">3. What is the SOUND Centre, created in Bordeaux in December 2025?</span>
+        <span data-lang="es">3. ¿Qué es el Centro SOUND, creado en Burdeos en diciembre de 2025?</span>
+      </p>
+      <div class="quiz-options">
+        <button class="quiz-option" data-correct="false" data-fb="q3-fb-wrong">
+          <span data-lang="fr">Une association étudiante dédiée aux personnes autistes</span>
+          <span data-lang="en">A student association dedicated to autistic people</span>
+          <span data-lang="es">Una asociación estudiantil dedicada a personas autistas</span>
+        </button>
+        <button class="quiz-option" data-correct="false" data-fb="q3-fb-wrong">
+          <span data-lang="fr">Un service d'accompagnement psychologique pour les étudiants</span>
+          <span data-lang="en">A psychological support service for students</span>
+          <span data-lang="es">Un servicio de acompañamiento psicológico para estudiantes</span>
+        </button>
+        <button class="quiz-option" data-correct="false" data-fb="q3-fb-wrong">
+          <span data-lang="fr">Un outil numérique pour créer des cours accessibles</span>
+          <span data-lang="en">A digital tool for creating accessible courses</span>
+          <span data-lang="es">Una herramienta digital para crear cursos accesibles</span>
+        </button>
+        <button class="quiz-option" data-correct="true" data-fb="q3-fb-correct">
+          <span data-lang="fr">Le 6ème Centre d'Excellence national dédié aux TND, fédérant plus de 30 équipes de recherche</span>
+          <span data-lang="en">The 6th national Centre of Excellence for NDDs, bringing together over 30 research teams</span>
+          <span data-lang="es">El 6.º Centro de Excelencia nacional para los TNS, que reúne a más de 30 equipos de investigación</span>
+        </button>
+      </div>
+      <div class="quiz-feedback correct-fb" id="q3-fb-correct">
+        ✅ <span data-lang="fr"><strong>Parfait !</strong> Le Centre SOUND est le <strong>6ème Centre d'Excellence national dédié aux TND</strong>, dirigé par le Pr Anouck Amestoy, fédérant plus de 30 équipes de Nouvelle-Aquitaine.</span>
+        <span data-lang="en"><strong>Perfect!</strong> The SOUND Centre is the <strong>6th national Centre of Excellence for NDDs</strong>, led by Prof. Anouck Amestoy, bringing together over 30 teams from Nouvelle-Aquitaine.</span>
+        <span data-lang="es"><strong>¡Perfecto!</strong> El Centro SOUND es el <strong>6.º Centro de Excelencia nacional dedicado a los TNS</strong>, dirigido por el Pr. Anouck Amestoy, reuniendo a más de 30 equipos de Nueva Aquitania.</span>
+      </div>
+      <div class="quiz-feedback wrong-fb" id="q3-fb-wrong">
+        ❌ <span data-lang="fr"><strong>Pas tout à fait !</strong> Le Centre SOUND est le <strong>6ème Centre d'Excellence national dédié aux TND</strong>, créé en décembre 2025 sous la direction du Pr Anouck Amestoy.</span>
+        <span data-lang="en"><strong>Not quite!</strong> The SOUND Centre is the <strong>6th national Centre of Excellence for NDDs</strong>, created in December 2025 under the direction of Prof. Anouck Amestoy.</span>
+        <span data-lang="es"><strong>¡No del todo!</strong> El Centro SOUND es el <strong>6.º Centro de Excelencia nacional dedicado a los TNS</strong>, creado en diciembre de 2025 bajo la dirección del Pr. Anouck Amestoy.</span>
+      </div>
+    </div>
+
+    <!-- Bouton Suivant -->
+    <button class="quiz-next" id="quiz-next" style="display:none;" onclick="nextQuestion()">
+      <span data-lang="fr">Question suivante →</span>
+      <span data-lang="en">Next question →</span>
+      <span data-lang="es">Siguiente pregunta →</span>
+    </button>
+
+    <!-- Score final -->
+    <div class="quiz-score" id="quiz-score"></div>
+    <button class="quiz-reset" id="quiz-reset" onclick="resetQuiz()">
+      <span data-lang="fr">🔄 Recommencer le quiz</span>
+      <span data-lang="en">🔄 Restart the quiz</span>
+      <span data-lang="es">🔄 Reiniciar el quiz</span>
+    </button>
+
+  </div><!-- /quiz -->
+
+  <hr class="separator">
+
+  <div class="footer-contact">
+    <div>
+      <div class="logo-txt">atypie<span style="color:#f5883a;">friendly</span></div>
+      <span class="logo-sub"><span data-lang="fr">Réussir l'université inclusive</span><span data-lang="en">Succeeding in an inclusive university</span><span data-lang="es">Triunfar en la universidad inclusiva</span></span>
+      <p style="margin-top:8px;font-size:12px;color:#333;line-height:1.65;">
+        <span data-lang="fr">Programme national présent dans une trentaine d'universités françaises, dont l'Université de Bordeaux depuis 2018.</span>
+        <span data-lang="en">National programme in around thirty French universities, including the University of Bordeaux since 2018.</span>
+        <span data-lang="es">Programa nacional presente en una treintena de universidades francesas, incluida la Universidad de Burdeos desde 2018.</span>
+      </p>
+      <div style="margin-top:6px;"><a class="wave-btn" href="https://atypie-friendly.fr" style="color:#fff;">atypie-friendly.fr</a></div>
+    </div>
+    <div>
+      <h3><span data-lang="fr">Nous contacter</span><span data-lang="en">Contact us</span><span data-lang="es">Contactarnos</span></h3>
+      <div style="display:flex; gap:16px; flex-wrap:wrap; margin-bottom:6px;">
+        <p style="margin:0; flex:1; min-width:140px;"><strong>Céline Lemoine</strong><br><span data-lang="fr">Coordinatrice du projet</span><span data-lang="en">Project coordinator</span><span data-lang="es">Coordinadora del proyecto</span><br><a href="/cdn-cgi/l/email-protection#0c6f696065626922606961636562694c79216e637e68696d7974226a7e"><span class="__cf_email__" data-cfemail="d3b0b6bfbabdb6fdbfb6bebcbabdb693a6feb1bca1b7b6b2a6abfdb5a1">[email&#160;protected]</span></a></p>
+        <p style="margin:0; flex:1; min-width:140px;"><strong>Florian Laronze</strong><br><span data-lang="fr">Coordinateur du projet</span><span data-lang="en">Project coordinator</span><span data-lang="es">Coordinador del proyecto</span><br><a href="/cdn-cgi/l/email-protection#02646e6d706b636c2c6e63706d6c786742772f606d70666763777a2c6470"><span class="__cf_email__" data-cfemail="b2d4deddc0dbd3dc9cded3c0dddcc8d7f2c79fd0ddc0d6d7d3c7ca9cd4c0">[email&#160;protected]</span></a></p>
+      </div>
+      <p>📧 <a href="/cdn-cgi/l/email-protection#9cfefab1fde8e5ecf5f9b2faeef5f9f2f8f0e5dce9b1fef3eef8f9fde9e4b2faee"><span class="__cf_email__" data-cfemail="fa989cd79b8e838a939fd49c88939f949e9683ba8fd79895889e9f9b8f82d49c88">[email&#160;protected]</span></a></p>
+    </div>
+  </div>
+</div>
+
+<svg class="bottom-wave" viewBox="0 0 794 55" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0,25 C80,5 160,45 260,28 C360,12 430,42 530,22 C610,8 700,38 794,20 L794,55 L0,55 Z" fill="#f5883a" opacity="0.7"/>
+  <path d="M0,32 C100,12 180,50 290,35 C390,20 470,48 570,30 C650,16 730,44 794,28 L794,55 L0,55 Z" fill="#7b77cc" opacity="0.5"/>
+  <path d="M0,40 C120,22 220,52 330,38 C430,26 510,50 620,35 C700,24 760,46 794,35 L794,55 L0,55 Z" fill="#e87ab0" opacity="0.45"/>
+  <path d="M0,47 C130,32 240,55 360,44 C470,34 550,54 660,42 C730,34 770,50 794,44 L794,55 L0,55 Z" fill="#4fc3a1" opacity="0.6"/>
+</svg>
+
+</div><!-- /content-wrap -->
+
+<!-- ── RÈGLE DE LECTURE ── -->
+<div class="reading-ruler" id="reading-ruler"></div>
+
+<!-- ── TOAST MARQUE-PAGE ── -->
+<div class="bookmark-toast" id="bookmark-toast"></div>
+
+<!-- Hidden lang tracker for JS -->
+<select id="lang-select" style="display:none;" onchange="setLang(this.value)">
+  <option value="fr" selected>fr</option>
+  <option value="en">en</option>
+  <option value="es">es</option>
+</select>
+
+<!-- ── LECTEUR AUDIO ── -->
+<div class="audio-panel" id="audio-panel">
+  <span class="a11y-label">
+    <span data-lang="fr">🎧 Lecture audio</span>
+    <span data-lang="en">🎧 Audio reader</span>
+    <span data-lang="es">🎧 Lectura audio</span>
+  </span>
+  <div class="audio-controls">
+    <button class="audio-btn" id="btn-play" onclick="audioPlay()">
+      ▶ <span data-lang="fr">Lire</span><span data-lang="en">Play</span><span data-lang="es">Leer</span>
+    </button>
+    <button class="audio-btn" id="btn-pause" onclick="audioPause()" disabled>
+      ■ <span data-lang="fr">Pause</span><span data-lang="en">Pause</span><span data-lang="es">Pausa</span>
+    </button>
+  </div>
+  <div class="audio-section-nav" style="display:flex; gap:5px; margin-top:6px;">
+    <button class="audio-nav-btn" id="btn-prev" onclick="audioGoto(sectionIdx - 1)" disabled>◀</button>
+    <button class="audio-nav-btn" id="btn-next" onclick="audioGoto(sectionIdx + 1)">▶</button>
+  </div>
+  <div style="margin-top:8px;">
+    <div class="audio-speed-label">
+      <span data-lang="fr">Vitesse</span><span data-lang="en">Speed</span><span data-lang="es">Velocidad</span>
+      <span id="speed-val">1×</span>
+    </div>
+    <input type="range" min="0.5" max="2" step="0.25" value="1"
+      oninput="setSpeed(this.value)" style="width:100%; margin-top:4px;">
+  </div>
+  <div id="audio-status" style="font-size:0.67em; color:#888; text-align:center; margin-top:4px;">
+    <span data-lang="fr">Prêt</span><span data-lang="en">Ready</span><span data-lang="es">Listo</span>
+  </div>
+</div>
+
+<!-- ── POPUP FALC INFO ── -->
+<div class="falc-popup" id="falc-popup" style="position:fixed; z-index:2000;">
+  <button class="popup-close" onclick="closeFalcPopup()">✕</button>
+  <h4>🧩 Mode FALC</h4>
+  <ul>
+    <li><span data-lang="fr">Police plus grande et lisible</span><span data-lang="en">Larger, readable font</span><span data-lang="es">Fuente más grande y legible</span></li>
+    <li><span data-lang="fr">Interligne augmenté</span><span data-lang="en">Increased line spacing</span><span data-lang="es">Interlineado aumentado</span></li>
+    <li><span data-lang="fr">Texte aligné à gauche</span><span data-lang="en">Left-aligned text</span><span data-lang="es">Texto alineado a la izquierda</span></li>
+    <li><span data-lang="fr">Mise en page simplifiée</span><span data-lang="en">Simplified layout</span><span data-lang="es">Diseño simplificado</span></li>
+    <li><span data-lang="fr">Éléments décoratifs masqués</span><span data-lang="en">Decorative elements hidden</span><span data-lang="es">Elementos decorativos ocultos</span></li>
+    <li><span data-lang="fr">Texte réécrit en phrases courtes</span><span data-lang="en">Text rewritten in short sentences</span><span data-lang="es">Texto reescrito en frases cortas</span></li>
+    <li><span data-lang="fr">Pictogrammes pour chaque section</span><span data-lang="en">Pictograms for each section</span><span data-lang="es">Pictogramas para cada sección</span></li>
+  </ul>
+</div>
+
+<!-- ── TUTORIEL OVERLAY ── -->
+<div class="tuto-overlay" id="tuto-overlay">
+  <div class="tuto-panel" id="tuto-p-top"></div>
+  <div class="tuto-panel" id="tuto-p-bottom"></div>
+  <div class="tuto-panel" id="tuto-p-left"></div>
+  <div class="tuto-panel" id="tuto-p-right"></div>
+  <div class="tuto-highlight" id="tuto-highlight"></div>
+  <div class="tuto-bubble" id="tuto-bubble">
+    <h4 id="tuto-title"></h4>
+    <p id="tuto-text"></p>
+    <div class="tuto-bubble-footer">
+      <span class="tuto-counter" id="tuto-counter"></span>
+      <div class="tuto-nav">
+        <button class="tuto-btn-prev" id="tuto-prev" onclick="tutoStep(-1)">←</button>
+        <button class="tuto-btn-next" id="tuto-next" onclick="tutoStep(1)">→</button>
+      </div>
+    </div>
+    <button class="tuto-btn-skip" onclick="endTuto()">
+      <span data-lang="fr">Fermer ✕</span>
+      <span data-lang="en">Close ✕</span>
+      <span data-lang="es">Cerrar ✕</span>
+    </button>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // ════════════════════════════
+  //  AUDIO — section par section
+  //  Pause/Resume natif + keepalive
+  // ════════════════════════════
+
+  const synth = window.speechSynthesis;
+
+  // Toutes les sections du document
+  const SECTIONS = [
+    { id: null,       label: 'Éditorial' },
+    { id: 'section1', label: 'Transition' },
+    { id: 'section2', label: 'Pédagogie' },
+    { id: 'section3', label: 'Formations' },
+    { id: 'section4', label: 'Vie étudiante' },
+    { id: 'section5', label: 'Insertion pro' },
+    { id: 'section6', label: 'Recherche' },
+  ];
+
+  let sectionIdx  = 0;
+  let isPlaying   = false;
+  let isPaused    = false;
+  let audioSpeed  = 1;
+  let keepAlive   = null;
+  let hlEls       = [];   // éléments surlignés
+
+  // ── Keepalive : Chrome tue la synthèse après ~15s ──
+  function startKeepAlive() {
+    stopKeepAlive();
+    keepAlive = setInterval(() => {
+      if (synth.speaking && !synth.paused) {
+        synth.pause();
+        setTimeout(() => synth.resume(), 50);
+      }
+    }, 12000);
+  }
+  function stopKeepAlive() {
+    if (keepAlive) { clearInterval(keepAlive); keepAlive = null; }
+  }
+
+  // ── Texte d'une section — ne lit que ce qui est visible ──
+  function getSectionText(idx) {
+    const lang = document.getElementById('lang-select').value || 'fr';
+    let nodes = [];
+    if (idx === 0) {
+      const page = document.querySelector('.page');
+      if (!page) return '';
+      for (const child of page.children) {
+        if (child.id === 'section1') break;
+        nodes.push(child);
+      }
+    } else {
+      const title = document.getElementById(SECTIONS[idx].id);
+      if (!title) return '';
+      nodes.push(title);
+      let n = title.nextElementSibling;
+      while (n) {
+        if (n.classList.contains('section-title') ||
+            n.tagName === 'svg' || n.tagName === 'SVG' ||
+            n.tagName === 'HR') break;
+        nodes.push(n);
+        n = n.nextElementSibling;
+      }
+    }
+    let text = '';
+    nodes.forEach(node => {
+      const style = window.getComputedStyle(node);
+      if (style.display === 'none' || style.visibility === 'hidden') return;
+      const clone = node.cloneNode(true);
+      clone.querySelectorAll('[data-lang]').forEach(el => {
+        if (el.getAttribute('data-lang') !== lang) el.remove();
+      });
+      clone.querySelectorAll('a.wave-btn, .summary-box, .a11y-bar, .audio-panel, .bookmark-btn, .quiz-section').forEach(el => el.remove());
+      if (isFALC) {
+        clone.querySelectorAll('.normal-text').forEach(el => el.remove());
+      } else {
+        clone.querySelectorAll('.falc-text, .falc-icon').forEach(el => el.remove());
+      }
+      const t = clone.innerText.replace(/\s+/g, ' ').trim();
+      if (t) text += ' ' + t;
+    });
+    return text.replace(/\s+/g, ' ').trim();
+  }
+
+  // ── Surbrillance ──
+  function clearHL() {
+    hlEls.forEach(e => e.classList.remove('reading-highlight'));
+    hlEls = [];
+  }
+  function highlightSection(idx) {
+    clearHL();
+    let nodes = [];
+    if (idx === 0) {
+      const page = document.querySelector('.page');
+      if (page) for (const c of page.children) {
+        if (c.id === 'section1') break;
+        nodes.push(c);
+      }
+    } else {
+      const title = document.getElementById(SECTIONS[idx].id);
+      if (title) {
+        nodes.push(title);
+        let n = title.nextElementSibling;
+        while (n) {
+          if (n.classList.contains('section-title') ||
+              n.tagName === 'svg' || n.tagName === 'SVG' ||
+              n.tagName === 'HR') break;
+          nodes.push(n);
+          n = n.nextElementSibling;
+        }
+      }
+    }
+    nodes.forEach(n => { n.classList.add('reading-highlight'); hlEls.push(n); });
+    if (nodes[0]) nodes[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ── Lit une section puis enchaîne ──
+  function playSection(idx) {
+    if (idx >= SECTIONS.length) { audioReset(); return; }
+    sectionIdx = idx;
+    highlightSection(idx);
+    setStatus((idx + 1) + '/' + SECTIONS.length + ' — ' + SECTIONS[idx].label);
+    updateNavBtns();
+
+    const text = getSectionText(idx);
+    if (!text) { playSection(idx + 1); return; }
+
+    const lang = document.getElementById('lang-select').value || 'fr';
+    const utt = new SpeechSynthesisUtterance(text);
+    utt.rate = audioSpeed;
+    utt.lang = lang === 'en' ? 'en-GB' : lang === 'es' ? 'es-ES' : 'fr-FR';
+    utt.onend = () => {
+      stopKeepAlive();
+      if (isPlaying && !isPaused) playSection(idx + 1);
+    };
+    utt.onerror = (e) => {
+      if (e.error !== 'interrupted' && e.error !== 'canceled') {
+        stopKeepAlive(); audioReset();
+      }
+    };
+    synth.speak(utt);
+    startKeepAlive();
+  }
+
+  // ── PLAY ──
+  // isSynthPaused = true  → vraie pause synth, on fait resume()
+  // isSynthPaused = false → pause de navigation (audioGoto), on lance playSection()
+  let isSynthPaused = false;
+
+  function audioPlay() {
+    if (isPaused) {
+      isPaused  = false;
+      isPlaying = true;
+      updateUI();
+      if (isSynthPaused) {
+        // Vraie pause synth → resume natif, conserve la position
+        isSynthPaused = false;
+        synth.resume();
+        startKeepAlive();
+        setStatus('Reprise — ' + (sectionIdx+1) + '/' + SECTIONS.length + ' — ' + SECTIONS[sectionIdx].label);
+      } else {
+        // Pause de navigation → on relit la section depuis le début
+        playSection(sectionIdx);
+      }
+      return;
+    }
+    // Départ frais
+    synth.cancel();
+    isSynthPaused = false;
+    isPlaying = true;
+    isPaused  = false;
+    updateUI();
+    playSection(sectionIdx);
+  }
+
+  // ── PAUSE ──
+  function audioPause() {
+    if (!isPlaying) return;
+    synth.pause();           // pause native — conserve la position exacte
+    stopKeepAlive();
+    isSynthPaused = true;    // marque que synth est vraiment en pause
+    isPlaying = false;
+    isPaused  = true;
+    setStatus('En pause — ' + (sectionIdx+1) + '/' + SECTIONS.length);
+    updateUI();
+  }
+
+  // ── Navigation ──
+  function audioGoto(idx) {
+    if (idx < 0 || idx >= SECTIONS.length) return;
+    synth.cancel();
+    stopKeepAlive();
+    isSynthPaused = false;   // pas de vraie pause synth, juste navigation
+    isPlaying  = false;
+    isPaused   = true;
+    sectionIdx = idx;
+    highlightSection(idx);
+    setStatus((idx + 1) + '/' + SECTIONS.length + ' — ' + SECTIONS[idx].label);
+    updateUI();
+  }
+
+  function audioReset() {
+    synth.cancel();
+    stopKeepAlive();
+    isSynthPaused = false;
+    isPlaying  = false;
+    isPaused   = false;
+    sectionIdx = 0;
+    clearHL();
+    setStatus('Prêt');
+    updateUI();
+  }
+
+  // ── Téléchargement Word ──
+  function downloadWord() {
+    if (typeof docx === 'undefined') {
+      alert('Bibliothèque Word non chargée, vérifiez votre connexion.');
+      return;
+    }
+    const lang    = document.getElementById('lang-select').value || 'fr';
+    const isFalcOn = isFALC;
+    const statusEl = document.getElementById('word-status');
+    if (statusEl) {
+      statusEl.style.display = 'block';
+      statusEl.querySelectorAll('[data-lang]').forEach(el => {
+        el.style.display = el.getAttribute('data-lang') === lang ? 'inline' : 'none';
+      });
+    }
+
+    // Labels selon langue
+    const subtitles = {
+      fr: "La newsletter du TND à l'Université de Bordeaux",
+      en: "The NDD newsletter at the University of Bordeaux",
+      es: "El boletín del TNS en la Universidad de Burdeos"
+    };
+    const falcLabels = {
+      fr: "Version Facile à Lire et à Comprendre (FALC)",
+      en: "Easy-to-Read version (FALC)",
+      es: "Versión Fácil de Leer y Comprender (FALC)"
+    };
+
+    setTimeout(() => {
+      try {
+        const { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType } = docx;
+        const children = [];
+        const bodySize  = isFalcOn ? 26 : 20;
+        const titleAlign = AlignmentType.CENTER;
+        const bodyAlign  = isFalcOn ? AlignmentType.LEFT : AlignmentType.JUSTIFIED;
+        const lineSpace  = isFalcOn ? { line: 480, lineRule: "auto" } : { line: 360, lineRule: "auto" };
+
+        // ── Titre ──
+        children.push(new Paragraph({
+          children: [new TextRun({ text: "Les Atyp'Infos #1", bold: true, size: 52, color: "2d2b6b", font: "Arial" })],
+          alignment: titleAlign, spacing: { after: 100 }
+        }));
+        children.push(new Paragraph({
+          children: [new TextRun({ text: subtitles[lang], size: 24, italics: true, color: "3d3a9e", font: "Arial" })],
+          alignment: titleAlign, spacing: { after: isFalcOn ? 200 : 100 }
+        }));
+        if (isFalcOn) {
+          children.push(new Paragraph({
+            children: [new TextRun({ text: falcLabels[lang], size: 22, bold: true, color: "f5883a", font: "Arial" })],
+            alignment: titleAlign, spacing: { after: 400 }
+          }));
+        }
+
+        // ── Sections ──
+        SECTIONS.forEach((sec, idx) => {
+          // Titre de section
+          children.push(new Paragraph({
+            children: [new TextRun({ text: sec.label, bold: true, size: 30, color: "3d3a9e", font: "Arial" })],
+            spacing: { before: 400, after: 120 },
+            border: { bottom: { style: "single", size: 4, color: "3d3a9e", space: 4 } }
+          }));
+
+          if (isFalcOn) {
+            // Contenu FALC : lire les <p> du div data-lang correspondant
+            const falcDiv = document.querySelectorAll('.falc-text')[idx];
+            if (falcDiv) {
+              const langDiv = falcDiv.querySelector('[data-lang="' + lang + '"]');
+              if (langDiv) {
+                langDiv.querySelectorAll('p').forEach(p => {
+                  // Nettoyer le texte (enlever emojis décoratifs si souhaité)
+                  const txt = p.innerText.trim();
+                  if (txt) {
+                    children.push(new Paragraph({
+                      children: [new TextRun({ text: txt, size: bodySize, font: "Arial" })],
+                      alignment: bodyAlign,
+                      spacing: { before: 80, after: 80, ...lineSpace }
+                    }));
+                  }
+                });
+              }
+            }
+          } else {
+            // Contenu normal via getSectionText
+            const text = getSectionText(idx);
+            if (text) {
+              text.split(/\n+/).map(l => l.trim()).filter(Boolean).forEach(line => {
+                children.push(new Paragraph({
+                  children: [new TextRun({ text: line, size: bodySize, font: "Arial" })],
+                  alignment: bodyAlign,
+                  spacing: { before: 40, after: 40, ...lineSpace }
+                }));
+              });
+            }
+          }
+        });
+
+        // ── Pied de page ──
+        children.push(new Paragraph({
+          children: [new TextRun({ text: "bf-atypie.friendly@u-bordeaux.fr  |  atypie-friendly.fr", size: 18, color: "888888", italics: true, font: "Arial" })],
+          alignment: titleAlign, spacing: { before: 400 }
+        }));
+
+        const doc = new Document({
+          sections: [{
+            properties: { page: { size: { width: 11906, height: 16838 }, margin: { top: 1000, right: 1000, bottom: 1000, left: 1000 } } },
+            children
+          }]
+        });
+
+        const filename = 'Les_Atyp_Infos_1' + (isFalcOn ? '_FALC' : '') + '_' + lang.toUpperCase() + '.docx';
+        Packer.toBlob(doc).then(blob => {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url; a.download = filename;
+          document.body.appendChild(a); a.click();
+          document.body.removeChild(a); URL.revokeObjectURL(url);
+          if (statusEl) statusEl.style.display = 'none';
+        });
+
+      } catch(e) {
+        console.error(e);
+        if (statusEl) statusEl.style.display = 'none';
+        alert('Erreur : ' + e.message);
+      }
+    }, 100);
+  }
+
+  // ── Téléchargement PDF ──
+  function downloadPDF() {
+    // Stoppe la lecture audio avant d'imprimer
+    if (isPlaying || isPaused) audioReset();
+    // Retire la surbrillance
+    clearHL();
+    // Déclenche la boîte d'impression du navigateur
+    window.print();
+  }
+
+  function setSpeed(val) {
+    audioSpeed = parseFloat(val);
+    document.getElementById('speed-val').textContent = audioSpeed + '×';
+    // Si lecture en cours : annule et relit la section depuis le début avec la nouvelle vitesse
+    if (isPlaying) {
+      synth.cancel();
+      stopKeepAlive();
+      playSection(sectionIdx);
+    }
+  }
+
+  function setStatus(msg) {
+    const el = document.getElementById('audio-status');
+    if (el) el.textContent = msg;
+  }
+
+  function updateNavBtns() {
+    const prev = document.getElementById('btn-prev');
+    const next = document.getElementById('btn-next');
+    if (prev) prev.disabled = sectionIdx === 0;
+    if (next) next.disabled = sectionIdx >= SECTIONS.length - 1;
+  }
+
+  function updateUI() {
+    document.getElementById('btn-play').disabled  = isPlaying;
+    document.getElementById('btn-pause').disabled = !isPlaying;
+    document.getElementById('btn-play').classList.toggle('active',  isPlaying);
+    document.getElementById('btn-pause').classList.toggle('active', isPaused);
+    updateNavBtns();
+    if (!isPlaying && !isPaused) setStatus('Prêt');
+  }
+
+  // ════════════════════════
+  //  ACCESSIBILITÉ
+  // ════════════════════════
+  const sizes = { small: '11px', normal: '13.5px', large: '16.5px' };
+  let isGray = false;
+
+  // Positionne les panneaux en cascade
+  function updateFlagActive(lang) {
+    ['fr','en','es'].forEach(l => {
+      const btn = document.getElementById('flag-' + l);
+      if (btn) btn.classList.toggle('active', l === lang);
+    });
+  }
+
+  function isMobile() { return window.innerWidth <= 900; }
+
+  function positionMobile() {
+    const bar   = document.getElementById('a11y-bar-panel');
+    const audio = document.getElementById('audio-panel');
+    if (!audio) return;
+    if (!a11yOpen) {
+      audio.style.display = 'none';
+      return;
+    }
+    // Afficher l'audio et le positionner juste au-dessus de la barre
+    audio.style.display = 'block';
+    audio.style.position = 'fixed';
+    audio.style.left = '0';
+    audio.style.right = '0';
+    audio.style.width = '100%';
+    audio.style.borderLeft = 'none';
+    audio.style.borderRight = 'none';
+    audio.style.borderBottom = 'none';
+    audio.style.borderTop = '1px solid #e0deff';
+    audio.style.borderRadius = '0';
+    audio.style.boxShadow = 'none';
+    audio.style.zIndex = '1048';
+    // Positionner juste au-dessus de la barre d'accessibilité
+    if (bar && bar.classList.contains('open')) {
+      const barRect = bar.getBoundingClientRect();
+      audio.style.bottom = (window.innerHeight - barRect.top) + 'px';
+      audio.style.top = 'auto';
+    }
+  }
+
+  function positionAllPanels() {
+    if (isMobile()) return; // Sur mobile, tout est géré par le CSS responsive
+    const summary   = document.querySelector('.summary-box');
+    const bar       = document.querySelector('.a11y-bar');
+    const audio     = document.getElementById('audio-panel');
+    const pdf       = document.getElementById('pdf-panel');
+    const langFlags = document.getElementById('lang-flags');
+
+    // Rangée drapeaux+bonhomme : alignée avec le haut du sommaire
+    if (summary && langFlags) {
+      langFlags.style.top = summary.getBoundingClientRect().top + 'px';
+    }
+    // Barre accessibilité : sous la rangée drapeaux
+    if (langFlags && bar) {
+      bar.style.top = (langFlags.getBoundingClientRect().bottom + 8) + 'px';
+    }
+    // Audio : visible seulement si menu ouvert, positionné sous la barre
+    if (audio) {
+      if (a11yOpen) {
+        audio.style.display = 'block';
+        const ref = (bar && bar.classList.contains('open')) ? bar : langFlags;
+        if (ref) audio.style.top = (ref.getBoundingClientRect().bottom + 12) + 'px';
+      } else {
+        audio.style.display = 'none';
+      }
+    }
+    // PDF : sous le sommaire (côté droit)
+    if (summary && pdf) {
+      pdf.style.top = (summary.getBoundingClientRect().bottom + 12) + 'px';
+    }
+  }
+
+  // Observer la hauteur du sommaire et de chaque panneau
+  const summaryObserver = new ResizeObserver(() => positionAllPanels());
+  const a11yObserver    = new ResizeObserver(() => positionAllPanels());
+  const audioObserver   = new ResizeObserver(() => positionAllPanels());
+  const flagsObserver   = new ResizeObserver(() => positionAllPanels());
+
+
+  function setSize(s) {
+    document.documentElement.style.fontSize = sizes[s];
+    ['small','normal','large'].forEach(id =>
+      document.getElementById('btn-' + id).classList.toggle('active', id === s)
+    );
+    requestAnimationFrame(() => requestAnimationFrame(positionAllPanels));
+  }
+
+  // ════════════════════════
+  //  TUTORIEL
+  // ════════════════════════
+  let tutoIdx = 0;
+
+  const TUTO_STEPS = [
+    {
+      target: '#btn-small',
+      targetGroup: '.a11y-group',
+      arrow: 'right',
+      title: { fr: '🔤 Taille du texte', en: '🔤 Text size', es: '🔤 Tamaño del texto' },
+      text: {
+        fr: 'Ajustez la taille du texte avec A−, A et A+. Tout le contenu de la page se redimensionne proportionnellement.',
+        en: 'Adjust the text size with A−, A and A+. All page content resizes proportionally.',
+        es: 'Ajusta el tamaño del texto con A−, A y A+. Todo el contenido se redimensiona proporcionalmente.'
+      }
+    },
+    {
+      target: '#btn-gray',
+      arrow: 'right',
+      title: { fr: '🌙 Mode nuit', en: '🌙 Night mode', es: '🌙 Modo noche' },
+      text: {
+        fr: 'Activez le mode nuit pour un fond sombre et un texte clair. Idéal pour réduire la fatigue visuelle.',
+        en: 'Enable night mode for a dark background and light text. Ideal to reduce eye strain.',
+        es: 'Activa el modo noche para un fondo oscuro y texto claro. Ideal para reducir la fatiga visual.'
+      }
+    },
+    {
+      target: '#btn-falc',
+      arrow: 'right',
+      title: { fr: '🧩 Mode FALC', en: '🧩 FALC mode', es: '🧩 Modo FALC' },
+      text: {
+        fr: 'Le mode FALC simplifie la mise en page et le texte. Phrases courtes, police agrandie, une seule colonne.',
+        en: 'FALC mode simplifies the layout and text. Short sentences, larger font, single column.',
+        es: 'El modo FALC simplifica el diseño y el texto. Frases cortas, fuente grande, una sola columna.'
+      }
+    },
+    {
+      target: '#btn-falc-info',
+      arrow: 'right',
+      title: { fr: 'ⓘ Info FALC', en: 'ⓘ FALC info', es: 'ⓘ Info FALC' },
+      text: {
+        fr: "Survolez ou cliquez sur ce bouton pour afficher le détail de toutes les fonctionnalités du mode FALC.",
+        en: 'Hover or click this button to display all FALC mode features in detail.',
+        es: 'Pasa el ratón o haz clic en este botón para ver en detalle las funciones del modo FALC.'
+      }
+    },
+    {
+      target: '.lang-flags',
+      arrow: 'right',
+      title: { fr: '🌍 Langue', en: '🌍 Language', es: '🌍 Idioma' },
+      text: {
+        fr: 'Changez la langue avec les drapeaux : français, anglais ou espagnol. Tout le contenu bascule automatiquement.',
+        en: 'Change the language using the flags: French, English or Spanish. All content switches automatically.',
+        es: 'Cambie el idioma con las banderas: francés, inglés o español. Todo el contenido cambia automáticamente.'
+      }
+    },
+
+    {
+      target: '.a11y-btn.reset',
+      arrow: 'right',
+      title: { fr: '↺ Réinitialiser', en: '↺ Reset', es: '↺ Reiniciar' },
+      text: {
+        fr: "Ce bouton remet toutes les options à leur valeur par défaut : taille normale, couleurs, français, sans FALC.",
+        en: 'This button resets all options to their default: normal size, colours, French, no FALC.',
+        es: 'Este botón restablece todas las opciones: tamaño normal, colores, francés, sin FALC.'
+      }
+    },
+    {
+      target: '#bg-beige',
+      arrow: 'right',
+      title: { fr: '🎨 Couleur de fond', en: '🎨 Background colour', es: '🎨 Color de fondo' },
+      text: {
+        fr: "Changez la couleur de fond pour réduire la fatigue visuelle. Beige, bleu, jaune ou vert : choisissez ce qui vous convient le mieux.",
+        en: "Change the background colour to reduce eye strain. Beige, blue, yellow or green: choose what suits you best.",
+        es: "Cambie el color de fondo para reducir la fatiga visual. Beige, azul, amarillo o verde: elija el que más le convenga."
+      }
+    },
+    {
+      target: '#btn-dyslexic',
+      arrow: 'right',
+      title: { fr: '𝖽 Police dyslexie', en: '𝖽 Dyslexia font', es: '𝖽 Fuente dislexia' },
+      text: {
+        fr: "Active la police OpenDyslexic, spécialement conçue pour faciliter la lecture des personnes dyslexiques.",
+        en: "Activates the OpenDyslexic font, specially designed to make reading easier for people with dyslexia.",
+        es: "Activa la fuente OpenDyslexic, especialmente diseñada para facilitar la lectura a personas con dislexia."
+      }
+    },
+    {
+      target: '#btn-spacing',
+      arrow: 'right',
+      title: { fr: '↔ Espacement+', en: '↔ Spacing+', es: '↔ Espaciado+' },
+      text: {
+        fr: "Augmente l'espacement entre les lettres, les mots et les lignes pour faciliter la lecture.",
+        en: "Increases the spacing between letters, words and lines to make reading easier.",
+        es: "Aumenta el espacio entre letras, palabras y líneas para facilitar la lectura."
+      }
+    },
+    {
+      target: '#btn-ruler',
+      arrow: 'right',
+      title: { fr: '📏 Règle de lecture', en: '📏 Reading ruler', es: '📏 Regla de lectura' },
+      text: {
+        fr: "Une ligne de couleur suit votre souris pour vous aider à ne pas perdre votre ligne. Très utile pour le TDAH et la dyslexie.",
+        en: "A coloured line follows your mouse to help you keep track of your line. Very useful for ADHD and dyslexia.",
+        es: "Una línea de color sigue su ratón para ayudarle a no perder la línea. Muy útil para el TDAH y la dislexia."
+      }
+    },
+    {
+      target: '.bookmark-btn',
+      arrow: 'right',
+      title: { fr: '🔖 Marque-page', en: '🔖 Bookmark', es: '🔖 Marcador' },
+      text: {
+        fr: "Marquez les sections qui vous intéressent. Un 🔖 apparaît dans le sommaire pour y revenir facilement.",
+        en: "Bookmark the sections that interest you. A 🔖 appears in the contents for easy navigation back.",
+        es: "Marque las secciones que le interesen. Aparece un 🔖 en el índice para volver fácilmente."
+      }
+    },
+    {
+      target: '.summary-box',
+      arrow: 'left',
+      title: { fr: '📋 Sommaire', en: '📋 Contents', es: '📋 Índice' },
+      text: {
+        fr: "Cliquez sur un titre du sommaire pour accéder directement à la section correspondante.",
+        en: 'Click a title in the contents to jump directly to the corresponding section.',
+        es: 'Haz clic en un título del índice para ir directamente a la sección correspondiente.'
+      }
+    },
+    {
+      target: '#audio-panel',
+      arrow: 'right',
+      title: { fr: '🎧 Lecture audio', en: '🎧 Audio reader', es: '🎧 Lectura audio' },
+      text: {
+        fr: 'Écoutez la newsletter à voix haute. Naviguez section par section avec ◀ ▶, ajustez la vitesse et mettez en pause.',
+        en: 'Listen to the newsletter read aloud. Navigate section by section with ◀ ▶, adjust speed and pause.',
+        es: 'Escucha el boletín en voz alta. Navega sección por sección con ◀ ▶, ajusta la velocidad y pausa.'
+      }
+    },
+    {
+      target: '#pdf-panel',
+      arrow: 'left',
+      title: { fr: '📄 Télécharger', en: '📄 Download', es: '📄 Descargar' },
+      text: {
+        fr: "Téléchargez la newsletter en PDF ou en Word. Le fichier s'adapte à la langue et au mode FALC actifs.",
+        en: 'Download the newsletter as PDF or Word. The file adapts to the active language and FALC mode.',
+        es: 'Descarga el boletín en PDF o Word. El archivo se adapta al idioma y al modo FALC activos.'
+      }
+    },
+  ];
+
+  function startTuto() {
+    tutoIdx = 0;
+    if (!a11yOpen) toggleA11yPanel();
+    document.getElementById('tuto-overlay').classList.add('active');
+    renderTutoStep();
+  }
+
+  function endTuto() {
+    document.getElementById('tuto-overlay').classList.remove('active');
+    document.querySelectorAll('.tuto-focused').forEach(el => el.classList.remove('tuto-focused'));
+  }
+
+  function tutoStep(dir) {
+    tutoIdx = Math.max(0, Math.min(TUTO_STEPS.length - 1, tutoIdx + dir));
+    renderTutoStep();
+  }
+
+  function renderTutoStep() {
+    const step   = TUTO_STEPS[tutoIdx];
+    const lang   = document.getElementById('lang-select').value || 'fr';
+    const target = document.querySelector(step.target);
+    if (!target) { tutoStep(1); return; }
+
+    const rect   = target.getBoundingClientRect();
+    const pad    = 8;
+    const top    = rect.top    - pad;
+    const left   = rect.left   - pad;
+    const right  = rect.right  + pad;
+    const bottom = rect.bottom + pad;
+    const W = window.innerWidth;
+    const H = window.innerHeight;
+
+    // Position the 4 dark panels
+    const pTop    = document.getElementById('tuto-p-top');
+    const pBottom = document.getElementById('tuto-p-bottom');
+    const pLeft   = document.getElementById('tuto-p-left');
+    const pRight  = document.getElementById('tuto-p-right');
+
+    pTop.style.cssText    = `top:0; left:0; right:0; height:${top}px;`;
+    pBottom.style.cssText = `top:${bottom}px; left:0; right:0; bottom:0;`;
+    pLeft.style.cssText   = `top:${top}px; left:0; width:${left}px; height:${bottom-top}px;`;
+    pRight.style.cssText  = `top:${top}px; left:${right}px; right:0; height:${bottom-top}px;`;
+
+    // Highlight border
+    const hl = document.getElementById('tuto-highlight');
+    hl.style.cssText = `top:${top}px; left:${left}px; width:${right-left}px; height:${bottom-top}px;`;
+
+    // Bubble
+    const bubble = document.getElementById('tuto-bubble');
+    bubble.className = 'tuto-bubble' + (isGray ? ' night' : '');
+
+    // Position bubble
+    const bw = 256; // bubble width + margin
+    let bLeft, bTop;
+    const arrow = step.arrow || 'right';
+
+    if (arrow === 'right') {
+      bLeft = right + 14;
+      bTop  = top;
+      bubble.classList.add('arrow-left');
+    } else if (arrow === 'left') {
+      bLeft = left - bw - 14;
+      bTop  = top;
+      bubble.classList.add('arrow-right');
+    } else if (arrow === 'bottom') {
+      bLeft = left;
+      bTop  = top - 160;
+      bubble.classList.add('arrow-bottom');
+    } else {
+      bLeft = left;
+      bTop  = bottom + 14;
+      bubble.classList.add('arrow-top');
+    }
+
+    // Keep bubble within viewport
+    bLeft = Math.max(10, Math.min(W - bw - 10, bLeft));
+    bTop  = Math.max(10, Math.min(H - 200, bTop));
+
+    bubble.style.left = bLeft + 'px';
+    bubble.style.top  = bTop  + 'px';
+
+    // Content
+    document.getElementById('tuto-title').textContent = step.title[lang] || step.title.fr;
+    document.getElementById('tuto-text').textContent  = step.text[lang]  || step.text.fr;
+    document.getElementById('tuto-counter').textContent = (tutoIdx + 1) + ' / ' + TUTO_STEPS.length;
+
+    // Nav buttons
+    document.getElementById('tuto-prev').disabled = tutoIdx === 0;
+    const nextBtn = document.getElementById('tuto-next');
+    nextBtn.textContent = tutoIdx === TUTO_STEPS.length - 1
+      ? (lang === 'fr' ? 'Terminer ✓' : lang === 'en' ? 'Finish ✓' : 'Terminar ✓')
+      : '→';
+    nextBtn.onclick = tutoIdx === TUTO_STEPS.length - 1
+      ? endTuto
+      : () => tutoStep(1);
+
+    // Apply lang to skip button
+    bubble.querySelectorAll('[data-lang]').forEach(el => {
+      el.style.display = el.getAttribute('data-lang') === lang ? 'inline' : 'none';
+    });
+
+    // Scroll target into view smoothly
+    target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && a11yOpen) { toggleA11yPanel(); return; }
+    if (!document.getElementById('tuto-overlay').classList.contains('active')) return;
+    if (e.key === 'ArrowRight' || e.key === 'Enter') tutoStep(1);
+    if (e.key === 'ArrowLeft')  tutoStep(-1);
+    if (e.key === 'Escape')     endTuto();
+  });
+
+  // ── Popup info FALC ──
+  let falcPopupPinned = false; // true = ouvert par clic, pas juste survol
+
+  function positionFalcPopup() {
+    const popup = document.getElementById('falc-popup');
+    const btn   = document.getElementById('btn-falc-info');
+    const rect  = btn.getBoundingClientRect();
+    popup.style.left = (rect.right + 8) + 'px';
+    popup.style.top  = rect.top + 'px';
+    if (isGray) popup.classList.add('night');
+    else popup.classList.remove('night');
+  }
+
+  function showFalcPopup(event) {
+    positionFalcPopup();
+    document.getElementById('falc-popup').classList.add('visible');
+  }
+
+  function hideFalcPopup(event) {
+    // Ne ferme pas si le popup est épinglé par clic
+    if (!falcPopupPinned) {
+      const popup = document.getElementById('falc-popup');
+      // Vérifie qu'on ne survole pas le popup lui-même
+      const related = event.relatedTarget;
+      if (related && popup.contains(related)) return;
+      popup.classList.remove('visible');
+    }
+  }
+
+  function toggleFalcPopup(event) {
+    event.stopPropagation();
+    falcPopupPinned = !falcPopupPinned;
+    positionFalcPopup();
+    const popup = document.getElementById('falc-popup');
+    popup.classList.toggle('visible', falcPopupPinned);
+  }
+
+  function closeFalcPopup() {
+    falcPopupPinned = false;
+    document.getElementById('falc-popup').classList.remove('visible');
+  }
+
+  // Ferme si clic en dehors
+  document.addEventListener('click', (e) => {
+    const popup = document.getElementById('falc-popup');
+    const btn   = document.getElementById('btn-falc-info');
+    if (popup && !popup.contains(e.target) && e.target !== btn) {
+      falcPopupPinned = false;
+      popup.classList.remove('visible');
+    }
+  });
+
+  // Garde le popup visible quand on le survole (depuis le bouton)
+  document.addEventListener('DOMContentLoaded', () => {
+    setLang('fr');
+    updateFlagActive('fr');
+    positionAllPanels();
+    requestAnimationFrame(() => requestAnimationFrame(positionAllPanels));
+    const summary = document.querySelector('.summary-box');
+    if (summary) summaryObserver.observe(summary);
+    const bar = document.querySelector('.a11y-bar');
+    if (bar) a11yObserver.observe(bar);
+    const audio = document.getElementById('audio-panel');
+    if (audio) audioObserver.observe(audio);
+    const flags = document.getElementById('lang-flags');
+    if (flags) flagsObserver.observe(flags);
+    updateUI();
+    setBg('default');
+    initQuiz();
+  });
+
+  window.addEventListener('resize', () => {
+    if (isMobile()) positionMobile();
+    else positionAllPanels();
+  });
+
+
+
+
+  // ════════════════════════
+  //  PANNEAU ACCESSIBILITÉ
+  // ════════════════════════
+  let a11yOpen = false;
+  function toggleA11yPanel() {
+    a11yOpen = !a11yOpen;
+    const panel = document.getElementById('a11y-bar-panel');
+    if (panel) panel.classList.toggle('open', a11yOpen);
+    const btn = document.getElementById('a11y-toggle');
+    if (btn) btn.classList.toggle('active', a11yOpen);
+    // Si on ferme le menu, enlever le surlignage
+    if (!a11yOpen) clearHL();
+    if (!isMobile()) {
+      positionAllPanels();
+      setTimeout(positionAllPanels, 50);
+    } else {
+      positionMobile();
+    }
+  }
+
+  // ════════════════════════
+  //  COULEUR DE FOND
+  // ════════════════════════
+  let currentBg = 'default';
+  function setBg(color) {
+    const bgs = ['default','beige','blue','yellow'];
+    bgs.forEach(b => {
+      document.body.classList.remove('bg-' + b);
+      const sw = document.getElementById('bg-' + b);
+      if (sw) sw.style.border = '1.5px solid #c5c2f0';
+    });
+    if (color !== 'default') document.body.classList.add('bg-' + color);
+    currentBg = color;
+    const sw = document.getElementById('bg-' + color);
+    if (sw) sw.style.border = '2.5px solid #f5883a';
+  }
+
+  // ════════════════════════
+  //  POLICE OPENDYSLEXIC
+  // ════════════════════════
+  let isDyslexic = false;
+  function toggleDyslexic() {
+    isDyslexic = !isDyslexic;
+    document.body.classList.toggle('dyslexic', isDyslexic);
+    const btn = document.getElementById('btn-dyslexic');
+    if (btn) btn.classList.toggle('active', isDyslexic);
+  }
+
+  // ════════════════════════
+  //  ESPACEMENT
+  // ════════════════════════
+  let isSpacing = false;
+  function toggleSpacing() {
+    isSpacing = !isSpacing;
+    document.body.classList.toggle('spacing-high', isSpacing);
+    const btn = document.getElementById('btn-spacing');
+    if (btn) btn.classList.toggle('active', isSpacing);
+  }
+
+  // ════════════════════════
+  //  RÈGLE DE LECTURE
+  // ════════════════════════
+  let isRuler = false;
+  function toggleRuler() {
+    isRuler = !isRuler;
+    document.body.classList.toggle('ruler-on', isRuler);
+    const btn = document.getElementById('btn-ruler');
+    if (btn) btn.classList.toggle('active', isRuler);
+  }
+  document.addEventListener('mousemove', (e) => {
+    if (!isRuler) return;
+    const ruler = document.getElementById('reading-ruler');
+    if (ruler) ruler.style.top = (e.clientY - 18) + 'px';
+  });
+
+  // ════════════════════════
+  //  MARQUE-PAGE
+  // ════════════════════════
+  let bookmarks = {};
+  function toggleBookmark(sectionId) {
+    const lang = document.getElementById('lang-select').value || 'fr';
+    const btn  = document.getElementById('bm-' + sectionId);
+    bookmarks[sectionId] = !bookmarks[sectionId];
+    if (btn) btn.classList.toggle('active', bookmarks[sectionId]);
+    const msgs = {
+      fr: bookmarks[sectionId] ? '🔖 Section marquée !' : '🔖 Marque supprimée',
+      en: bookmarks[sectionId] ? '🔖 Section bookmarked!' : '🔖 Bookmark removed',
+      es: bookmarks[sectionId] ? '🔖 Sección marcada!' : '🔖 Marca eliminada'
+    };
+    showBookmarkToast(msgs[lang] || msgs.fr);
+    updateSummaryBookmarks();
+  }
+  function updateSummaryBookmarks() {
+    ['section1','section2','section3','section4','section5','section6'].forEach(sid => {
+      const link = document.querySelector('.summary-box a[href="#' + sid + '"]');
+      if (!link) return;
+      const old = link.querySelector('.bm-dot');
+      if (old) old.remove();
+      if (bookmarks[sid]) {
+        const dot = document.createElement('span');
+        dot.className = 'bm-dot';
+        dot.textContent = ' 🔖';
+        dot.style.cssText = 'font-size:0.8em;';
+        link.appendChild(dot);
+      }
+    });
+  }
+  function showBookmarkToast(msg) {
+    const toast = document.getElementById('bookmark-toast');
+    if (!toast) return;
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+  }
+
+  // ════════════════════════
+  //  MODE FALC
+  // ════════════════════════
+  let isFALC = false;
+  function toggleFALC() {
+    isFALC = !isFALC;
+    document.getElementById('content-wrap').classList.toggle('falc', isFALC);
+    document.body.classList.toggle('falc', isFALC);
+    const btn = document.getElementById('btn-falc');
+    if (btn) btn.classList.toggle('active', isFALC);
+    requestAnimationFrame(() => requestAnimationFrame(positionAllPanels));
+  }
+
+  // ════════════════════════
+  //  MODE NUIT
+  // ════════════════════════
+  // isGray already declared above
+  function toggleGray() {
+    isGray = !isGray;
+    [
+      document.getElementById('content-wrap'),
+      document.querySelector('.summary-box'),
+      document.getElementById('a11y-bar-panel'),
+      document.getElementById('audio-panel'),
+      document.getElementById('pdf-panel'),
+      document.getElementById('falc-popup'),
+      document.getElementById('btn-falc-info')
+    ].forEach(el => { if (el) el.classList.toggle('night', isGray); });
+    document.body.classList.toggle('night', isGray);
+    const btn = document.getElementById('btn-gray');
+    if (btn) btn.classList.toggle('active', isGray);
+    ['fr','en','es'].forEach(l => {
+      const day   = document.getElementById('lbl-day-'   + l);
+      const night = document.getElementById('lbl-night-' + l);
+      if (!day || !night) return;
+      const lang = document.getElementById('lang-select').value || 'fr';
+      if (l === lang) {
+        day.style.display   = isGray ? 'none'   : 'inline';
+        night.style.display = isGray ? 'inline' : 'none';
+      } else {
+        day.style.display = 'none'; night.style.display = 'none';
+      }
+    });
+  }
+
+  // ════════════════════════
+  //  TAILLE DU TEXTE
+  // ════════════════════════
+  // sizes already declared above
+  function setSize(s) {
+    document.documentElement.style.fontSize = sizes[s];
+    ['small','normal','large'].forEach(id => {
+      const btn = document.getElementById('btn-' + id);
+      if (btn) btn.classList.toggle('active', id === s);
+    });
+    requestAnimationFrame(() => requestAnimationFrame(positionAllPanels));
+  }
+
+  // ════════════════════════
+  //  LANGUE
+  // ════════════════════════
+  function setLang(lang) {
+    const sel = document.getElementById('lang-select');
+    if (sel) sel.value = lang;
+    document.querySelectorAll('[data-lang]').forEach(el => {
+      el.style.display = el.getAttribute('data-lang') === lang ? 'inline' : 'none';
+    });
+    document.getElementById('html-root').setAttribute('lang', lang);
+    updateFlagActive(lang);
+    ['fr','en','es'].forEach(l => {
+      const day   = document.getElementById('lbl-day-'   + l);
+      const night = document.getElementById('lbl-night-' + l);
+      if (!day || !night) return;
+      if (l === lang) {
+        day.style.display   = isGray ? 'none'   : 'inline';
+        night.style.display = isGray ? 'inline' : 'none';
+      } else {
+        day.style.display = 'none'; night.style.display = 'none';
+      }
+    });
+  }
+
+  // ════════════════════════
+  //  RÉINITIALISER
+  // ════════════════════════
+  function resetAll() {
+    setSize('normal');
+    if (isGray)     toggleGray();
+    if (isDyslexic) toggleDyslexic();
+    if (isSpacing)  toggleSpacing();
+    if (isRuler)    toggleRuler();
+    if (isFALC)     toggleFALC();
+    setBg('default');
+    bookmarks = {};
+    updateSummaryBookmarks();
+    setLang('fr');
+    audioReset();
+    positionAllPanels();
+  }
+
+  // ════════════════════════
+  //  QUIZ
+  // ════════════════════════
+  const QUIZ_IDS = ['q1', 'q2', 'q3'];
+  let currentQ  = 0;
+  let quizScore = 0;
+
+  function updateProgress() {
+    const fill  = document.getElementById('quiz-progress-fill');
+    const label = document.getElementById('quiz-progress-label');
+    const lang  = document.getElementById('lang-select').value || 'fr';
+    if (fill) fill.style.width = (currentQ / QUIZ_IDS.length * 100) + '%';
+    const labels = { fr: 'Question ' + (currentQ+1) + ' / 3', en: 'Question ' + (currentQ+1) + ' of 3', es: 'Pregunta ' + (currentQ+1) + ' de 3' };
+    if (label) label.textContent = labels[lang] || labels.fr;
+  }
+
+  function answer(qId, btn) {
+    const q = document.getElementById(qId);
+    if (!q || q.dataset.answered) return;
+    q.dataset.answered = '1';
+    const isCorrect = btn.dataset.correct === 'true';
+    const fbId = btn.dataset.fb;
+    const lang = document.getElementById('lang-select').value || 'fr';
+    q.querySelectorAll('.quiz-option').forEach(b => b.classList.add('disabled'));
+    if (isCorrect) {
+      btn.classList.add('correct');
+    } else {
+      btn.classList.add('wrong');
+      q.querySelectorAll('.quiz-option').forEach(b => { if (b.dataset.correct === 'true') b.classList.add('correct'); });
+    }
+    const fb = document.getElementById(fbId);
+    if (fb) { fb.querySelectorAll('[data-lang]').forEach(el => { el.style.display = el.getAttribute('data-lang') === lang ? 'inline' : 'none'; }); fb.classList.add('show'); }
+    if (isCorrect) quizScore++;
+    const nextBtn = document.getElementById('quiz-next');
+    if (currentQ < QUIZ_IDS.length - 1) {
+      if (nextBtn) { nextBtn.querySelectorAll('[data-lang]').forEach(el => { el.style.display = el.getAttribute('data-lang') === lang ? 'inline' : 'none'; }); nextBtn.style.display = 'block'; }
+    } else {
+      if (nextBtn) nextBtn.style.display = 'none';
+      setTimeout(showQuizScore, 600);
+    }
+  }
+
+  function nextQuestion() {
+    currentQ++;
+    document.getElementById('quiz-next').style.display = 'none';
+    document.getElementById(QUIZ_IDS[currentQ-1]).style.display = 'none';
+    const next = document.getElementById(QUIZ_IDS[currentQ]);
+    if (next) { next.style.display = 'block'; }
+    updateProgress();
+    const lang = document.getElementById('lang-select').value || 'fr';
+    if (next) next.querySelectorAll('[data-lang]').forEach(el => { el.style.display = el.getAttribute('data-lang') === lang ? 'inline' : 'none'; });
+  }
+
+  function showQuizScore() {
+    const lang = document.getElementById('lang-select').value || 'fr';
+    const scoreEl = document.getElementById('quiz-score');
+    const resetEl = document.getElementById('quiz-reset');
+    const fill = document.getElementById('quiz-progress-fill');
+    if (fill) fill.style.width = '100%';
+    const msgs = {
+      fr: ['🌟 Score parfait ! Vous maîtrisez Atypie-Friendly !', '👍 Bien joué ! Vous avez bien lu la newsletter !', '📖 Relisez la newsletter pour tout retenir.'],
+      en: ['🌟 Perfect score! You know Atypie-Friendly!', '👍 Well done! You read the newsletter carefully!', '📖 Re-read the newsletter to remember everything.'],
+      es: ['🌟 ¡Puntuación perfecta!', '👍 ¡Bien hecho!', '📖 Vuelve a leer el boletín.']
+    };
+    const idx = quizScore === 3 ? 0 : quizScore === 2 ? 1 : 2;
+    if (scoreEl) { scoreEl.textContent = (msgs[lang]||msgs.fr)[idx] + ' (' + quizScore + '/3)'; scoreEl.classList.add('show'); }
+    if (resetEl) { resetEl.querySelectorAll('[data-lang]').forEach(el => { el.style.display = el.getAttribute('data-lang') === lang ? 'inline' : 'none'; }); resetEl.classList.add('show'); }
+  }
+
+  function resetQuiz() {
+    currentQ = 0; quizScore = 0;
+    QUIZ_IDS.forEach((qId, i) => {
+      const q = document.getElementById(qId);
+      if (!q) return;
+      delete q.dataset.answered;
+      q.style.display = i === 0 ? 'block' : 'none';
+      q.querySelectorAll('.quiz-option').forEach(b => b.classList.remove('correct','wrong','disabled'));
+      q.querySelectorAll('.quiz-feedback').forEach(fb => fb.classList.remove('show'));
+    });
+    document.getElementById('quiz-score').classList.remove('show');
+    document.getElementById('quiz-reset').classList.remove('show');
+    const nextBtn = document.getElementById('quiz-next');
+    if (nextBtn) nextBtn.style.display = 'none';
+    document.getElementById('quiz-progress-fill').style.width = '0%';
+    updateProgress();
+    initQuiz();
+  }
+
+  function initQuiz() {
+    QUIZ_IDS.forEach(qId => {
+      const q = document.getElementById(qId);
+      if (!q) return;
+      q.querySelectorAll('.quiz-option').forEach(btn => {
+        btn.onclick = () => answer(qId, btn);
+      });
+    });
+    updateProgress();
+  }
+
+  // Keyboard nav for tuto
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && a11yOpen) { toggleA11yPanel(); return; }
+    if (!document.getElementById('tuto-overlay').classList.contains('active')) return;
+    if (e.key === 'ArrowRight' || e.key === 'Enter') tutoStep(1);
+    if (e.key === 'ArrowLeft') tutoStep(-1);
+    if (e.key === 'Escape') endTuto();
+  });
+
+  // Le menu se ferme uniquement via le bouton bonhomme
+
+</script>
+</body>
+</html><div class="mobile-top-panels">
+
+
+<!-- ── PANNEAU PDF ── -->
+<div class="pdf-panel" id="pdf-panel">
+  <span class="a11y-label">
+    <span data-lang="fr">📄 Télécharger</span>
+    <span data-lang="en">📄 Download</span>
+    <span data-lang="es">📄 Descargar</span>
+  </span>
+  <button class="pdf-btn" onclick="downloadPDF()">
+    <span data-lang="fr">⬇ Sauvegarder en PDF</span>
+    <span data-lang="en">⬇ Save as PDF</span>
+    <span data-lang="es">⬇ Guardar como PDF</span>
+  </button>
+  <p class="pdf-tip">
+    <span data-lang="fr">Dans la boîte d'impression, choisissez « Enregistrer en PDF »</span>
+    <span data-lang="en">In the print dialog, choose "Save as PDF"</span>
+    <span data-lang="es">En el diálogo de impresión, elija «Guardar como PDF»</span>
+  </p>
+  <button class="pdf-btn" style="margin-top:6px;" onclick="downloadWord()">
+    ⬇ Word (.docx)
+  </button>
+  <div id="word-status" class="pdf-tip" style="display:none; color:#3d3a9e; margin-top:4px;">
+    <span data-lang="fr">⏳ Génération…</span>
+    <span data-lang="en">⏳ Generating…</span>
+    <span data-lang="es">⏳ Generando…</span>
+  </div>
+</div>
+</div><!-- /mobile-top-panels -->
+
+
+<!-- ── RÈGLE DE LECTURE ── -->
+<div class="reading-ruler" id="reading-ruler"></div>
+
+<!-- ── TOAST MARQUE-PAGE ── -->
+<div class="bookmark-toast" id="bookmark-toast"></div>
+
+<!-- Hidden lang tracker for JS -->
+<select id="lang-select" style="display:none;" onchange="setLang(this.value)">
+  <option value="fr" selected>fr</option>
+  <option value="en">en</option>
+  <option value="es">es</option>
+</select>
+
+<!-- ── POPUP FALC INFO ── -->
+<div class="falc-popup" id="falc-popup" style="position:fixed; z-index:2000;">
+  <button class="popup-close" onclick="closeFalcPopup()">✕</button>
+  <h4>🧩 Mode FALC</h4>
+  <ul>
+    <li><span data-lang="fr">Police plus grande et lisible</span><span data-lang="en">Larger, readable font</span><span data-lang="es">Fuente más grande y legible</span></li>
+    <li><span data-lang="fr">Interligne augmenté</span><span data-lang="en">Increased line spacing</span><span data-lang="es">Interlineado aumentado</span></li>
+    <li><span data-lang="fr">Texte aligné à gauche</span><span data-lang="en">Left-aligned text</span><span data-lang="es">Texto alineado a la izquierda</span></li>
+    <li><span data-lang="fr">Mise en page simplifiée</span><span data-lang="en">Simplified layout</span><span data-lang="es">Diseño simplificado</span></li>
+    <li><span data-lang="fr">Éléments décoratifs masqués</span><span data-lang="en">Decorative elements hidden</span><span data-lang="es">Elementos decorativos ocultos</span></li>
+    <li><span data-lang="fr">Texte réécrit en phrases courtes</span><span data-lang="en">Text rewritten in short sentences</span><span data-lang="es">Texto reescrito en frases cortas</span></li>
+    <li><span data-lang="fr">Pictogrammes pour chaque section</span><span data-lang="en">Pictograms for each section</span><span data-lang="es">Pictogramas para cada sección</span></li>
+  </ul>
+</div>
+
+<!-- ── TUTORIEL OVERLAY ── -->
+<div class="tuto-overlay" id="tuto-overlay">
+  <div class="tuto-panel" id="tuto-p-top"></div>
+  <div class="tuto-panel" id="tuto-p-bottom"></div>
+  <div class="tuto-panel" id="tuto-p-left"></div>
+  <div class="tuto-panel" id="tuto-p-right"></div>
+  <div class="tuto-highlight" id="tuto-highlight"></div>
+  <div class="tuto-bubble" id="tuto-bubble">
+    <h4 id="tuto-title"></h4>
+    <p id="tuto-text"></p>
+    <div class="tuto-bubble-footer">
+      <span class="tuto-counter" id="tuto-counter"></span>
+      <div class="tuto-nav">
+        <button class="tuto-btn-prev" id="tuto-prev" onclick="tutoStep(-1)">←</button>
+        <button class="tuto-btn-next" id="tuto-next" onclick="tutoStep(1)">→</button>
+      </div>
+    </div>
+    <button class="tuto-btn-skip" onclick="endTuto()">
+      <span data-lang="fr">Fermer ✕</span>
+      <span data-lang="en">Close ✕</span>
+      <span data-lang="es">Cerrar ✕</span>
+    </button>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+</body>
+</html>
