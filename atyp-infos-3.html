@@ -228,8 +228,7 @@
   <header class="header">
     <p class="header-top-label">par l'équipe Atypie-Friendly de l'UB</p>
     <h1 class="header-title">Les Atyp'Infos <span>#3</span></h1>
-    <p class="header-subtitle">La newsletter du TND à l'université de Bordeaux</p>
-    <p class="header-tuto">Spécial rentrée : 6 ressources pour bien démarrer votre année</p>
+    <p class="header-subtitle">Spécial rentrée : 6 ressources pour bien démarrer votre année</p>
   </header>
   <svg class="wave" viewBox="0 0 794 22" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
     <path d="M0,11 C130,22 260,0 397,11 C534,22 664,0 794,11 L794,0 L0,0 Z" fill="#007CBD"/>
@@ -442,7 +441,7 @@
       var P = docx.Paragraph, T = docx.TextRun, H = docx.HeadingLevel;
       var children = [];
       children.push(new P({ text: "Les Atyp'Infos #3", heading: H.TITLE }));
-      children.push(new P({ children: [ new T({ text: "La newsletter du TND à l'université de Bordeaux. Spécial rentrée : 6 ressources pour bien démarrer votre année", italics: true }) ] }));
+      children.push(new P({ children: [ new T({ text: "Spécial rentrée : 6 ressources pour bien démarrer votre année", italics: true }) ] }));
       var content = document.querySelector('.content');
       content.querySelectorAll('h2, h3, p, li, a.wave-btn, a.event-cta, a.event-src').forEach(function(el){
         if (el.closest('li') && el.tagName !== 'LI') return;
