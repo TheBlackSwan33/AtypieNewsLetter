@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Les Atyp'Infos #3 : spécial rentrée – Atypie-Friendly UB</title>
+<meta name="description" content="Spécial rentrée : 6 ressources pour bien démarrer votre année, par l'équipe Atypie-Friendly de l'université de Bordeaux.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bitter:wght@400;700;900&family=Work+Sans:wght@400;600;700;800;900&display=swap');
+  * { box-sizing: border-box; }
+  html { font-size: 15px; }
+  body { font-family: 'Work Sans', Arial, sans-serif; font-size: 1rem; color: #120704; background: #fff; max-width: 794px; margin: 0 auto; padding: 16px; line-height: 1.6; transition: font-size 0.2s; }
+  a { color: #005A8E; }
+  .skip-link { position: absolute; left: -9999px; top: 0; background: #007CBD; color: #fff; padding: 8px 14px; border-radius: 0 0 8px 0; z-index: 2000; }
+  .skip-link:focus { left: 0; }
+  .header { background: #007CBD; color: #fff; padding: 28px 30px 30px; border-radius: 12px 12px 0 0; }
+  .header-top-label { font-size: 0.81em; color: #F0EBDA; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .header-title { font-size: 3.4em; font-weight: 900; color: #fff; line-height: 1; letter-spacing: -1px; font-family: 'Bitter', serif; margin: 0; }
+  .header-title span { color: #F0EBDA; }
+  .header-subtitle { font-size: 1.15em; font-weight: 700; color: #F8F7F2; margin: 6px 0 0; }
+  .header-tuto { font-size: 1.05em; font-weight: 600; color: #fff; margin: 14px 0 0; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.35); }
+  .wave { display: block; width: 100%; height: 22px; margin-top: -1px; }
+  .content { padding: 6px 4px 20px; }
+  h2 { font-family: 'Work Sans', sans-serif; font-size: 1.3em; font-weight: 800; color: #007CBD; margin: 30px 0 8px; display: flex; align-items: flex-start; gap: 10px; scroll-margin-top: 20px; line-height: 1.35; }
+  h2 .badge { display: inline-flex; align-items: center; justify-content: center; min-width: 30px; height: 30px; border-radius: 50%; background: #007CBD; color: #fff; font-family: 'Bitter', serif; font-weight: 900; font-size: 0.85em; flex-shrink: 0; }
+  h3.subhead { font-size: 1.05em; font-weight: 800; color: #005A8E; margin: 4px 0 8px; }
+  p { margin: 8px 0; text-align: left; }
+  .lead { font-size: 1.05em; }
+  strong { color: #005A8E; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 26px; margin: 10px 0; align-items: start; }
+  .two-col.img-narrow { grid-template-columns: 2fr 3fr; }
+  .sec-img { width: 100%; height: auto; border: 1px solid #C3C0C0; border-radius: 8px; display: block; }
+  .figcap { text-align: center; font-size: 0.82em; color: #555; margin-top: 6px; font-style: italic; }
+  .actualite-box { background: #fff8e1; border-left: 5px solid #f5c842; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 14px 0; font-size: 0.97em; }
+  .actualite-box p { margin: 0; }
+  .btn-center { display: flex; justify-content: center; margin: 14px 0 4px; }
+  .wave-btn { display: inline-block; background: #007CBD; color: #fff !important; font-size: 0.9em; font-weight: 700; padding: 9px 22px; border-radius: 30px; text-decoration: none; }
+  .wave-btn:hover, .wave-btn:focus { background: #005A8E; }
+  .intro-band { background: #EEF6FC; border-left: 5px solid #007CBD; border-radius: 0 10px 10px 0; padding: 12px 16px; margin: 14px 0; }
+  .intro-band p { margin: 0; }
+  .event-box { background: #007CBD; color: #fff; border-radius: 12px; padding: 20px 22px; margin: 18px 0 10px; box-shadow: 0 4px 14px rgba(0,124,189,0.25); scroll-margin-top: 20px; }
+  .event-tag { display: inline-block; background: #F0EBDA; color: #005A8E; font-size: 0.72em; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 3px 10px; border-radius: 20px; margin-bottom: 8px; }
+  .event-box h2 { font-family: 'Bitter', serif; font-size: 1.35em; font-weight: 900; margin: 0 0 6px; color: #fff; display: block; }
+  .event-when { font-size: 1em; font-weight: 700; color: #F0EBDA !important; margin: 0 0 8px; }
+  .event-box p, .event-box li { color: #F8F7F2; font-size: 0.95em; }
+  .event-box p { margin: 6px 0; }
+  .event-box strong { color: #fff; }
+  .event-box ol { margin: 6px 0 4px; padding-left: 22px; }
+  .event-box li { margin-bottom: 6px; }
+  .event-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; margin-top: 12px; }
+  .event-box a.event-cta { display: inline-block; background: #fff; color: #007CBD !important; font-weight: 800; font-size: 0.92em; padding: 9px 22px; border-radius: 30px; text-decoration: none; }
+  .event-box a.event-src { color: #fff !important; font-size: 0.88em; text-decoration: underline; }
+  .separator { border: none; border-top: 1px solid #C3C0C0; margin: 30px 0 18px; }
+  .footer-contact { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 22px; margin: 14px 0 8px; border: 2px solid #C3C0C0; border-radius: 10px; padding: 16px 18px; background: #fff; scroll-margin-top: 20px; }
+  .footer-contact h2 { grid-column: 1 / -1; margin: 0; font-size: 1.15em; }
+  .footer-contact h3 { font-size: 0.96em; font-weight: 800; color: #120704; margin: 0 0 7px; }
+  .footer-contact p { font-size: 0.9em; color: #333; line-height: 1.65; margin: 0 0 8px; }
+  .footer-contact .mail { font-weight: 700; color: #005A8E; }
+  .logo-txt { font-family: 'Bitter', serif; font-weight: 900; font-size: 1.35em; color: #120704; }
+  .logo-sub { font-size: 0.82em; color: #555; display: block; margin-bottom: 8px; }
+  .bottom-wave { display: block; width: 100%; margin-top: 12px; }
+
+  /* ── ACCESSIBILITÉ ── */
+  body.night { background: #120704; }
+  #content-wrap { transition: background 0.3s, color 0.3s; }
+  #content-wrap.night { background: #120704; }
+  #content-wrap.night .content p, #content-wrap.night .content li, #content-wrap.night .figcap { color: #F0EBDA; }
+  #content-wrap.night h2 { color: #4FC3F7; }
+  #content-wrap.night .event-box h2 { color: #fff; }
+  #content-wrap.night h3.subhead { color: #7CC8E8; }
+  #content-wrap.night strong { color: #7CC8E8; }
+  #content-wrap.night .event-box strong { color: #fff; }
+  #content-wrap.night .intro-band { background: #14212b; }
+  #content-wrap.night .actualite-box { background: #2a2410; }
+  #content-wrap.night .footer-contact { background: #1a1a1a; border-color: #007CBD; }
+  #content-wrap.night .footer-contact p, #content-wrap.night .footer-contact h3, #content-wrap.night .logo-txt, #content-wrap.night .logo-sub { color: #C3C0C0 !important; }
+  #content-wrap.night .footer-contact .mail, #content-wrap.night .content a:not(.wave-btn):not(.event-cta) { color: #7CC8E8; }
+  #content-wrap.night .separator { border-top-color: #444; }
+  #content-wrap.bg-beige { background: #fdf6e3; }
+  #content-wrap.bg-blue { background: #e8f4fc; }
+  #content-wrap.bg-yellow { background: #fefde7; }
+  body.dys, body.dys .content, body.dys h2, body.dys p, body.dys li { font-family: 'Comic Sans MS','Trebuchet MS', Verdana, sans-serif !important; }
+  body.spacing p, body.spacing li { letter-spacing: 0.06em; word-spacing: 0.14em; line-height: 2 !important; }
+  .lang-flags { position: fixed; top: 14px; left: 14px; display: flex; gap: 8px; z-index: 1001; }
+  .a11y-toggle-btn { width: 40px; height: 40px; background: #fff; border: 2.5px solid #007CBD; cursor: pointer; padding: 0; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.15); transition: transform 0.15s; display: flex; align-items: center; justify-content: center; }
+  .a11y-toggle-btn:hover { transform: scale(1.1); }
+  .a11y-toggle-btn.active { box-shadow: 0 0 0 2px #007CBD; }
+  .a11y-toggle-btn img { width: 24px; height: 24px; display: block; }
+  .a11y-bar { position: fixed; left: 14px; top: 64px; width: 240px; background: #fff; color: #120704; display: none; flex-direction: column; padding: 12px 14px; z-index: 1000; box-shadow: 0 4px 16px rgba(0,0,0,0.12); border-radius: 10px; gap: 8px; border: 2px solid #007CBD; font-size: 13.5px; }
+  .a11y-bar.open { display: flex; }
+  .a11y-bar.night { background: #1a1a1a; border-color: #007CBD; }
+  .a11y-bar.night .a11y-label { color: #4FC3F7; }
+  .a11y-bar.night .a11y-btn { background: #0a1a25; border-color: #007CBD; color: #F0EBDA; }
+  .a11y-group { display: flex; flex-direction: column; gap: 5px; }
+  .a11y-group-row { display: flex; flex-direction: row; gap: 5px; }
+  .a11y-label { font-size: 0.72em; font-weight: 800; color: #007CBD; text-transform: uppercase; letter-spacing: 0.5px; }
+  .a11y-btn { background: #EEF6FC; border: 1.5px solid #007CBD; color: #120704; border-radius: 6px; padding: 5px 0; font-size: 0.85em; font-family: 'Work Sans', Arial, sans-serif; font-weight: 700; cursor: pointer; transition: background 0.15s; flex: 1; text-align: center; }
+  .a11y-btn:hover { background: #007CBD; color: #fff; }
+  .a11y-btn.active { background: #007CBD; border-color: #007CBD; color: #fff; }
+  .a11y-btn.reset { background: #F8F7F2; border: 1.5px dashed #C3C0C0; font-size: 0.78em; }
+  .color-swatch { flex: 1; height: 22px; border-radius: 4px; cursor: pointer; }
+
+  /* Colonne de droite : sommaire, téléchargement, anciennes newsletters */
+  .side-col { position: fixed; top: 64px; right: 14px; width: 190px; display: flex; flex-direction: column; gap: 12px; z-index: 999; max-height: calc(100vh - 78px); overflow-y: auto; font-size: 13.5px; }
+  .side-box { border: 2px solid #007CBD; border-radius: 10px; padding: 12px 14px; background: #fff; box-shadow: 0 4px 16px rgba(0,0,0,0.10); }
+  .side-box.night { background: #1a1a1a; }
+  .side-box.night .a11y-label { color: #4FC3F7; }
+  .side-box .a11y-label { display: block; margin-bottom: 8px; }
+  .summary-box h3 { font-size: 0.96em; font-weight: 800; color: #120704; margin: 0 0 7px; text-align: center; }
+  .summary-box ol { padding-left: 18px; font-size: 0.86em; color: #333; line-height: 1.7; margin: 0; }
+  .summary-box a { color: #333; text-decoration: none; }
+  .summary-box a:hover, .summary-box a:focus { color: #007CBD; font-weight: 800; }
+  .summary-box.night h3 { color: #F0EBDA; }
+  .summary-box.night a, .summary-box.night ol { color: #C3C0C0; }
+  .pdf-btn { width: 100%; background: #EEF6FC; border: 1.5px solid #007CBD; color: #120704; border-radius: 6px; padding: 7px 4px; font-size: 0.84em; font-family: 'Work Sans', Arial, sans-serif; font-weight: 700; cursor: pointer; transition: background 0.15s; }
+  .pdf-btn:hover { background: #007CBD; color: #fff; }
+  .pdf-tip { font-size: 0.7em; color: #666; margin: 6px 0 0; line-height: 1.4; text-align: center; }
+  .pdf-panel.night .pdf-tip { color: #C3C0C0; }
+  .pdf-panel.night .pdf-btn { background: #0a1a25; color: #F0EBDA; }
+  .archive-list { list-style: none; padding: 0; margin: 0; }
+  .archive-list li + li { margin-top: 6px; }
+  .archive-list a { display: flex; gap: 8px; align-items: baseline; padding: 7px 8px; border-radius: 6px; background: #EEF6FC; border: 1.5px solid #007CBD; color: #120704; text-decoration: none; font-size: 0.84em; font-weight: 600; line-height: 1.35; }
+  .archive-list a:hover, .archive-list a:focus { background: #007CBD; color: #fff; }
+  .archive-list a:hover .arch-num, .archive-list a:focus .arch-num { color: #F0EBDA; }
+  .arch-num { font-family: 'Bitter', serif; font-weight: 900; color: #007CBD; flex-shrink: 0; }
+  .archive-panel.night .archive-list a { background: #0a1a25; color: #F0EBDA; }
+  .archive-panel.night .arch-num { color: #4FC3F7; }
+
+  .reading-ruler { position: fixed; left: 0; width: 100%; height: 42px; background: rgba(0,124,189,0.12); border-top: 2px solid #007CBD; border-bottom: 2px solid #007CBD; pointer-events: none; z-index: 998; display: none; top: 0; }
+  body.ruler-on .reading-ruler { display: block; }
+  a:focus-visible, button:focus-visible { outline: 3px solid #F5C842; outline-offset: 2px; }
+  @media (max-width: 1220px) {
+    body { padding-top: 64px; }
+    .side-col { position: static; width: auto; max-height: none; overflow: visible; display: grid; grid-template-columns: repeat(3, 1fr); margin: 0 0 16px; align-items: start; }
+  }
+  @media (max-width: 620px) {
+    .two-col, .two-col.img-narrow, .footer-contact { grid-template-columns: 1fr; }
+    .side-col { grid-template-columns: 1fr; }
+    .header { padding: 22px 20px 24px; }
+    .header-title { font-size: 2.6em; }
+  }
+  @media print {
+    .lang-flags, .a11y-bar, .side-col, .reading-ruler, .skip-link { display: none !important; }
+    body { padding: 0; max-width: none; }
+    .event-box, .footer-contact, .two-col { break-inside: avoid; }
+  }
+</style>
+</head>
+<body id="body-root">
+
+<a class="skip-link" href="#contenu">Aller au contenu</a>
+
+<div class="lang-flags">
+  <button class="a11y-toggle-btn" id="a11y-toggle" onclick="toggleA11yPanel()" title="Options d'accessibilité" aria-label="Options d'accessibilité" aria-expanded="false" aria-controls="a11y-bar-panel">
+    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23007CBD'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E" alt="">
+  </button>
+</div>
+
+<div class="a11y-bar" id="a11y-bar-panel" role="region" aria-label="Options d'accessibilité">
+  <div class="a11y-group">
+    <span class="a11y-label">Taille du texte</span>
+    <div class="a11y-group-row">
+      <button class="a11y-btn" onclick="setSize('small')" id="btn-small" aria-label="Réduire le texte">A&#8722;</button>
+      <button class="a11y-btn active" onclick="setSize('normal')" id="btn-normal" aria-label="Taille normale">A</button>
+      <button class="a11y-btn" onclick="setSize('large')" id="btn-large" aria-label="Agrandir le texte">A+</button>
+    </div>
+  </div>
+  <div class="a11y-group">
+    <span class="a11y-label">Thème &amp; fond</span>
+    <button class="a11y-btn" onclick="toggleNight()" id="btn-gray" style="font-size:0.78em; padding:5px 2px; margin-bottom:4px;">
+      <span id="lbl-day">&#127769; Mode nuit</span><span id="lbl-night" style="display:none">&#9728;&#65039; Mode jour</span>
+    </button>
+    <div style="display:flex; gap:5px;">
+      <button class="color-swatch" onclick="setBg('default')" title="Fond blanc" aria-label="Fond blanc" style="background:#fff; border:2px solid #C3C0C0;" id="bg-default"></button>
+      <button class="color-swatch" onclick="setBg('beige')" title="Fond beige" aria-label="Fond beige" style="background:#fdf6e3; border:1.5px solid #C3C0C0;" id="bg-beige"></button>
+      <button class="color-swatch" onclick="setBg('blue')" title="Fond bleu" aria-label="Fond bleu" style="background:#e8f4fc; border:1.5px solid #C3C0C0;" id="bg-blue"></button>
+      <button class="color-swatch" onclick="setBg('yellow')" title="Fond jaune" aria-label="Fond jaune" style="background:#fefde7; border:1.5px solid #C3C0C0;" id="bg-yellow"></button>
+    </div>
+  </div>
+  <div class="a11y-group" style="border-top:1px solid #C3C0C0; padding-top:8px;">
+    <span class="a11y-label">Lisibilité</span>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:5px;">
+      <button class="a11y-btn" onclick="toggleDyslexic()" id="btn-dyslexic" style="font-size:0.72em; padding:5px 2px;">&#120001; Dyslexie</button>
+      <button class="a11y-btn" onclick="toggleSpacing()" id="btn-spacing" style="font-size:0.72em; padding:5px 2px;">&#8596; Espacement</button>
+      <button class="a11y-btn" onclick="toggleRuler()" id="btn-ruler" style="font-size:0.72em; padding:5px 2px; grid-column:1 / span 2;">&#128207; Règle de lecture</button>
+    </div>
+  </div>
+  <div class="a11y-group" style="margin-top:2px; border-top:1px solid #C3C0C0; padding-top:8px;">
+    <button class="a11y-btn reset" onclick="resetAll()">&#8634; Réinitialiser</button>
+  </div>
+</div>
+
+<aside class="side-col" aria-label="Navigation de la newsletter">
+  <nav class="side-box summary-box" id="summary-box" aria-label="Sommaire">
+    <h3>Sommaire</h3>
+    <ol>
+      <li><a href="#sec-event">Webinaire du 3 novembre</a></li>
+      <li><a href="#sec1">Atypie-Friendly à l'UB</a></li>
+      <li><a href="#sec2">Le guide de rentrée</a></li>
+      <li><a href="#sec3">Le module MTU</a></li>
+      <li><a href="#sec4">Les ateliers d'habiletés sociales</a></li>
+      <li><a href="#sec5">Les visites virtuelles</a></li>
+      <li><a href="#sec6">Le jeu Univ'Défis</a></li>
+      <li><a href="#sec-footer">Contacts</a></li>
+    </ol>
+  </nav>
+
+  <div class="side-box pdf-panel" id="pdf-panel">
+    <span class="a11y-label">&#128196; Télécharger</span>
+    <button class="pdf-btn" onclick="downloadPDF()">&#11015; Sauvegarder en PDF</button>
+    <p class="pdf-tip">Dans la boîte d'impression, choisissez &laquo;&nbsp;Enregistrer en PDF&nbsp;&raquo;.</p>
+    <button class="pdf-btn" style="margin-top:6px;" onclick="downloadWord()">&#11015; Word (.docx)</button>
+    <p class="pdf-tip" id="word-status" style="display:none; color:#007CBD;" role="status">&#9203; Génération…</p>
+  </div>
+
+  <nav class="side-box archive-panel" id="archive-panel" aria-label="Anciennes newsletters">
+    <span class="a11y-label">&#128240; Anciennes newsletters</span>
+    <ul class="archive-list">
+      <li><a href="https://theblackswan33.github.io/AtypieNewsLetter/" target="_blank" rel="noopener noreferrer"><span class="arch-num">#1</span><span>Pour une université Atypie-Friendly</span></a></li>
+    </ul>
+  </nav>
+</aside>
+
+<div class="reading-ruler" id="reading-ruler" aria-hidden="true"></div>
+
+<div id="content-wrap">
+
+  <header class="header">
+    <p class="header-top-label">par l'équipe Atypie-Friendly de l'UB</p>
+    <h1 class="header-title">Les Atyp'Infos <span>#3</span></h1>
+    <p class="header-subtitle">La newsletter du TND à l'université de Bordeaux</p>
+    <p class="header-tuto">Spécial rentrée : 6 ressources pour bien démarrer votre année</p>
+  </header>
+  <svg class="wave" viewBox="0 0 794 22" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <path d="M0,11 C130,22 260,0 397,11 C534,22 664,0 794,11 L794,0 L0,0 Z" fill="#007CBD"/>
+  </svg>
+
+  <main class="content" id="contenu">
+
+    <p class="lead">La rentrée est là, et avec elle son lot de nouveautés et de questions. En lien avec les services spécialisés, <strong>Atypie-Friendly</strong> est à vos côtés pour faciliter l'inclusion universitaire des étudiants et des personnels présentant un trouble du neurodéveloppement (TND). Que vous soyez concerné, proche ou membre de la communauté universitaire, voici <strong>six ressources concrètes</strong> pour aborder cette rentrée en toute sérénité.</p>
+
+    <div class="actualite-box">
+      <p><strong>Bonne rentrée à toutes et à tous !</strong> Rappelez-vous : tous les nouveaux étudiants se sentent un peu perdus au début. L'université est mobilisée pour vous aider.</p>
+    </div>
+
+    <section class="event-box" id="sec-event" aria-labelledby="titre-webinaire">
+      <span class="event-tag">Prochain événement</span>
+      <h2 id="titre-webinaire">Webinaire Atypie-Friendly</h2>
+      <p class="event-when">Mardi 3 novembre 2026, de 12h30 à 13h30 · En ligne</p>
+      <p>Vous avez un trouble du neurodéveloppement (TSA, TDAH, troubles dys…) et vous vous sentez parfois seul face aux défis du quotidien universitaire ? Vous souhaitez mieux comprendre et soutenir vos camarades ou vos collègues ? Inscrivez-vous à notre prochain webinaire, ouvert aux étudiants et aux personnels de l'université.</p>
+      <p><strong>Au programme :</strong></p>
+      <ol>
+        <li><strong>Présentation des avancées du programme local Atypie-Friendly</strong> et des ressources disponibles (20 min)</li>
+        <li><strong>« Comment lutter contre la discrimination des personnes avec un TND à l'université »</strong>, par Camille Mazouffre, doctorante en sciences cognitives et membre d'Atypie-Friendly (20 min)</li>
+        <li><strong>Temps d'échange en direct</strong> avec l'équipe Atypie-Friendly pour poser toutes vos questions, sans filtre et sans jugement (20 min)</li>
+      </ol>
+      <div class="event-actions">
+        <a class="event-cta" href="https://enquetessphinx.u-bordeaux.fr/v4/s/WyQVQxi6x6" target="_blank" rel="noopener noreferrer">Je m'inscris au webinaire</a>
+        <a class="event-src" href="https://u-bordeaux-fr.zoom.us/j/83315693352?pwd=XaqvKG0ppaRCs2pk3C5za1a7Ia8Hpw.1" target="_blank" rel="noopener noreferrer">Lien de connexion (Zoom)</a>
+      </div>
+    </section>
+
+    <section aria-labelledby="sec1">
+      <h2 id="sec1"><span class="badge" aria-hidden="true">1</span> Atypie-Friendly à l'université de Bordeaux</h2>
+      <p>Dès votre arrivée à l'université, ou même avant votre inscription, vous pouvez <strong>prendre contact avec l'équipe locale Atypie-Friendly</strong>, qui se mobilisera pour répondre à vos attentes et à vos demandes, en complément des services spécialisés.</p>
+      <div class="btn-center">
+        <a class="wave-btn" href="https://www.u-bordeaux.fr/universite/nos-engagements/atypie-friendly-inclure-les-profils-neuroatypiques" target="_blank" rel="noopener noreferrer">Contacter l'équipe UB</a>
+      </div>
+    </section>
+
+    <section aria-labelledby="sec2">
+      <h2 id="sec2"><span class="badge" aria-hidden="true">2</span> Le guide de rentrée : tout anticiper, étape par étape</h2>
+      <div class="two-col img-narrow">
+        <figure style="margin:0;">
+          <img class="sec-img" src="img/atyp-infos-3/guide-rentree.jpg" width="420" height="599" alt="Couverture du guide « Entrer dans l'enseignement supérieur : conseils et ressources Atypie-Friendly », mai 2026">
+          <figcaption class="figcap">Le guide à garder sous la main.</figcaption>
+        </figure>
+        <div>
+          <p>Pour aborder l'enseignement supérieur en toute sérénité, nous mettons à votre disposition un guide complet : <strong>« Entrer dans l'enseignement supérieur : conseils et ressources Atypie-Friendly »</strong>. Il rassemble en un seul document toutes les clés pour préparer et réussir sa rentrée.</p>
+          <p>On y retrouve notamment : la prise de contact avec l'équipe locale, les aménagements possibles (preneur de notes, temps majoré, lieu de répit, cours à distance…), les pré-rentrées en ligne et locales, les sensibilisations sur mesure, le module MTU, la vie quotidienne (logement, MDPH, dispositifs médico-sociaux), les stages et la RQTH, le soutien entre pairs (Cafés Atypie, ateliers d'habiletés sociales, associations)… et bien sûr le <strong>mémo de rentrée</strong>, qui peut constituer une aide précieuse avant la rentrée, dès l'admission et après la rentrée.</p>
+        </div>
+      </div>
+      <div class="btn-center">
+        <a class="wave-btn" href="https://atypie-friendly.fr/wp-content/uploads/2026/05/Entrer-dans-lenseignement-superieur_Memo_mai2026.pdf" target="_blank" rel="noopener noreferrer">Télécharger le guide (PDF)</a>
+      </div>
+    </section>
+
+    <section aria-labelledby="sec3">
+      <h2 id="sec3"><span class="badge" aria-hidden="true">3</span> Le module MTU : réussir sa méthodologie de travail</h2>
+      <div class="two-col">
+        <div>
+          <p>Le module de <strong>Méthodologie du Travail Universitaire (MTU)</strong> est une ressource en ligne, gratuite et en libre accès. Pensé en tenant compte des particularités des étudiants autistes, il est utile à <strong>tous les étudiants</strong>, neurotypiques ou non.</p>
+          <p>Il aide à construire des repères pour organiser son travail personnel, autour de cinq parties : la <strong>motivation</strong>, la <strong>gestion du temps</strong>, les <strong>méthodes de travail</strong>, les <strong>évaluations et rendus écrits</strong>, et il propose des ressources pour aller plus loin.</p>
+          <p>Chaque partie prend 15 à 30 minutes, avec des mini-tests d'auto-évaluation, des exercices et des fiches-conseils. Un forum de discussion est à votre disposition, et l'équipe locale peut aussi vous accompagner si nécessaire.</p>
+        </div>
+        <figure style="margin:0;">
+          <img class="sec-img" src="img/atyp-infos-3/module-mtu.jpg" width="900" height="343" alt="Page d'accueil du module de Méthodologie de Travail Universitaire (MTU) Atypie-Friendly et Unisciel">
+          <figcaption class="figcap">Le module MTU en ligne, organisé en cinq parties.</figcaption>
+        </figure>
+      </div>
+      <div class="btn-center">
+        <a class="wave-btn" href="https://atypie-friendly.fr/etudiants-decouvrez-la-methodologie-de-travail-universitaire-mtu/" target="_blank" rel="noopener noreferrer">Découvrir le module MTU</a>
+      </div>
+    </section>
+
+    <section aria-labelledby="sec4">
+      <h2 id="sec4"><span class="badge" aria-hidden="true">4</span> Les ateliers d'habiletés sociales en ligne</h2>
+      <p>Incompréhensions, difficultés à alimenter une conversation, à percevoir les codes sociaux ou les attendus implicites… Certains étudiants rencontrent des difficultés dans leurs interactions sociales à l'université. Dans ce contexte, nous vous proposons un <strong>cycle d'ateliers d'habiletés sociales en ligne</strong>.</p>
+      <div class="intro-band">
+        <p><strong>Quand ?</strong> Les jeudis de 17h30 à 18h30, en distanciel. Les dates sont les <strong>8 et 15 octobre</strong>, puis les <strong>5, 12 et 26 novembre 2026</strong>. Il est recommandé de suivre l'ensemble du cycle.</p>
+      </div>
+      <p>Afin de maintenir la qualité des ateliers, le nombre de places est limité et implique donc une inscription via le formulaire en ligne ci-dessous. Cette inscription ne vous impose bien sûr pas de réaliser l'ensemble des ateliers, même s'il est préférable d'y assister dans leur entièreté. Une fois l'inscription validée, le lien de connexion est envoyé par mail quelques jours avant le premier atelier.</p>
+      <div class="btn-center">
+        <a class="wave-btn" href="https://atypie-friendly.fr/atelier-habiletes-sociales-inscription" target="_blank" rel="noopener noreferrer">Je m'inscris aux ateliers</a>
+      </div>
+    </section>
+
+    <section aria-labelledby="sec5">
+      <h2 id="sec5"><span class="badge" aria-hidden="true">5</span> Les visites virtuelles : découvrir les lieux avant le jour J</h2>
+      <p>Vous souhaitez prendre contact avec le service PHASE ou l'Espace Santé Étudiants, mais aller dans de nouveaux lieux et rencontrer de nouvelles personnes n'est pas si facile. <strong>Deux visites virtuelles</strong> de ces deux services clés de l'université de Bordeaux vous sont proposées. Vous pourrez y repérer les lieux, savoir à quoi vous attendre et identifier les personnes-ressources, grâce à des mises en scène avec les personnels.</p>
+      <div class="two-col">
+        <div>
+          <h3 class="subhead">Le service PHASE</h3>
+          <figure style="margin:0;">
+            <img class="sec-img" src="img/atyp-infos-3/visite-phase.jpg" width="880" height="471" alt="Écran d'accueil de la visite virtuelle du service PHASE de l'université de Bordeaux">
+            <figcaption class="figcap">Le service PHASE accompagne les étudiants en situation de handicap dans la mise en place de leurs aménagements.</figcaption>
+          </figure>
+          <div class="btn-center">
+            <a class="wave-btn" href="http://www.teletoile.u-bordeaux.fr/VisitesVirtuelles/index.html#Phase_AccGener_v2ap" target="_blank" rel="noopener noreferrer">Visiter le service PHASE</a>
+          </div>
+        </div>
+        <div>
+          <h3 class="subhead">L'Espace Santé Étudiants (ESE)</h3>
+          <figure style="margin:0;">
+            <img class="sec-img" src="img/atyp-infos-3/visite-ese.jpg" width="880" height="470" alt="Écran d'accueil de la visite virtuelle de l'Espace Santé Étudiants de l'université de Bordeaux">
+            <figcaption class="figcap">L'Espace Santé Étudiants (ESE), pour l'accès aux soins et au soutien sur le campus.</figcaption>
+          </figure>
+          <div class="btn-center">
+            <a class="wave-btn" href="http://www.teletoile.u-bordeaux.fr/VisitesVirtuelles/ESE/index.html#ESE_Comment_FR_Ap" target="_blank" rel="noopener noreferrer">Visiter l'Espace Santé Étudiants</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="sec6">
+      <h2 id="sec6"><span class="badge" aria-hidden="true">6</span> Univ'Défis : la vie étudiante en s'amusant</h2>
+      <div class="two-col">
+        <div>
+          <p>Et si on découvrait les défis de la vie universitaire de façon ludique ? <strong>Univ'Défis</strong> est un jeu sérieux (serious game). Aux côtés d'Alex, le joueur explore des situations concrètes de la vie à l'université et apprend à les appréhender en douceur.</p>
+          <p>Un format immersif et bienveillant pour se préparer autrement : se repérer sur le campus, gérer les imprévus, aller vers les autres… Autant de situations abordées sans pression, à travers le jeu. Une manière originale et rassurante de mieux appréhender la vie étudiante.</p>
+        </div>
+        <figure style="margin:0;">
+          <img class="sec-img" src="img/atyp-infos-3/univ-defis.jpg" width="900" height="533" alt="Écran d'accueil du jeu Univ'Défis avec Alex devant l'université">
+          <figcaption class="figcap">Univ'Défis, le serious game de la rentrée.</figcaption>
+        </figure>
+      </div>
+      <div class="btn-center">
+        <a class="wave-btn" href="https://atypie-friendly.fr/aspie-friendly-vous-presente-son-serious-game-univdefi/" target="_blank" rel="noopener noreferrer">Jouer à Univ'Défis</a>
+      </div>
+    </section>
+
+    <hr class="separator">
+
+    <footer class="footer-contact" id="sec-footer">
+      <h2>Contacts</h2>
+      <div>
+        <div class="logo-txt">atypie<span style="color:#007CBD;">friendly</span></div>
+        <span class="logo-sub">Réussir l'université inclusive</span>
+        <h3>Au niveau national</h3>
+        <p>Programme national déployé dans plus de la moitié des universités françaises, dont l'université de Bordeaux depuis 2018.</p>
+        <div><a class="wave-btn" href="https://atypie-friendly.fr" target="_blank" rel="noopener noreferrer">atypie-friendly.fr</a></div>
+      </div>
+      <div>
+        <h3>À l'université de Bordeaux</h3>
+        <p>Retrouvez le programme et toutes les informations locales sur le site de l'université de Bordeaux.</p>
+        <div style="margin-bottom:12px;"><a class="wave-btn" href="https://www.u-bordeaux.fr/universite/nos-engagements/atypie-friendly-inclure-les-profils-neuroatypiques" target="_blank" rel="noopener noreferrer">Atypie-Friendly à l'UB</a></div>
+        <h3>Nous contacter</h3>
+        <p><a class="mail" href="mailto:bf-atypie.friendly@u-bordeaux.fr">bf-atypie.friendly@u-bordeaux.fr</a></p>
+      </div>
+    </footer>
+  </main>
+
+  <svg class="bottom-wave" viewBox="0 0 794 55" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <path d="M0,25 C80,5 160,45 260,28 C360,12 430,42 530,22 C610,8 700,38 794,20 L794,55 L0,55 Z" fill="#007CBD" opacity="0.7"/>
+    <path d="M0,32 C100,12 180,50 290,35 C390,20 470,48 570,30 C650,16 730,44 794,28 L794,55 L0,55 Z" fill="#007A5C" opacity="0.5"/>
+    <path d="M0,40 C120,22 220,52 330,38 C430,26 510,50 620,35 C700,24 760,46 794,35 L794,55 L0,55 Z" fill="#BEE3F4" opacity="0.45"/>
+    <path d="M0,47 C130,32 240,55 360,44 C470,34 550,54 660,42 C730,34 770,50 794,44 L794,55 L0,55 Z" fill="#4fc3a1" opacity="0.6"/>
+  </svg>
+
+</div><!-- /content-wrap -->
+
+<script src="https://unpkg.com/docx@8.5.0/build/index.umd.js"></script>
+<script>
+  var sizeMap = { small: '13px', normal: '15px', large: '18px' };
+  var themed = ['a11y-bar-panel','summary-box','pdf-panel','archive-panel'];
+  function toggleA11yPanel() {
+    var open = document.getElementById('a11y-bar-panel').classList.toggle('open');
+    var t = document.getElementById('a11y-toggle');
+    t.classList.toggle('active', open);
+    t.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  function setSize(s) {
+    document.documentElement.style.fontSize = sizeMap[s] || sizeMap.normal;
+    ['small','normal','large'].forEach(function(k){ document.getElementById('btn-'+k).classList.toggle('active', k===s); });
+  }
+  function toggleNight() {
+    var on = document.body.classList.toggle('night');
+    document.getElementById('content-wrap').classList.toggle('night', on);
+    themed.forEach(function(id){ document.getElementById(id).classList.toggle('night', on); });
+    document.getElementById('btn-gray').classList.toggle('active', on);
+    document.getElementById('lbl-day').style.display = on ? 'none' : 'inline';
+    document.getElementById('lbl-night').style.display = on ? 'inline' : 'none';
+    if (on) setBg('default', true);
+  }
+  function setBg(c, keep) {
+    var w = document.getElementById('content-wrap');
+    w.classList.remove('bg-beige','bg-blue','bg-yellow');
+    if (c !== 'default') w.classList.add('bg-'+c);
+    if (!keep) { ['default','beige','blue','yellow'].forEach(function(k){ document.getElementById('bg-'+k).style.outline = (k===c) ? '2px solid #007CBD' : 'none'; }); }
+  }
+  function toggleDyslexic() { document.body.classList.toggle('dys'); document.getElementById('btn-dyslexic').classList.toggle('active'); }
+  function toggleSpacing() { document.body.classList.toggle('spacing'); document.getElementById('btn-spacing').classList.toggle('active'); }
+  function toggleRuler() { var on = document.body.classList.toggle('ruler-on'); document.getElementById('btn-ruler').classList.toggle('active', on); }
+  document.addEventListener('mousemove', function(e){ if (document.body.classList.contains('ruler-on')) { document.getElementById('reading-ruler').style.top = (e.clientY - 21) + 'px'; } });
+  function resetAll() {
+    setSize('normal');
+    document.body.classList.remove('night','dys','spacing','ruler-on');
+    document.getElementById('content-wrap').classList.remove('night','bg-beige','bg-blue','bg-yellow');
+    themed.forEach(function(id){ document.getElementById(id).classList.remove('night'); });
+    ['btn-gray','btn-dyslexic','btn-spacing','btn-ruler'].forEach(function(id){ document.getElementById(id).classList.remove('active'); });
+    document.getElementById('lbl-day').style.display = 'inline';
+    document.getElementById('lbl-night').style.display = 'none';
+    setBg('default');
+  }
+  setBg('default');
+  function downloadPDF() { window.print(); }
+  function downloadWord() {
+    var status = document.getElementById('word-status');
+    if (typeof docx === 'undefined') { status.textContent = 'Word indisponible pour le moment : utilisez plutôt le PDF.'; status.style.display = 'block'; return; }
+    status.textContent = '⏳ Génération…'; status.style.display = 'block';
+    try {
+      var P = docx.Paragraph, T = docx.TextRun, H = docx.HeadingLevel;
+      var children = [];
+      children.push(new P({ text: "Les Atyp'Infos #3", heading: H.TITLE }));
+      children.push(new P({ children: [ new T({ text: "La newsletter du TND à l'université de Bordeaux. Spécial rentrée : 6 ressources pour bien démarrer votre année", italics: true }) ] }));
+      var content = document.querySelector('.content');
+      content.querySelectorAll('h2, h3, p, li, a.wave-btn, a.event-cta, a.event-src').forEach(function(el){
+        if (el.closest('li') && el.tagName !== 'LI') return;
+        var txt = el.innerText.replace(/\s+/g, ' ').trim(); if (!txt) return;
+        if (el.tagName === 'H2') children.push(new P({ text: txt, heading: H.HEADING_1 }));
+        else if (el.tagName === 'H3') children.push(new P({ text: txt, heading: H.HEADING_2 }));
+        else if (el.tagName === 'LI') children.push(new P({ text: txt, bullet: { level: 0 } }));
+        else if (el.tagName === 'A') children.push(new P({ children: [ new T({ text: '→ ' + txt + ' : ', bold: true }), new T({ text: el.href }) ] }));
+        else if (el.closest('.btn-center, .event-actions')) return;
+        else children.push(new P({ text: txt }));
+      });
+      var doc = new docx.Document({ sections: [ { children: children } ] });
+      docx.Packer.toBlob(doc).then(function(blob){
+        var url = URL.createObjectURL(blob); var a = document.createElement('a');
+        a.href = url; a.download = 'Les_Atyp_Infos_3_Rentree.docx';
+        document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+        status.style.display = 'none';
+      });
+    } catch (e) { status.textContent = 'Erreur de génération : utilisez plutôt le PDF.'; }
+  }
+</script>
+
+</body>
+</html>
